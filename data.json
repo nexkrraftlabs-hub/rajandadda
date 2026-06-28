@@ -1,0 +1,476 @@
+[
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$XIy9r357vE87aVkfOK5v2w$9mGRC5NtraeFSLEnsYW8hTLYeR5xNLSNYAOioyWezII=",
+    "last_login": "2026-06-26T06:01:09.038Z",
+    "is_superuser": true,
+    "username": "balgovind",
+    "first_name": "",
+    "last_name": "",
+    "email": "balgovind@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-06-18T20:46:46.465Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "0gkm0ms9fhll2s8i0pgwxar3bgxlxss1",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAUBf-FtSEFysule7-BcB-VqoGktCvjv2uTLnR7Zua8RMrbWtLWeUkzibNQ4vS7QcYH1x3QPddbk9jquswgd0UetMtrI35eDvfvoORevjWgp5HYW-JBhRBdGDBMMMIUWcfMzgWrDAEjM5Cz0TsDRpMxjNpmK94fBeo4qg:1wc9Dr:L123qOYBBvWpHllqqr2Yo66cBVsIgc9EQSqf_71MYBc",
+    "expire_date": "2026-07-07T22:03:59.285Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "2zf2c4ovdcztb6iry63np4ggsj8qctzf",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAUBf-FtSEFysule7-BcB-VqoGktCvjv2uTLnR7Zua8RMrbWtLWeUkzibNQ4vS7QcYH1x3QPddbk9jquswgd0UetMtrI35eDvfvoORevjWgp5HYW-JBhRBdGDBMMMIUWcfMzgWrDAEjM5Cz0TsDRpMxjNpmK94fBeo4qg:1wagT6:c9uSXSi3Nl1r2ZM3lRIcYHoW4rjV-TzZooGIXUIrx4g",
+    "expire_date": "2026-07-03T21:09:40.173Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "48cxldugcj4rth36opz7oab8rxyihe6e",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAUBf-FtSEFysule7-BcB-VqoGktCvjv2uTLnR7Zua8RMrbWtLWeUkzibNQ4vS7QcYH1x3QPddbk9jquswgd0UetMtrI35eDvfvoORevjWgp5HYW-JBhRBdGDBMMMIUWcfMzgWrDAEjM5Cz0TsDRpMxjNpmK94fBeo4qg:1wbFDz:fdQjjanUHNl-slerA5vsx3xFA953UD8W0hOoTJ1xjGM",
+    "expire_date": "2026-07-05T10:16:23.441Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "4uk7va5hmicczb55qgwccq4ffblxc9jl",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAUBf-FtSEFysule7-BcB-VqoGktCvjv2uTLnR7Zua8RMrbWtLWeUkzibNQ4vS7QcYH1x3QPddbk9jquswgd0UetMtrI35eDvfvoORevjWgp5HYW-JBhRBdGDBMMMIUWcfMzgWrDAEjM5Cz0TsDRpMxjNpmK94fBeo4qg:1wb3K1:F1Zk1YxfWcNOJOusoysgiijyEyb3DJTZQzLSCSn2yt4",
+    "expire_date": "2026-07-04T21:33:49.674Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "8y9yvb6a0q6v2cmtupip3vo9m3apca3s",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAUBf-FtSEFysule7-BcB-VqoGktCvjv2uTLnR7Zua8RMrbWtLWeUkzibNQ4vS7QcYH1x3QPddbk9jquswgd0UetMtrI35eDvfvoORevjWgp5HYW-JBhRBdGDBMMMIUWcfMzgWrDAEjM5Cz0TsDRpMxjNpmK94fBeo4qg:1wagT6:c9uSXSi3Nl1r2ZM3lRIcYHoW4rjV-TzZooGIXUIrx4g",
+    "expire_date": "2026-07-03T21:09:40.543Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "9g94qymgfrv3d0mzxym9aq3y83yawah8",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAUBf-FtSEFysule7-BcB-VqoGktCvjv2uTLnR7Zua8RMrbWtLWeUkzibNQ4vS7QcYH1x3QPddbk9jquswgd0UetMtrI35eDvfvoORevjWgp5HYW-JBhRBdGDBMMMIUWcfMzgWrDAEjM5Cz0TsDRpMxjNpmK94fBeo4qg:1waJmO:8XlXs0HUSQozeBdqZIowY8d6CdB4kU_tDLU3zWMJt5Y",
+    "expire_date": "2026-07-02T20:56:04.448Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "onzyvtz07ija5k2pd9egacduykbzpqyx",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAUBf-FtSEFysule7-BcB-VqoGktCvjv2uTLnR7Zua8RMrbWtLWeUkzibNQ4vS7QcYH1x3QPddbk9jquswgd0UetMtrI35eDvfvoORevjWgp5HYW-JBhRBdGDBMMMIUWcfMzgWrDAEjM5Cz0TsDRpMxjNpmK94fBeo4qg:1waJe4:poIeFLvyyqW85KQdqH8VQ591SRXlMoYewzp4Mu23Xdk",
+    "expire_date": "2026-07-02T20:47:28.735Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "yh5665rst7dramqdo7tgwf92ephyhrwu",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAUBf-FtSEFysule7-BcB-VqoGktCvjv2uTLnR7Zua8RMrbWtLWeUkzibNQ4vS7QcYH1x3QPddbk9jquswgd0UetMtrI35eDvfvoORevjWgp5HYW-JBhRBdGDBMMMIUWcfMzgWrDAEjM5Cz0TsDRpMxjNpmK94fBeo4qg:1wczcj:_i3AHGprkvlznEb4oVVW_6WxZfGiMvFDS83HEY7YjUk",
+    "expire_date": "2026-07-10T06:01:09.059Z"
+  }
+},
+{
+  "model": "home.adminprofile",
+  "pk": 1,
+  "fields": {
+    "user": [
+      "balgovind"
+    ],
+    "profile_image": "",
+    "phone": null,
+    "bio": null
+  }
+},
+{
+  "model": "home.lead",
+  "pk": 1,
+  "fields": {
+    "name": "Zeeshan Sheikh",
+    "phone": "54576879087576",
+    "email": "sv1910883@okhdfcbank",
+    "pickup_location": null,
+    "drop_location": null,
+    "journey_date": null,
+    "message": "Subject: Book a Vehicle\n\njjhjgjgkjhk",
+    "is_read": true,
+    "created_at": "2026-06-18T20:50:30.763Z"
+  }
+},
+{
+  "model": "home.lead",
+  "pk": 2,
+  "fields": {
+    "name": "Quick Booking Guest",
+    "phone": "9555711921",
+    "email": null,
+    "pickup_location": "lucknow",
+    "drop_location": "varanasi",
+    "journey_date": "2026-06-19",
+    "message": "Required Capacity: 12 Seater Luxury",
+    "is_read": true,
+    "created_at": "2026-06-18T22:30:51.273Z"
+  }
+},
+{
+  "model": "home.lead",
+  "pk": 3,
+  "fields": {
+    "name": "Quick Booking Guest",
+    "phone": "6394400590",
+    "email": null,
+    "pickup_location": "lucknow",
+    "drop_location": "mahmmudabad",
+    "journey_date": "2026-06-25",
+    "message": "Required Capacity: 14 Seater Premium",
+    "is_read": true,
+    "created_at": "2026-06-18T22:44:48.774Z"
+  }
+},
+{
+  "model": "home.lead",
+  "pk": 4,
+  "fields": {
+    "name": "Ambuj Verma",
+    "phone": "06394400590",
+    "email": "ae09verma@gmail.com",
+    "pickup_location": null,
+    "drop_location": null,
+    "journey_date": null,
+    "message": "Subject: Price Enquiry\n\nhii",
+    "is_read": true,
+    "created_at": "2026-06-18T22:45:30.001Z"
+  }
+},
+{
+  "model": "home.lead",
+  "pk": 5,
+  "fields": {
+    "name": "Quick Booking Guest",
+    "phone": "8394400590",
+    "email": null,
+    "pickup_location": "lucknow",
+    "drop_location": "varanasi",
+    "journey_date": "2026-06-27",
+    "message": "Required Capacity: 14 Seater Premium",
+    "is_read": true,
+    "created_at": "2026-06-19T22:01:56.883Z"
+  }
+},
+{
+  "model": "home.lead",
+  "pk": 6,
+  "fields": {
+    "name": "Quick Booking Guest",
+    "phone": "6394400590",
+    "email": null,
+    "pickup_location": "lucknow",
+    "drop_location": "agra",
+    "journey_date": "2026-06-23",
+    "message": "Submitted via Floating Form. Travellers Capacity: 20 Seater",
+    "is_read": true,
+    "created_at": "2026-06-21T10:37:55.321Z"
+  }
+},
+{
+  "model": "home.review",
+  "pk": 1,
+  "fields": {
+    "customer_name": "Amit Sharma",
+    "rating": 5,
+    "content": "The Maharaja tempo traveller was beyond expectations. From the pushback seats to the drivers professionalism, everything was a true 5-star experience.",
+    "is_featured": true,
+    "created_at": "2026-06-18T22:15:08.747Z"
+  }
+},
+{
+  "model": "home.review",
+  "pk": 2,
+  "fields": {
+    "customer_name": "Neha singh",
+    "rating": 5,
+    "content": "Booked the 12-seater luxury for a family trip to Nainital. The ride was incredibly smooth and the vehicle was immaculately clean. Highly recommended!",
+    "is_featured": true,
+    "created_at": "2026-06-18T22:15:08.751Z"
+  }
+},
+{
+  "model": "home.review",
+  "pk": 3,
+  "fields": {
+    "customer_name": "Shivam Verma",
+    "rating": 5,
+    "content": "True to their words, there were no hidden charges. The transparent pricing and elite service make them the absolute best in the business.",
+    "is_featured": true,
+    "created_at": "2026-06-18T22:15:08.755Z"
+  }
+},
+{
+  "model": "home.review",
+  "pk": 4,
+  "fields": {
+    "customer_name": "Ambuj Verma",
+    "rating": 5,
+    "content": "\"Booked the 12-seater luxury for a family trip to Nainital. The ride was incredibly smooth and the vehicle was immaculately clean. Highly recommended!\"\r\n\r\n",
+    "is_featured": true,
+    "created_at": "2026-06-20T21:35:33.898Z"
+  }
+},
+{
+  "model": "home.fleet",
+  "pk": 1,
+  "fields": {
+    "name": "12 Seater",
+    "slug": "12-seater",
+    "description": "Perfect for family trips and small corporate groups. Fully equipped with premium recliner seats and luxury amenities.",
+    "seats": "12 Passengers + 1 Driver",
+    "fare_per_km": "₹ 27/ km",
+    "driver_charges": "₹ 500 / Night",
+    "extra_charges": "250KM./Day Minimum Jurney Toll Tax  Parcking Extra Charge",
+    "image_url": "",
+    "image": "fleet/12thseater_Mm97F12.png",
+    "is_active": true,
+    "order": 1
+  }
+},
+{
+  "model": "home.fleet",
+  "pk": 2,
+  "fields": {
+    "name": "14 Seater",
+    "slug": "14-seater",
+    "description": "Extended legroom and ultra-plush seating for mid-sized groups seeking true comfort on long journeys.",
+    "seats": "14 Passengers + 1 Driver",
+    "fare_per_km": "₹ 29/ km",
+    "driver_charges": "₹ 500 / Day",
+    "extra_charges": "250KM./Day Minimum Jurney Toll Tax  Parcking Extra Charge",
+    "image_url": "",
+    "image": "fleet/14th.png",
+    "is_active": true,
+    "order": 2
+  }
+},
+{
+  "model": "home.fleet",
+  "pk": 3,
+  "fields": {
+    "name": "20 Seater",
+    "slug": "20-seater",
+    "description": "The absolute pinnacle of road luxury. Recliner seats, ambient lighting, and immense space for the ultimate journey.",
+    "seats": "20 Passengers + 1 Driver",
+    "fare_per_km": "₹ 34/ km",
+    "driver_charges": "₹ 500 / Day",
+    "extra_charges": "250KM./Day Minimum Jurney Toll Tax  Parcking Extra Charge",
+    "image_url": "",
+    "image": "fleet/20thseater.png",
+    "is_active": true,
+    "order": 3
+  }
+},
+{
+  "model": "home.destination",
+  "pk": 1,
+  "fields": {
+    "name": "jammu & kashmir",
+    "category": "hill",
+    "distance": "400km",
+    "starting_price": "10000",
+    "image_url": "",
+    "image": "destinations/manali3.avif",
+    "is_featured": false,
+    "order": 1
+  }
+},
+{
+  "model": "home.destination",
+  "pk": 2,
+  "fields": {
+    "name": "Manali, HP",
+    "category": "Hill Station",
+    "distance": "~1,100 km",
+    "starting_price": "Starting <span>₹12,000</span>",
+    "image_url": "/static/img/manali.avif",
+    "image": "",
+    "is_featured": false,
+    "order": 1
+  }
+},
+{
+  "model": "home.destination",
+  "pk": 3,
+  "fields": {
+    "name": "Nainital",
+    "category": "Hill Station",
+    "distance": "~320 km",
+    "starting_price": "<span>₹4,500</span>",
+    "image_url": "/static/img/nainital.avif",
+    "image": "",
+    "is_featured": false,
+    "order": 2
+  }
+},
+{
+  "model": "home.destination",
+  "pk": 4,
+  "fields": {
+    "name": "Mussoorie",
+    "category": "Hill Station",
+    "distance": "~380 km",
+    "starting_price": "<span>₹5,000</span>",
+    "image_url": "/static/img/mussorie.avif",
+    "image": "",
+    "is_featured": false,
+    "order": 3
+  }
+},
+{
+  "model": "home.destination",
+  "pk": 5,
+  "fields": {
+    "name": "Varanasi",
+    "category": "Pilgrimage",
+    "distance": "~300 km",
+    "starting_price": "<span>₹4,000</span>",
+    "image_url": "/static/img/varanasi.avif",
+    "image": "",
+    "is_featured": false,
+    "order": 4
+  }
+},
+{
+  "model": "home.destination",
+  "pk": 6,
+  "fields": {
+    "name": "Agra",
+    "category": "Historical",
+    "distance": "~330 km",
+    "starting_price": "<span>₹4,500</span>",
+    "image_url": "/static/img/agra.avif",
+    "image": "",
+    "is_featured": false,
+    "order": 5
+  }
+},
+{
+  "model": "home.destination",
+  "pk": 7,
+  "fields": {
+    "name": "Haridwar & Rishikesh",
+    "category": "Pilgrimage",
+    "distance": "~440 km",
+    "starting_price": "<span>₹6,000</span>",
+    "image_url": "/static/img/haridwar.avif",
+    "image": "",
+    "is_featured": false,
+    "order": 6
+  }
+},
+{
+  "model": "home.destination",
+  "pk": 8,
+  "fields": {
+    "name": "Ayodhya",
+    "category": "Religious",
+    "distance": "~135 km",
+    "starting_price": "<span>₹2,500</span>",
+    "image_url": "/static/img/ayodhya2.avif",
+    "image": "",
+    "is_featured": false,
+    "order": 7
+  }
+},
+{
+  "model": "home.destination",
+  "pk": 9,
+  "fields": {
+    "name": "Shimla",
+    "category": "Hill Station",
+    "distance": "~950 km",
+    "starting_price": "<span>₹11,000</span>",
+    "image_url": "/static/img/shimla.avif",
+    "image": "",
+    "is_featured": false,
+    "order": 8
+  }
+},
+{
+  "model": "home.destination",
+  "pk": 10,
+  "fields": {
+    "name": "Delhi",
+    "category": "Historical",
+    "distance": "~550 km",
+    "starting_price": "<span>₹7,000</span>",
+    "image_url": "/static/img/delhi.avif",
+    "image": "",
+    "is_featured": false,
+    "order": 9
+  }
+},
+{
+  "model": "home.destination",
+  "pk": 11,
+  "fields": {
+    "name": "Prayagraj",
+    "category": "Pilgrimage",
+    "distance": "~200 km",
+    "starting_price": "<span>₹3,000</span>",
+    "image_url": "/static/img/prayagraj.avif",
+    "image": "",
+    "is_featured": false,
+    "order": 10
+  }
+},
+{
+  "model": "home.destination",
+  "pk": 12,
+  "fields": {
+    "name": "Dudhwa National Park",
+    "category": "Wildlife",
+    "distance": "~235 km",
+    "starting_price": "<span>₹3,500</span>",
+    "image_url": "/static/img/dudhwa.avif",
+    "image": "",
+    "is_featured": false,
+    "order": 11
+  }
+},
+{
+  "model": "home.destination",
+  "pk": 13,
+  "fields": {
+    "name": "Nepal",
+    "category": "Another country",
+    "distance": "~235 km",
+    "starting_price": "<span>₹3,500</span>",
+    "image_url": "/static/img/dudhwa.avif",
+    "image": "",
+    "is_featured": false,
+    "order": 12
+  }
+},
+{
+  "model": "home.destination",
+  "pk": 14,
+  "fields": {
+    "name": "Mathura – Vrindavan",
+    "category": "Religious",
+    "distance": "~370 km",
+    "starting_price": "<span>₹5,000</span>",
+    "image_url": "/static/img/mathura.avif",
+    "image": "",
+    "is_featured": false,
+    "order": 13
+  }
+}
+]
