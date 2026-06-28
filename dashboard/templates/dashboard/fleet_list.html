@@ -1,0 +1,107 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Fleet{% endblock %}
+{% block page_title %}Fleet Manager{% endblock %}
+{% block breadcrumb %}Content &bull; Manage Vehicles{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px;">
+    <div>
+        <h4 style="font-size:15px; font-weight:700; color:var(--text); margin:0;">All Vehicles</h4>
+        <p style="font-size:12px; color:var(--text-muted); margin:4px 0 0;">Website par dikhne wale vehicles manage karein</p>
+    </div>
+    <a href="{% url 'fleet_add' %}" class="btn btn-gold"><i class="fas fa-plus"></i> Add Vehicle</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5><i class="fas fa-bus" style="color: var(--gold); margin-right: 8px;"></i> All Vehicles <span style="font-size:12px; color:var(--text-muted); font-weight:400;">({{ vehicles|length }} total)</span></h5>
+        <div style="display:flex; gap:8px;">
+            <span class="badge badge-success"><i class="fas fa-circle" style="font-size:7px;"></i> {{ vehicles|length }} Vehicles</span>
+        </div>
+    </div>
+    <div class="table-wrapper">
+        {% if vehicles %}
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:50px;">#</th>
+                    <th>Vehicle</th>
+                    <th>Seats</th>
+                    <th>Fare / km</th>
+                    <th>Driver Charges</th>
+                    <th>Extra Charges</th>
+                    <th>Status</th>
+                    <th style="text-align:right;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for v in vehicles %}
+                <tr>
+                    <td style="color: var(--text-muted); font-size:12px; font-weight:700;">{{ v.order }}</td>
+                    <td>
+                        <div style="display:flex; align-items:center; gap:14px;">
+                            {% if v.get_image %}
+                            <img src="{{ v.get_image }}" alt="{{ v.name }}"
+                                style="width:58px; height:42px; object-fit:cover; border-radius:8px;
+                                       border:1px solid var(--border-gold); flex-shrink:0;">
+                            {% else %}
+                            <div style="width:58px; height:42px; border-radius:8px; background:var(--gold-glow);
+                                        border:1px solid var(--border-gold); display:flex; align-items:center;
+                                        justify-content:center; flex-shrink:0;">
+                                <i class="fas fa-bus" style="color:var(--gold); font-size:16px;"></i>
+                            </div>
+                            {% endif %}
+                            <div>
+                                <div style="font-weight:700; color:var(--text); font-size:14px;">{{ v.name }}</div>
+                                <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">slug: {{ v.slug }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span style="background:rgba(99,102,241,0.1); color:#818cf8; border:1px solid rgba(99,102,241,0.2); padding:3px 10px; border-radius:20px; font-size:12px; font-weight:600;">
+                            {{ v.seats }}
+                        </span>
+                    </td>
+                    <td style="color: var(--gold); font-weight: 700; font-size:14px;">{{ v.fare_per_km }}</td>
+                    <td style="color: var(--text-muted); font-size:13px;">{{ v.driver_charges }}</td>
+                    <td style="color: var(--text-muted); font-size:12px; max-width: 170px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ v.extra_charges }}</td>
+                    <td>
+                        {% if v.is_active %}
+                            <span class="badge badge-success"><i class="fas fa-circle" style="font-size:7px;"></i> Active</span>
+                        {% else %}
+                            <span class="badge badge-danger"><i class="fas fa-circle" style="font-size:7px;"></i> Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div style="display:flex; gap:8px; justify-content:flex-end; align-items:center;">
+                            <a href="{% url 'fleet_edit' v.pk %}" class="btn btn-sm btn-outline btn-icon" title="Edit Vehicle">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                            <form method="POST" action="{% url 'fleet_delete' v.pk %}" style="display:inline;"
+                                  onsubmit="return confirm('{{ v.name }} ko delete karna chahte ho?')">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-danger btn-icon" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div style="text-align: center; padding: 80px 20px;">
+            <div style="width:72px; height:72px; background:var(--gold-glow); border:1px solid var(--border-gold);
+                        border-radius:50%; display:flex; align-items:center; justify-content:center;
+                        margin: 0 auto 20px;">
+                <i class="fas fa-bus" style="font-size: 28px; color:var(--gold);"></i>
+            </div>
+            <h4 style="font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 8px;">Koi vehicle nahi mila</h4>
+            <p style="color: var(--text-muted); font-size:13px; margin-bottom:20px;">Pehla vehicle add karein aur website par dikhaye</p>
+            <a href="{% url 'fleet_add' %}" class="btn btn-gold"><i class="fas fa-plus"></i> Add First Vehicle</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

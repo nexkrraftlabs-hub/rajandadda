@@ -1,0 +1,131 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Overview{% endblock %}
+{% block breadcrumb %}Admin &bull; Dashboard Home{% endblock %}
+
+{% block content %}
+
+<!-- STAT CARDS -->
+<div class="grid grid-4" style="margin-bottom: 32px;">
+    <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-inbox"></i></div>
+        <div class="stat-label">Total Leads</div>
+        <div class="stat-number">{{ total_leads }}</div>
+        <div class="stat-sub"><span style="color: var(--success); font-weight:600;">+{{ new_leads }}</span> in last 30 days</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-star"></i></div>
+        <div class="stat-label">Reviews</div>
+        <div class="stat-number">{{ total_reviews }}</div>
+        <div class="stat-sub"><span style="color: var(--gold); font-weight:600;">{{ featured_reviews }}</span> featured</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-bus"></i></div>
+        <div class="stat-label">Fleet Vehicles</div>
+        <div class="stat-number">{{ total_fleet }}</div>
+        <div class="stat-sub"><span style="color: var(--success); font-weight:600;">{{ active_fleet }} active</span> on site</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-map-marked-alt"></i></div>
+        <div class="stat-label">Destinations</div>
+        <div class="stat-number">{{ total_destinations }}</div>
+        <div class="stat-sub">Tour packages available</div>
+    </div>
+</div>
+
+<!-- QUICK ACTIONS -->
+<div style="margin-bottom: 32px;">
+    <h5 style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 16px;">Quick Actions</h5>
+    <div class="grid grid-4">
+        <a href="{% url 'review_add' %}" class="action-card">
+            <div class="action-icon"><i class="fas fa-star"></i></div>
+            <div>
+                <div class="action-label">Add Review</div>
+                <div class="action-sub">Customer review add karein</div>
+            </div>
+        </a>
+        <a href="{% url 'fleet_add' %}" class="action-card">
+            <div class="action-icon"><i class="fas fa-bus"></i></div>
+            <div>
+                <div class="action-label">Add Vehicle</div>
+                <div class="action-sub">Fleet mein vehicle add karein</div>
+            </div>
+        </a>
+        <a href="{% url 'destination_add' %}" class="action-card">
+            <div class="action-icon"><i class="fas fa-map-marked-alt"></i></div>
+            <div>
+                <div class="action-label">Add Destination</div>
+                <div class="action-sub">New tour destination add karein</div>
+            </div>
+        </a>
+        <a href="{% url 'leads_list' %}" class="action-card">
+            <div class="action-icon"><i class="fas fa-inbox"></i></div>
+            <div>
+                <div class="action-label">View Leads</div>
+                <div class="action-sub">Saare inquiries dekhein</div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- RECENT LEADS -->
+<div class="card">
+    <div class="card-header">
+        <h5><i class="fas fa-inbox" style="color: var(--gold); margin-right: 8px;"></i> Recent Leads</h5>
+        <a href="{% url 'leads_list' %}" class="btn btn-sm btn-outline"><i class="fas fa-arrow-right"></i> View All</a>
+    </div>
+    <div class="table-wrapper">
+        {% if recent_leads %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Journey Date</th>
+                    <th>Received</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lead in recent_leads %}
+                <tr>
+                    <td>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,var(--gold),var(--gold-dark)); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; color:#000; flex-shrink:0;">
+                                {{ lead.name|first|upper }}
+                            </div>
+                            <strong style="font-size:14px;">{{ lead.name }}</strong>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="tel:{{ lead.phone }}" style="color: var(--gold); text-decoration: none; font-weight:600;">
+                            <i class="fas fa-phone-alt" style="font-size:11px; margin-right:4px;"></i>{{ lead.phone }}
+                        </a>
+                    </td>
+                    <td style="color: var(--text-muted); font-size:13px;">{{ lead.email|default:"—" }}</td>
+                    <td>
+                        {% if lead.journey_date %}
+                            <span class="badge badge-info"><i class="fas fa-calendar"></i> {{ lead.journey_date }}</span>
+                        {% else %}
+                            <span style="color:var(--text-muted);">—</span>
+                        {% endif %}
+                    </td>
+                    <td style="color: var(--text-muted); font-size:12px;">
+                        <i class="fas fa-clock" style="font-size:10px; margin-right:4px;"></i>
+                        {{ lead.created_at|date:"d M Y, H:i" }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div style="text-align: center; padding: 60px 20px;">
+            <div style="width:64px; height:64px; background:var(--gold-glow); border:1px solid var(--border-gold); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+                <i class="fas fa-inbox" style="font-size: 24px; color:var(--gold);"></i>
+            </div>
+            <p style="color: var(--text-muted); font-size:13.5px;">Abhi koi lead nahi hai. Jab visitors contact form fill karenge tab yahan aayenge.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

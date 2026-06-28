@@ -1,0 +1,794 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Fleet – Rajan Dadda Tours & Travellers{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+<style>
+    /* ===== SPLIDE HERO SLIDER ===== */
+    .hero-splide {
+        position: relative;
+    }
+
+    .hero-splide .splide__slide {
+        position: relative;
+        height: 72vh;
+        min-height: 460px;
+        overflow: hidden;
+    }
+
+    .hero-splide .slide-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transform: scale(1.08);
+        transition: transform 8s ease;
+    }
+
+    .hero-splide .splide__slide.is-active .slide-bg {
+        transform: scale(1);
+    }
+
+    .hero-splide .slide-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(110deg, rgba(8, 15, 30, 0.88) 0%, rgba(8, 15, 30, 0.45) 55%, transparent 100%);
+    }
+
+    .hero-splide .slide-overlay-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 45%;
+        background: linear-gradient(to top, rgba(8, 15, 30, 0.85) 0%, transparent 100%);
+    }
+
+    .hero-splide .slide-content {
+        position: relative;
+        z-index: 3;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 5%;
+    }
+
+    .hero-splide .slide-inner {
+        max-width: 620px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s;
+    }
+
+    .hero-splide .splide__slide.is-active .slide-inner {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .hero-splide .slide-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .hero-splide .slide-eyebrow::before {
+        content: '';
+        display: block;
+        width: 40px;
+        height: 1px;
+        background: linear-gradient(90deg, #d4a017, transparent);
+    }
+
+    .hero-splide .slide-eyebrow span {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #d4a017;
+    }
+
+    .hero-splide h1 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        font-size: clamp(2rem, 4.5vw, 3.4rem);
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 16px;
+        text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-splide h1 em {
+        font-style: normal;
+        font-family: 'Dancing Script', cursive;
+        color: #d4a017;
+        font-weight: 700;
+    }
+
+    .hero-splide .slide-desc {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 1rem;
+        line-height: 1.8;
+        margin-bottom: 28px;
+        max-width: 500px;
+    }
+
+    .hero-splide .slide-cta-wrap {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .hero-splide .btn-hero-gold {
+        background: linear-gradient(135deg, #d4a017, #b8880f);
+        color: #fff;
+        padding: 13px 32px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: .9rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 8px 28px rgba(212, 160, 23, 0.35);
+        transition: all .3s;
+    }
+
+    .hero-splide .btn-hero-gold:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 36px rgba(212, 160, 23, 0.5);
+        color: #fff;
+    }
+
+    .hero-splide .btn-hero-outline {
+        background: transparent;
+        color: rgba(255, 255, 255, 0.85);
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: .88rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        transition: all .3s;
+    }
+
+    .hero-splide .btn-hero-outline:hover {
+        border-color: #d4a017;
+        color: #d4a017;
+    }
+
+    .hero-splide .slide-breadcrumb {
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .hero-splide .slide-breadcrumb a,
+    .hero-splide .slide-breadcrumb span {
+        font-size: .8rem;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+    }
+
+    .hero-splide .slide-breadcrumb a:hover {
+        color: #d4a017;
+    }
+
+    .hero-splide .slide-breadcrumb .sep {
+        color: #d4a017;
+    }
+
+    .hero-splide .slide-breadcrumb .cur {
+        color: #d4a017;
+        font-weight: 600;
+    }
+
+    .hero-splide .splide__arrow {
+        width: 52px;
+        height: 52px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        opacity: 1;
+        transition: all .3s;
+    }
+
+    .hero-splide .splide__arrow:hover {
+        background: #d4a017;
+        border-color: #d4a017;
+    }
+
+    .hero-splide .splide__arrow svg {
+        fill: #fff;
+        width: 18px;
+        height: 18px;
+    }
+
+    .hero-splide .splide__arrow--prev {
+        left: 24px;
+    }
+
+    .hero-splide .splide__arrow--next {
+        right: 24px;
+    }
+
+    .hero-splide .splide__pagination {
+        bottom: 22px;
+        gap: 8px;
+    }
+
+    .hero-splide .splide__pagination__page {
+        width: 28px;
+        height: 4px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.35);
+        opacity: 1;
+        margin: 0;
+        transition: all .3s;
+    }
+
+    .hero-splide .splide__pagination__page.is-active {
+        background: #d4a017;
+        width: 52px;
+        transform: none;
+    }
+
+    .hero-progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #d4a017, #f0c040);
+        z-index: 10;
+        transition: width linear;
+        border-radius: 0 2px 0 0;
+    }
+
+    .hero-counter {
+        position: absolute;
+        top: 28px;
+        right: 28px;
+        z-index: 10;
+        font-size: .8rem;
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 600;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .hero-counter .cur-num {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #d4a017;
+        line-height: 1;
+    }
+
+    @media (max-width: 768px) {
+        .hero-splide .splide__slide {
+            height: 70vh;
+            min-height: 400px;
+        }
+
+        .hero-splide .splide__arrow {
+            width: 40px;
+            height: 40px;
+        }
+
+        .hero-splide .splide__arrow--prev {
+            left: 10px;
+        }
+
+        .hero-splide .splide__arrow--next {
+            right: 10px;
+        }
+
+        .hero-counter {
+            display: none;
+        }
+    }
+
+    /* ─── PREMIUM MAP SECTION ─────────────────────────────── */
+    .full-width-map-section {
+        position: relative;
+        width: 100%;
+        height: 75vh;
+        min-height: 550px;
+        background: var(--ivory);
+        padding: var(--space-xl) var(--space-xl) var(--space-2xl) var(--space-xl);
+    }
+
+    .map-container-inner {
+        width: 100%;
+        height: 100%;
+        border-radius: var(--radius-2xl);
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    }
+
+    .map-container-inner iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        filter: grayscale(20%) contrast(1.1);
+    }
+
+    .map-floating-card {
+        position: absolute;
+        bottom: 40px;
+        right: 40px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(24px);
+        border-radius: var(--radius-xl);
+        padding: 32px 36px;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        z-index: 10;
+        max-width: 380px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- PREMIUM SPLIDE HERO SLIDER -->
+<section class="hero-splide position-relative">
+    <div id="fleetHeroSplide" class="splide">
+        <div class="splide__track">
+            <ul class="splide__list">
+                <!-- Slide 1 -->
+                <li class="splide__slide">
+                    {% static 'img/slider1.png' as slider1_url %}
+                    <div class="slide-bg" style="background-image:url('{{ slider1_url }}');">
+                    </div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>Premium Fleet</span></div>
+                            <h1>Discover Our<br><em>Luxury Vehicles</em></h1>
+                            <p class="slide-desc">From 12-seater to 20-seater Maharaja Tempo Travellers, we offer the
+                                most comfortable and well-maintained fleet for your journeys.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="{% url 'contact' %}" class="btn-hero-gold">Book Now <i
+                                        class="fas fa-arrow-right"></i></a>
+                            </div>
+                            <div class="slide-breadcrumb">
+                                <a href="{% url 'home' %}">Home</a><span class="sep">›</span><span class="cur">Our
+                                    Fleet</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- Slide 2 -->
+                <li class="splide__slide">
+                    {% static 'img/slider2.png' as slider2_url %}
+                    <div class="slide-bg" style="background-image:url('{{ slider2_url }}');">
+                    </div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>Travel in Style</span></div>
+                            <h1>Unmatched Comfort<br><em>On Every Trip</em></h1>
+                            <p class="slide-desc">Enjoy plush recliner seats, powerful AC, premium music systems, and
+                                spacious interiors designed for the perfect road trip.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="tel:+919415425603" class="btn-hero-gold"><i class="fas fa-phone-alt"></i> Call
+                                    Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- Slide 3 -->
+                <li class="splide__slide">
+                    {% static 'img/slider3.png' as slider3_url %}
+                    <div class="slide-bg" style="background-image:url('{{ slider3_url }}');">
+                    </div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>Best in Class</span></div>
+                            <h1>Professional &amp;<br><em>Reliable Service</em></h1>
+                            <p class="slide-desc">Our experienced drivers and well-serviced vehicles ensure that you
+                                reach your destination safely and on time, every time.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="{% url 'contact' %}" class="btn-hero-gold">Get a Quote <i
+                                        class="fas fa-arrow-right"></i></a>
+                                <a href="https://wa.me/919415425603" class="btn-hero-outline"><i
+                                        class="fab fa-whatsapp"></i> WhatsApp</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="hero-counter"><span class="cur-num" id="fleetCurNum">1</span><span>/ 3</span></div>
+    <div class="hero-progress-bar" id="fleetProgressBar" style="width:0%"></div>
+</section>
+
+<!-- FLEET LISTING -->
+<section class="section-pad">
+    <div class="container-fluid px-4">
+        <div class="row g-4">
+
+            <!-- SIDEBAR -->
+            <div class="col-lg-3">
+                <!-- Browse Fleet -->
+                <div class="sidebar-box">
+                    <h5><i class="fas fa-bus me-2 gold-text"></i>Browse Fleet</h5>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="?type=all"
+                            class="btn {% if not request.GET.type or request.GET.type == 'all' %}btn-gold{% else %}btn-light{% endif %} w-100 text-start px-3 py-2"
+                            style="border-radius:8px; font-size:13px; border:1px solid #e0e0e0;">
+                            <i class="fas fa-th me-2"></i> All Vehicles
+                        </a>
+                        <a href="?type=12"
+                            class="btn {% if request.GET.type == '12' %}btn-gold{% else %}btn-light{% endif %} w-100 text-start px-3 py-2"
+                            style="border-radius:8px; font-size:13px; border:1px solid #e0e0e0;">
+                            <i class="fas fa-user me-2"></i> 12 Seater Luxury
+                        </a>
+                        <a href="?type=14"
+                            class="btn {% if request.GET.type == '14' %}btn-gold{% else %}btn-light{% endif %} w-100 text-start px-3 py-2"
+                            style="border-radius:8px; font-size:13px; border:1px solid #e0e0e0;">
+                            <i class="fas fa-user me-2"></i> 14 Seater Luxury
+                        </a>
+                        <a href="?type=20"
+                            class="btn {% if request.GET.type == '20' %}btn-gold{% else %}btn-light{% endif %} w-100 text-start px-3 py-2"
+                            style="border-radius:8px; font-size:13px; border:1px solid #e0e0e0;">
+                            <i class="fas fa-user me-2"></i> 20 Seater Maharaja
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Why Choose Us -->
+                <div class="sidebar-box">
+                    <h5>Why Choose Us?</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="d-flex gap-2 align-items-start mb-3">
+                            <i class="fas fa-check-circle gold-text mt-1"></i>
+                            <div><strong style="font-size:13px;">Well Maintained Fleet</strong><br><small
+                                    class="text-muted">Regularly Serviced Vehicles</small></div>
+                        </li>
+                        <li class="d-flex gap-2 align-items-start mb-3">
+                            <i class="fas fa-check-circle gold-text mt-1"></i>
+                            <div><strong style="font-size:13px;">Clean &amp; Hygienic</strong><br><small
+                                    class="text-muted">Sanitized Before Every Trip</small></div>
+                        </li>
+                        <li class="d-flex gap-2 align-items-start mb-3">
+                            <i class="fas fa-check-circle gold-text mt-1"></i>
+                            <div><strong style="font-size:13px;">On Time Service</strong><br><small
+                                    class="text-muted">Punctuality is Our Promise</small></div>
+                        </li>
+                        <li class="d-flex gap-2 align-items-start mb-3">
+                            <i class="fas fa-check-circle gold-text mt-1"></i>
+                            <div><strong style="font-size:13px;">Affordable Pricing</strong><br><small
+                                    class="text-muted">Best Rates, No Hidden Charges</small></div>
+                        </li>
+                        <li class="d-flex gap-2 align-items-start">
+                            <i class="fas fa-check-circle gold-text mt-1"></i>
+                            <div><strong style="font-size:13px;">Customer Satisfaction</strong><br><small
+                                    class="text-muted">Your Safety, Our Priority</small></div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Need Help -->
+                <div class="sidebar-box" style="background:var(--dark); border-color:var(--dark);">
+                    <h5 style="color:#fff; border-bottom-color:var(--gold);">Need Help Choosing <span
+                            style="color:var(--gold);">Right Vehicle?</span></h5>
+                    <p style="color:#aaa; font-size:13px; margin-bottom:16px;">Our travel experts are here to help you
+                        24/7.</p>
+                    <a href="tel:+919415425603" class="btn-gold w-100 justify-content-center mb-2">
+                        Call Now <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <p class="text-center mb-0 mt-2" style="color:#888; font-size:12px;">
+                        <i class="fas fa-phone-alt" style="color:var(--gold);"></i> +91 9415425603
+                    </p>
+                </div>
+            </div>
+
+            <!-- FLEET GRID -->
+            <div class="col-lg-9">
+                <div class="text-center mb-5">
+                    <span class="section-label">— Premium &amp; Comfortable —</span>
+                    <h2 class="section-title">Our Luxury Tempo Traveller Fleet</h2>
+                    <div class="section-divider justify-content-center"><i class="fas fa-crown"></i></div>
+                    <p class="text-muted" style="max-width:600px; margin:0 auto; font-size:15px;">
+                        Choose from our wide range of luxury tempo travellers designed for your comfort, safety and
+                        memorable journey with professional drivers.
+                    </p>
+                </div>
+
+                <div class="row g-4">
+                    {% for vehicle in vehicles %}
+                    <!-- Fleet Item -->
+                    <div class="col-lg-4 col-md-6 animate-fade-up"
+                        style="--delay: {{ forloop.counter }}; animation-delay: calc(0.1s * var(--delay));">
+                        <div class="h-100 position-relative overflow-hidden d-flex flex-column" style="background:#fff; border-radius:var(--radius-xl);
+                                   border:1px solid rgba(0,0,0,0.06);
+                                   box-shadow: 0 12px 48px rgba(0,0,0,0.07);
+                                   transition: all 0.42s ease;"
+                            onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 32px 80px rgba(0,0,0,0.14)';"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 12px 48px rgba(0,0,0,0.07)';">
+
+                            <div
+                                style="height:3px; background:linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold)); flex-shrink:0;">
+                            </div>
+
+                            <div class="overflow-hidden" style="height:270px; flex-shrink:0;">
+                                <img src="{% if vehicle.get_image %}{{ vehicle.get_image }}{% else %}https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80{% endif %}"
+                                    class="w-100 h-100" style="object-fit:cover; transition:transform 0.85s ease;"
+                                    alt="{{ vehicle.name }}" onmouseover="this.style.transform='scale(1.08)'"
+                                    onmouseout="this.style.transform='scale(1)'">
+                            </div>
+
+                            <div style="padding:32px 34px; display:flex; flex-direction:column; flex-grow:1;">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h4
+                                            style="font-size:24px; font-weight:800; color:var(--text-dark); margin-bottom:4px; font-family:var(--font-script);">
+                                            {{ vehicle.name }}</h4>
+                                        <span
+                                            style="font-size:11px; color:var(--text-muted); font-weight:600; letter-spacing:1.5px; text-transform:uppercase;">Premium
+                                            Vehicle</span>
+                                    </div>
+                                </div>
+
+                                <p
+                                    style="color:var(--text-mid); font-size:15px; line-height:1.75; flex-grow:1; margin-bottom:24px;">
+                                    {% if vehicle.description %}
+                                    {{ vehicle.description }}
+                                    {% else %}
+                                    Perfect for family trips and small corporate groups. Fully equipped with premium
+                                    amenities.
+                                    {% endif %}
+                                </p>
+
+                                <div style="background:linear-gradient(180deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03));
+                                            border:1px solid rgba(201,168,76,0.16); border-radius:18px;
+                                            padding:16px 18px; margin-bottom:18px;">
+                                    <div class="d-flex flex-wrap gap-3">
+                                        <div style="flex:1 1 180px; min-width:180px;">
+                                            <small
+                                                style="color:var(--text-muted); display:block; font-size:9px; letter-spacing:1.8px; text-transform:uppercase; font-weight:700; margin-bottom:4px;">Seat</small>
+                                            <div
+                                                style="font-size:14px; font-weight:700; color:var(--text-dark); line-height:1.5;">
+                                                {% if vehicle.seats %}
+                                                {{ vehicle.seats }}
+                                                {% else %}
+                                                12 Passengers
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div style="flex:1 1 180px; min-width:180px;">
+                                            <small
+                                                style="color:var(--text-muted); display:block; font-size:9px; letter-spacing:1.8px; text-transform:uppercase; font-weight:700; margin-bottom:4px;">Fare
+                                                Per Km</small>
+                                            <div
+                                                style="font-size:14px; font-weight:700; color:var(--text-dark); line-height:1.5;">
+                                                {% if vehicle.fare_per_km %}
+                                                {{ vehicle.fare_per_km }}
+                                                {% else %}
+                                                Contact Us
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div style="flex:1 1 180px; min-width:180px;">
+                                            <small
+                                                style="color:var(--text-muted); display:block; font-size:9px; letter-spacing:1.8px; text-transform:uppercase; font-weight:700; margin-bottom:4px;">Driver
+                                                Charges</small>
+                                            <div
+                                                style="font-size:14px; font-weight:700; color:var(--text-dark); line-height:1.5;">
+                                                {% if vehicle.driver_charges %}
+                                                {{ vehicle.driver_charges }}
+                                                {% else %}
+                                                ₹ 500 / Day
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div style="flex:1 1 180px; min-width:180px;">
+                                            <small
+                                                style="color:var(--text-muted); display:block; font-size:9px; letter-spacing:1.8px; text-transform:uppercase; font-weight:700; margin-bottom:4px;">Extra
+                                                Charges</small>
+                                            <div
+                                                style="font-size:13px; font-weight:700; color:var(--text-dark); line-height:1.55;">
+                                                {% if vehicle.extra_charges %}
+                                                {{ vehicle.extra_charges }}
+                                                {% else %}
+                                                All Tax, Parking Extra
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center pt-4"
+                                    style="border-top:1px solid #f0ece4;">
+                                    <div>
+                                        <small
+                                            style="color:var(--text-muted); display:block; font-size:9.5px; letter-spacing:2px; text-transform:uppercase; font-weight:700; margin-bottom:4px;">Starting
+                                            Fare</small>
+                                        <span
+                                            style="font-size:24px; font-weight:900; color:var(--gold); line-height:1; font-family:var(--font-script);">
+                                            {{ vehicle.fare_per_km|slice:":6" }}
+                                            <span
+                                                style="font-size:14px; color:var(--text-muted); font-weight:400; font-family:var(--font-main);">/km</span>
+                                        </span>
+                                    </div>
+                                    <a href="{% url 'fleet_detail' slug=vehicle.slug %}" style="width:50px; height:50px; background:rgba(201,168,76,0.10);
+                                              border:1.5px solid rgba(201,168,76,0.30); border-radius:50%;
+                                              display:flex; align-items:center; justify-content:center;
+                                              transition:all 0.3s ease; text-decoration:none;"
+                                        onmouseover="this.style.background='var(--gold)'; this.querySelector('i').style.color='#fff';"
+                                        onmouseout="this.style.background='rgba(201,168,76,0.10)'; this.querySelector('i').style.color='var(--gold)';">
+                                        <i class="fas fa-arrow-right gold-text" style="transition:color 0.3s ease;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12 text-center py-5">
+                        <p style="color:var(--text-muted); font-size:16px;">Our premium fleet is being updated. Please
+                            check back soon.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- MAP MOVED OUTSIDE -->
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     MAP SECTION
+══════════════════════════════════════════════════════════ -->
+<section class="full-width-map-section">
+    <div class="map-container-inner">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113911.37951239827!2d80.8601614!3d26.8485965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd991f32b16b%3A0x93ccba8909978be7!2sLucknow%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+
+        <div class="map-floating-card animate-fade-up" style="animation-delay:0.2s;">
+            <div class="d-inline-flex align-items-center gap-2 mb-2">
+                <div style="height:1px; width:24px; background:var(--gold);"></div>
+                <span
+                    style="font-size:10px; font-weight:700; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase;">Visit
+                    Our Office</span>
+            </div>
+            <h3
+                style="font-family:var(--font-script); font-size:26px; color:var(--text-dark); margin-bottom:6px; line-height:1.2;">
+                Rajan Dadda Tours
+            </h3>
+            <p style="color:var(--text-mid); font-size:14px; line-height:1.6; margin-bottom:24px;">
+                Transport Nagar, Lucknow<br>Uttar Pradesh – 226012, India
+            </p>
+            <a href="https://maps.google.com/?q=Transport+Nagar+Lucknow" target="_blank"
+                class="btn-gold w-100 justify-content-center"
+                style="padding:14px 24px; font-size:12px; border-radius: var(--radius-md);">
+                <i class="fas fa-location-arrow me-2"></i> Get Directions
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="section-pad bg-light-gray">
+    <div class="container-fluid px-4">
+        <div class="cta-strip d-flex flex-column justify-content-center"
+            style="min-height: 55vh; padding: 50px 40px; background: linear-gradient(135deg, var(--dark), #101625); border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+            <!-- Decorative circle -->
+            <div
+                style="position:absolute; top:-100px; right:-100px; width:400px; height:400px; background:radial-gradient(circle, rgba(212,160,23,0.15) 0%, transparent 70%); border-radius:50%; z-index:0;">
+            </div>
+
+            <div class="row align-items-center position-relative z-index-1" style="flex: 1;">
+                <!-- Text Column -->
+                <div class="col-lg-7 text-center text-lg-start">
+                    <span class="badge bg-gold text-white mb-3 px-3 py-2"
+                        style="font-size: 14px; letter-spacing: 1px; font-weight: 600; box-shadow: 0 4px 15px rgba(212,160,23,0.3);">PREMIUM
+                        SERVICE</span>
+                    <h2 class="text-white fw-800 mb-3"
+                        style="font-size: clamp(2rem, 3.5vw, 3.8rem); font-family: 'Poppins', sans-serif; line-height: 1.15;">
+                        Book Your Luxury<br><span style="color:var(--gold);">Tempo Traveller</span></h2>
+                    <p class="text-white-50 mb-4 mx-auto mx-lg-0" style="font-size: 1.1rem; max-width: 500px;">Get the
+                        best vehicles, professional drivers and unforgettable travel experience for your family and
+                        friends.</p>
+
+                    <div class="d-flex gap-4 flex-wrap justify-content-center justify-content-lg-start mb-5">
+                        <div class="d-flex align-items-center gap-2 text-white"
+                            style="font-size:15px; font-weight: 500;">
+                            <i class="fas fa-bolt gold-text"
+                                style="font-size: 1.2rem; filter: drop-shadow(0 0 5px rgba(212,160,23,0.5));"></i>
+                            Instant Booking
+                        </div>
+                        <div class="d-flex align-items-center gap-2 text-white"
+                            style="font-size:15px; font-weight: 500;">
+                            <i class="fas fa-tag gold-text"
+                                style="font-size: 1.2rem; filter: drop-shadow(0 0 5px rgba(212,160,23,0.5));"></i> No
+                            Hidden Charges
+                        </div>
+                        <div class="d-flex align-items-center gap-2 text-white"
+                            style="font-size:15px; font-weight: 500;">
+                            <i class="fas fa-shield-alt gold-text"
+                                style="font-size: 1.2rem; filter: drop-shadow(0 0 5px rgba(212,160,23,0.5));"></i> 100%
+                            Safe & Secure
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-4 justify-content-center justify-content-lg-start">
+                        <a href="{% url 'contact' %}" class="btn-hero-gold position-relative overflow-hidden"
+                            style="padding: 16px 40px; font-size: 1.1rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(212,160,23,0.4); border: 1px solid rgba(255,255,255,0.2);">
+                            <span class="position-relative z-index-1">Book Now <i
+                                    class="fas fa-arrow-right ms-2"></i></span>
+                        </a>
+                        <a href="tel:+919415425603" class="btn-hero-outline"
+                            style="padding: 16px 40px; font-size: 1.1rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; background: rgba(255,255,255,0.05); backdrop-filter: blur(5px); border: 2px solid rgba(255,255,255,0.2);">
+                            <i class="fas fa-phone-alt ms-1 me-2"></i> Call Us
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Image Column -->
+                <div class="col-lg-5 d-none d-lg-flex justify-content-center align-items-center position-relative">
+                    <!-- Glow behind image -->
+                    <div
+                        style="position:absolute; width:80%; height:80%; background:var(--gold); filter:blur(80px); opacity:0.15; border-radius:50%; z-index:0;">
+                    </div>
+                    <!-- The image itself -->
+                    <img src="{% static 'imgs/aise.png' %}" alt="Luxury Tempo Traveller" class="img-fluid"
+                        style="border-radius: 16px; box-shadow: 0 25px 50px rgba(0,0,0,0.5); border: 4px solid rgba(255,255,255,0.05); transform: perspective(1000px) rotateY(-10deg); transition: transform 0.5s ease;"
+                        onmouseover="this.style.transform='perspective(1000px) rotateY(0deg) scale(1.02)'"
+                        onmouseout="this.style.transform='perspective(1000px) rotateY(-10deg)'">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var splide = new Splide('#fleetHeroSplide', {
+            type: 'fade', rewind: true, autoplay: true, interval: 5000,
+            pauseOnHover: true, speed: 1000, arrows: true, pagination: true, cover: false,
+        });
+        var interval = 5000;
+        var progressBar = document.getElementById('fleetProgressBar');
+        var curNum = document.getElementById('fleetCurNum');
+        var startTime, animFrame;
+        function animateProgress() {
+            var pct = Math.min(((performance.now() - startTime) / interval) * 100, 100);
+            if (progressBar) progressBar.style.width = pct + '%';
+            if (pct < 100) animFrame = requestAnimationFrame(animateProgress);
+        }
+        splide.on('mounted move', function () {
+            cancelAnimationFrame(animFrame);
+            if (progressBar) progressBar.style.width = '0%';
+            startTime = performance.now();
+            animFrame = requestAnimationFrame(animateProgress);
+            if (curNum) curNum.textContent = (splide.index + 1);
+        });
+        splide.mount();
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}{{ action }} Review{% endblock %}
+{% block page_title %}{{ action }} Review{% endblock %}
+{% block breadcrumb %}<a href="{% url 'reviews_list_dashboard' %}" style="color:var(--gold);text-decoration:none;">Reviews</a> &bull; {{ action }}{% endblock %}
+
+{% block content %}
+<div style="max-width: 640px;">
+    <div class="card">
+        <div class="card-header">
+            <h5><i class="fas fa-star" style="color: var(--gold); margin-right: 8px;"></i> {{ action }} Review</h5>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="form-label">Customer Name *</label>
+                    <input type="text" name="customer_name" class="form-control"
+                        value="{{ review.customer_name|default:'' }}" required placeholder="e.g. Amit Verma">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Rating (1–5) *</label>
+                    <select name="rating" class="form-control form-select" required>
+                        {% for i in "54321" %}
+                        <option value="{{ i }}" {% if review.rating == i|add:0 %}selected{% elif not review and i == '5' %}selected{% endif %}>
+                            {{ i }} Star{% if i != '1' %}s{% endif %} {% if i == '5' %}★★★★★{% elif i == '4' %}★★★★☆{% elif i == '3' %}★★★☆☆{% elif i == '2' %}★★☆☆☆{% else %}★☆☆☆☆{% endif %}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Review Content *</label>
+                    <textarea name="content" class="form-control" required
+                        placeholder="Customer's review text...">{{ review.content|default:'' }}</textarea>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input type="checkbox" name="is_featured" id="is_featured"
+                            {% if review.is_featured %}checked{% endif %}>
+                        <label for="is_featured">Feature this review on homepage &amp; reviews page</label>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 12px; margin-top: 8px;">
+                    <button type="submit" class="btn btn-gold"><i class="fas fa-save"></i> {{ action }} Review</button>
+                    <a href="{% url 'reviews_list_dashboard' %}" class="btn btn-outline"><i class="fas fa-times"></i> Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

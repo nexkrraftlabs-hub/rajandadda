@@ -1,0 +1,1075 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Customer Reviews – Rajan Dadda Tours & Travellers{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+<style>
+    .hero-splide {
+        position: relative;
+    }
+
+    .hero-splide .splide__slide {
+        position: relative;
+        height: 70vh;
+        min-height: 440px;
+        overflow: hidden;
+    }
+
+    .hero-splide .slide-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transform: scale(1.08);
+        transition: transform 8s ease;
+    }
+
+    .hero-splide .splide__slide.is-active .slide-bg {
+        transform: scale(1);
+    }
+
+    .hero-splide .slide-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(110deg, rgba(8, 15, 30, 0.88) 0%, rgba(8, 15, 30, 0.45) 55%, transparent 100%);
+    }
+
+    .hero-splide .slide-overlay-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 45%;
+        background: linear-gradient(to top, rgba(8, 15, 30, 0.85) 0%, transparent 100%);
+    }
+
+    .hero-splide .slide-content {
+        position: relative;
+        z-index: 3;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 5%;
+    }
+
+    .hero-splide .slide-inner {
+        max-width: 620px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s;
+    }
+
+    .hero-splide .splide__slide.is-active .slide-inner {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .hero-splide .slide-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .hero-splide .slide-eyebrow::before {
+        content: '';
+        display: block;
+        width: 40px;
+        height: 1px;
+        background: linear-gradient(90deg, #d4a017, transparent);
+    }
+
+    .hero-splide .slide-eyebrow span {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #d4a017;
+    }
+
+    .hero-splide h1 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        font-size: clamp(2rem, 4.5vw, 3.2rem);
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 16px;
+        text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-splide h1 em {
+        font-style: normal;
+        font-family: 'Dancing Script', cursive;
+        color: #d4a017;
+        font-weight: 700;
+    }
+
+    .hero-splide .slide-desc {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 1rem;
+        line-height: 1.8;
+        margin-bottom: 28px;
+        max-width: 500px;
+    }
+
+    .hero-splide .slide-cta-wrap {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .hero-splide .btn-hero-gold {
+        background: linear-gradient(135deg, #d4a017, #b8880f);
+        color: #fff;
+        padding: 13px 32px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: .9rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 8px 28px rgba(212, 160, 23, 0.35);
+        transition: all .3s;
+    }
+
+    .hero-splide .btn-hero-gold:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 36px rgba(212, 160, 23, 0.5);
+        color: #fff;
+    }
+
+    .hero-splide .btn-hero-outline {
+        background: transparent;
+        color: rgba(255, 255, 255, 0.85);
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: .88rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        transition: all .3s;
+    }
+
+    .hero-splide .btn-hero-outline:hover {
+        border-color: #d4a017;
+        color: #d4a017;
+    }
+
+    .hero-splide .slide-breadcrumb {
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .hero-splide .slide-breadcrumb a,
+    .hero-splide .slide-breadcrumb span {
+        font-size: .8rem;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+    }
+
+    .hero-splide .slide-breadcrumb a:hover {
+        color: #d4a017;
+    }
+
+    .hero-splide .slide-breadcrumb .sep {
+        color: #d4a017;
+    }
+
+    .hero-splide .slide-breadcrumb .cur {
+        color: #d4a017;
+        font-weight: 600;
+    }
+
+    .hero-splide .splide__arrow {
+        width: 52px;
+        height: 52px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        opacity: 1;
+        transition: all .3s;
+    }
+
+    .hero-splide .splide__arrow:hover {
+        background: #d4a017;
+        border-color: #d4a017;
+    }
+
+    .hero-splide .splide__arrow svg {
+        fill: #fff;
+        width: 18px;
+        height: 18px;
+    }
+
+    .hero-splide .splide__arrow--prev {
+        left: 24px;
+    }
+
+    .hero-splide .splide__arrow--next {
+        right: 24px;
+    }
+
+    .hero-splide .splide__pagination {
+        bottom: 22px;
+        gap: 8px;
+    }
+
+    .hero-splide .splide__pagination__page {
+        width: 28px;
+        height: 4px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.35);
+        opacity: 1;
+        margin: 0;
+        transition: all .3s;
+    }
+
+    .hero-splide .splide__pagination__page.is-active {
+        background: #d4a017;
+        width: 52px;
+        transform: none;
+    }
+
+    .hero-progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #d4a017, #f0c040);
+        z-index: 10;
+        transition: width linear;
+        border-radius: 0 2px 0 0;
+    }
+
+    .hero-counter {
+        position: absolute;
+        top: 28px;
+        right: 28px;
+        z-index: 10;
+        font-size: .8rem;
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 600;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .hero-counter .cur-num {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #d4a017;
+        line-height: 1;
+    }
+
+    @media (max-width: 768px) {
+        .hero-splide .splide__slide {
+            height: 68vh;
+            min-height: 400px;
+        }
+
+        .hero-splide .splide__arrow {
+            width: 40px;
+            height: 40px;
+        }
+
+        .hero-splide .splide__arrow--prev {
+            left: 10px;
+        }
+
+        .hero-splide .splide__arrow--next {
+            right: 10px;
+        }
+
+        .hero-counter {
+            display: none;
+        }
+
+        .gallery-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* ===== RATING SUMMARY ===== */
+    .rating-summary {
+        background: #fff;
+        border-bottom: 1px solid #e9ecef;
+        padding: 40px 0;
+    }
+
+    .rating-overall {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .rating-big {
+        font-size: 4rem;
+        font-weight: 800;
+        color: #0d1b2a;
+        line-height: 1;
+    }
+
+    .stars-big {
+        color: #d4a017;
+        font-size: 1.4rem;
+    }
+
+    .rating-sub {
+        font-size: .85rem;
+        color: #78909c;
+        margin-top: 4px;
+    }
+
+    .platform-card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 20px 24px;
+        border: 1px solid #e9ecef;
+        border-radius: 14px;
+        background: #fff;
+        height: 100%;
+    }
+
+    .platform-logo {
+        font-weight: 800;
+        font-size: 1.1rem;
+    }
+
+    .platform-logo.google {
+        color: #4285f4;
+    }
+
+    .platform-logo.facebook {
+        color: #1877f2;
+    }
+
+    .platform-logo.justdial {
+        color: #e73c33;
+    }
+
+    .platform-stars {
+        color: #d4a017;
+        font-size: .85rem;
+    }
+
+    .platform-count {
+        font-size: .8rem;
+        color: #78909c;
+    }
+
+    .recommend-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background: linear-gradient(135deg, #d4a017, #b8880f);
+        border-radius: 14px;
+        color: #fff;
+        height: 100%;
+        text-align: center;
+    }
+
+    .recommend-pct {
+        font-size: 2.2rem;
+        font-weight: 800;
+    }
+
+    .recommend-label {
+        font-size: .8rem;
+        opacity: .85;
+        margin-top: 4px;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials-section {
+        padding: 80px 0;
+        background: #f8f9fa;
+    }
+
+    .section-eyebrow {
+        font-family: 'Dancing Script', cursive;
+        color: #d4a017;
+        font-size: 1.5rem;
+        display: block;
+        text-align: center;
+        margin-bottom: 4px;
+    }
+
+    .section-title {
+        font-weight: 800;
+        font-size: 2rem;
+        color: #0d1b2a;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+
+    .section-divider {
+        text-align: center;
+        margin-bottom: 48px;
+        color: #d4a017;
+        font-size: 1.2rem;
+    }
+
+    .review-card {
+        background: #fff;
+        border-radius: 18px;
+        padding: 28px 24px;
+        border: 1px solid #e9ecef;
+        height: 100%;
+        position: relative;
+        transition: all .3s;
+    }
+
+    .review-card:hover {
+        border-color: #d4a017;
+        box-shadow: 0 8px 32px rgba(212, 160, 23, .12);
+        transform: translateY(-4px);
+    }
+
+    .review-card .quote-icon {
+        color: #d4a017;
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+        display: block;
+    }
+
+    .review-text {
+        color: #546e7a;
+        font-size: .92rem;
+        line-height: 1.75;
+        margin-bottom: 16px;
+    }
+
+    .review-stars {
+        color: #d4a017;
+        font-size: .9rem;
+        margin-bottom: 16px;
+    }
+
+    .reviewer {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .reviewer-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #d4a017, #b8880f);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        color: #fff;
+        font-size: 1rem;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+
+    .reviewer-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .reviewer-name {
+        font-weight: 700;
+        font-size: .9rem;
+        color: #0d1b2a;
+    }
+
+    .reviewer-city {
+        font-size: .78rem;
+        color: #78909c;
+    }
+
+    .review-end-quote {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        color: #e9ecef;
+        font-size: 2rem;
+    }
+
+    /* ===== LOVE SECTION ===== */
+    .love-section {
+        padding: 70px 0;
+        background: #fff;
+    }
+
+    .love-card {
+        text-align: center;
+        padding: 24px 16px;
+    }
+
+    .love-icon {
+        width: 70px;
+        height: 70px;
+        border: 2px solid #e9ecef;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px;
+        font-size: 1.5rem;
+        color: #d4a017;
+        transition: all .3s;
+    }
+
+    .love-card:hover .love-icon {
+        background: #d4a017;
+        color: #fff;
+        border-color: #d4a017;
+    }
+
+    .love-card h6 {
+        font-weight: 700;
+        font-size: .9rem;
+        color: #0d1b2a;
+        margin-bottom: 4px;
+    }
+
+    .love-pct {
+        font-size: .8rem;
+        color: #78909c;
+    }
+
+    /* ===== GALLERY ===== */
+    .photo-section {
+        padding: 70px 0;
+        background: #f8f9fa;
+    }
+
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+
+    .gallery-grid img {
+        width: 100%;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+        border-radius: 12px;
+        transition: transform .3s;
+    }
+
+    .gallery-grid img:hover {
+        transform: scale(1.03);
+    }
+
+    .video-wrap {
+        border-radius: 18px;
+        overflow: hidden;
+        position: relative;
+        background: #000;
+    }
+
+    .video-wrap video {
+        width: 100%;
+        display: block;
+    }
+
+    .section-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+    }
+
+    .section-header-row h5 {
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: #0d1b2a;
+        margin: 0;
+    }
+
+    .view-all-link {
+        color: #d4a017;
+        font-size: .85rem;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .view-all-link:hover {
+        color: #b8880f;
+    }
+
+    /* ===== CTA ===== */
+    .cta-section {
+        background: linear-gradient(135deg, #0d1b2a 0%, #1a2e45 100%);
+        padding: 60px 0;
+    }
+
+    .cta-icon-wrap {
+        width: 70px;
+        height: 70px;
+        background: rgba(212, 160, 23, .15);
+        border: 2px solid rgba(212, 160, 23, .3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        color: #d4a017;
+        flex-shrink: 0;
+    }
+
+    .cta-section h4 {
+        font-weight: 800;
+        color: #fff;
+        font-size: 1.5rem;
+        margin-bottom: 4px;
+    }
+
+    .cta-section p {
+        color: #90a4ae;
+        margin: 0;
+    }
+
+    .btn-gold {
+        background: #d4a017;
+        color: #fff;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: .95rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all .3s;
+        white-space: nowrap;
+    }
+
+    .btn-gold:hover {
+        background: #b8880f;
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    .btn-outline-wa {
+        background: transparent;
+        color: #25d366;
+        border: 2px solid #25d366;
+        padding: 14px 28px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: .95rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all .3s;
+        white-space: nowrap;
+    }
+
+    .btn-outline-wa:hover {
+        background: #25d366;
+        color: #fff;
+    }
+
+    @media (max-width: 768px) {
+        .page-hero h1 {
+            font-size: 1.8rem;
+        }
+
+        .page-hero .hero-vehicle {
+            display: none;
+        }
+
+        .gallery-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+<!-- PREMIUM SPLIDE HERO SLIDER -->
+<section class="hero-splide position-relative">
+    <div id="reviewsHeroSplide" class="splide">
+        <div class="splide__track">
+            <ul class="splide__list">
+                <!-- Slide 1 -->
+                <li class="splide__slide">
+                    {% static 'img/slider1.png' as slider1_url %}
+                    <div class="slide-bg" style="background-image:url('{{slider1_url}}');"></div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>Testimonials</span></div>
+                            <h1>What Our Customers<br><em>Say About Us</em></h1>
+                            <p class="slide-desc">Rated 4.9/5 by over 10,000 happy travellers. See what our customers
+                                love about travelling with Rajan Dadda Tours &amp; Travellers.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="{% url 'contact' %}" class="btn-hero-gold">Book Now <i
+                                        class="fas fa-arrow-right"></i></a>
+                                <a href="{% url 'fleet' %}" class="btn-hero-outline">Our Fleet <i
+                                        class="fas fa-bus"></i></a>
+                            </div>
+                            <div class="slide-breadcrumb">
+                                <a href="{% url 'home' %}">Home</a><span class="sep">›</span><span
+                                    class="cur">Testimonials</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- Slide 2 -->
+                <li class="splide__slide">
+                    {% static 'img/slider2.png' as slider2_url %}
+                    <div class="slide-bg" style="background-image:url('{{slider2_url}}');"></div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>4.9 Star Rated</span></div>
+                            <h1>Trusted by<br><em>10,000+ Families</em></h1>
+                            <p class="slide-desc">Our customers love our clean vehicles, professional drivers,
+                                transparent pricing and on-time service across every journey.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="tel:+919415425603" class="btn-hero-gold"><i class="fas fa-phone-alt"></i> Call
+                                    Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- Slide 3 -->
+                <li class="splide__slide">
+                    {% static 'img/slider3.png' as slider3_url %}
+                    <div class="slide-bg" style="background-image:url('{{slider3_url}}');"></div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>Premium Experience</span></div>
+                            <h1>Journey Beyond<br><em>Expectations</em></h1>
+                            <p class="slide-desc">Every trip with us is crafted with care — from spotless vehicles to
+                                expert drivers who make your journey memorable.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="{% url 'contact' %}" class="btn-hero-gold">Book Now <i
+                                        class="fas fa-arrow-right"></i></a>
+                                <a href="https://wa.me/919415425603" class="btn-hero-outline"><i
+                                        class="fab fa-whatsapp"></i> WhatsApp</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="hero-counter"><span class="cur-num" id="reviewsCurNum">1</span><span>/ 3</span></div>
+    <div class="hero-progress-bar" id="reviewsProgressBar" style="width:0%"></div>
+</section>
+
+<!-- RATING SUMMARY -->
+<section class="rating-summary">
+    <div class="container-fluid px-4">
+        <div class="row align-items-center g-4">
+            <div class="col-md-3">
+                <div class="rating-overall">
+                    <div>
+                        <div class="rating-big">4.9</div>
+                        <div class="stars-big"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <div class="rating-sub">Based on 250+ Reviews</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="platform-card">
+                    <div>
+                        <div class="platform-logo google">Google</div>
+                        <div class="platform-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <strong style="color:#0d1b2a;margin-left:4px;">4.9</strong>
+                        </div>
+                        <div class="platform-count">120+ Reviews</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="platform-card">
+                    <div>
+                        <div class="platform-logo facebook">Facebook</div>
+                        <div class="platform-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <strong style="color:#0d1b2a;margin-left:4px;">4.9</strong>
+                        </div>
+                        <div class="platform-count">80+ Reviews</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="recommend-card">
+                    <div class="recommend-pct">99%</div>
+                    <i class="fas fa-star"></i>
+                    <div class="recommend-label">Customers Recommend Us</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CLIENT DIARIES — Testimonials
+══════════════════════════════════════════════════════════ -->
+<section class="section-pad-premium position-relative overflow-hidden"
+    style="background:var(--ivory); border-top:1px solid rgba(0,0,0,0.04); padding-top: 120px;">
+
+    <!-- Ambient -->
+    <div class="position-absolute top-50 start-50 translate-middle" style="width:80%; height:80%;
+               background:radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%);
+               z-index:0; pointer-events:none;"></div>
+
+    <div class="container-premium text-center position-relative" style="z-index:1;">
+        <div class="animate-fade-up">
+            <span class="premium-subtitle">— Client Diaries —</span>
+            <h2 class="premium-title mt-3 text-dark mb-3">
+                Voices of <span
+                    style="color:var(--gold); font-style:italic; font-family:var(--font-script);">Luxury</span>
+            </h2>
+            <p
+                style="color:var(--text-mid); max-width:600px; margin:0 auto 56px; font-size:17px; line-height:1.85; font-weight:300;">
+                Read what our esteemed clients have to say about their impeccable journeys with Rajan Dadda Tours.
+            </p>
+        </div>
+
+        <div class="splide mt-4" id="reviews-slider-page">
+            <div class="splide__track" style="padding-bottom: 20px;">
+                <ul class="splide__list">
+                    {% for review in reviews %}
+                    <li class="splide__slide">
+                        <div class="premium-review-card h-100"
+                            style="background: var(--white); border-radius: var(--radius-xl); padding: 48px 40px; box-shadow: var(--shadow-card); border: 1px solid var(--border-dark); transition: all 0.4s ease; position: relative; overflow: hidden; display: flex; flex-direction: column;"
+                            onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='var(--shadow-card-hover)'; this.style.borderColor='var(--border-gold)';"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-card)'; this.style.borderColor='var(--border-dark)';">
+
+                            <!-- Quote icon watermark -->
+                            <i class="fas fa-quote-right position-absolute"
+                                style="top: -20px; right: -20px; font-size: 140px; color: rgba(212,175,55,0.04); z-index: 0; transform: rotate(10deg);"></i>
+
+                            <div class="position-relative" style="z-index: 1; flex-grow: 1;">
+                                <div class="d-flex justify-content-between align-items-start mb-4">
+                                    <div class="review-avatar"
+                                        style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--gold) 0%, var(--gold-deep) 100%); display: flex; align-items: center; justify-content: center; font-family: var(--font-script); font-size: 28px; font-weight: 600; color: var(--white); box-shadow: 0 8px 24px rgba(212,175,55,0.25);">
+                                        {{ review.customer_name|first|upper }}
+                                    </div>
+                                    <div class="review-rating d-flex gap-1">
+                                        {% for i in "12345"|make_list %}
+                                        {% if forloop.counter <= review.rating %} <i class="fas fa-star"
+                                            style="color: var(--gold); font-size: 14px;"></i>
+                                            {% else %}
+                                            <i class="fas fa-star" style="color: #EAEAEA; font-size: 14px;"></i>
+                                            {% endif %}
+                                            {% endfor %}
+                                    </div>
+                                </div>
+
+                                <p
+                                    style="color: var(--text-dark); font-size: 17px; line-height: 1.8; font-style: italic; margin-bottom: 32px; font-family: var(--font-script); letter-spacing: 0.02em;">
+                                    "{{ review.content }}"
+                                </p>
+                            </div>
+
+                            <div class="position-relative mt-auto pt-4"
+                                style="z-index: 1; border-top: 1px solid rgba(0,0,0,0.05);">
+                                <h6
+                                    style="font-size: 14px; font-weight: 700; color: var(--text-dark); margin: 0 0 4px 0; letter-spacing: 0.05em; text-transform: uppercase;">
+                                    {{ review.customer_name }}
+                                </h6>
+                                <span
+                                    style="font-size: 11px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;">
+                                    Verified Traveler
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                    {% empty %}
+                    <li class="splide__slide w-100 text-center py-5">
+                        <p style="color:var(--text-muted); font-size:16px;">More experiences coming soon.</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- WHAT CUSTOMERS LOVE -->
+<section class="love-section">
+    <div class="container-fluid px-4">
+        <span class="section-eyebrow">Our Strengths</span>
+        <h2 class="section-title" style="margin-bottom:48px;">What Customers Love About Us</h2>
+        <div class="row g-4 text-center">
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="love-card">
+                    <div class="love-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h6>Clean & Well Maintained Vehicles</h6>
+                    <div class="love-pct">95% Customers</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="love-card">
+                    <div class="love-icon"><i class="fas fa-user-tie"></i></div>
+                    <h6>Professional Drivers</h6>
+                    <div class="love-pct">96% Customers</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="love-card">
+                    <div class="love-icon"><i class="fas fa-rupee-sign"></i></div>
+                    <h6>Transparent Pricing</h6>
+                    <div class="love-pct">93% Customers</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="love-card">
+                    <div class="love-icon"><i class="fas fa-clock"></i></div>
+                    <h6>On Time Service</h6>
+                    <div class="love-pct">94% Customers</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="love-card">
+                    <div class="love-icon"><i class="fas fa-couch"></i></div>
+                    <h6>Comfortable Journey</h6>
+                    <div class="love-pct">98% Customers</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="love-card">
+                    <div class="love-icon"><i class="fas fa-headset"></i></div>
+                    <h6>24/7 Customer Support</h6>
+                    <div class="love-pct">97% Customers</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PHOTO GALLERY & VIDEO -->
+<section class="photo-section">
+    <div class="container-fluid px-4">
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="section-header-row">
+                    <h5>Customer Photo Gallery</h5>
+                    <a href="{% url 'gallery' %}" class="view-all-link">View All Photos →</a>
+                </div>
+                <div class="gallery-grid">
+                    <img src="{% static 'imgs/4th.jpeg' %}" alt="Customer Photo">
+                    <img src="{% static 'imgs/5th.jpeg' %}" alt="Customer Photo">
+                    <img src="{% static 'imgs/18th.jpeg' %}" alt="Customer Photo">
+                    <img src="{% static 'imgs/14th.jpeg' %}" alt="Customer Photo">
+                    <img src="{% static 'imgs/16th.jpeg' %}" alt="Customer Photo">
+                    <img src="{% static 'imgs/3rd.jpeg' %}" alt="Customer Photo">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="section-header-row">
+                    <h5>Video Review</h5>
+                    <a href="#" class="view-all-link">View All Videos →</a>
+                </div>
+                <div class="video-wrap">
+                    <video controls poster="{% static 'imgs/travel.png' %}">
+                        <source src="{% static 'imgs/review.mp4' %}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container-fluid px-4">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-4">
+            <div class="d-flex align-items-center gap-4">
+                <div class="cta-icon-wrap"><i class="fas fa-phone-alt"></i></div>
+                <div>
+                    <h4>Join Our Happy Customers</h4>
+                    <p>Book your luxury tempo traveller today and create beautiful memories.</p>
+                </div>
+            </div>
+            <div class="d-flex gap-3 flex-wrap">
+                <a href="tel:+919415425603" class="btn-gold"><i class="fas fa-phone-alt"></i> Book Now</a>
+                <a href="https://wa.me/919415425603" target="_blank" class="btn-outline-wa"><i
+                        class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var splide = new Splide('#reviewsHeroSplide', {
+            type: 'fade', rewind: true, autoplay: true, interval: 5000,
+            pauseOnHover: true, speed: 1000, arrows: true, pagination: true, cover: false,
+        });
+        var interval = 5000;
+        var progressBar = document.getElementById('reviewsProgressBar');
+        var curNum = document.getElementById('reviewsCurNum');
+        var startTime, animFrame;
+        function animateProgress() {
+            var pct = Math.min(((performance.now() - startTime) / interval) * 100, 100);
+            if (progressBar) progressBar.style.width = pct + '%';
+            if (pct < 100) animFrame = requestAnimationFrame(animateProgress);
+        }
+        splide.on('mounted move', function () {
+            cancelAnimationFrame(animFrame);
+            if (progressBar) progressBar.style.width = '0%';
+            startTime = performance.now();
+            animFrame = requestAnimationFrame(animateProgress);
+            if (curNum) curNum.textContent = (splide.index + 1);
+        });
+        splide.mount();
+    });
+
+    // Reviews testimonials slider
+    if (document.querySelector('#reviews-slider-page')) {
+        new Splide('#reviews-slider-page', {
+            type: 'slide',
+            rewind: true,
+            perPage: 3,
+            gap: '1.5rem',
+            autoplay: true,
+            interval: 2000,
+            speed: 600,
+            pauseOnHover: true,
+            pagination: false,
+            arrows: false,
+            breakpoints: {
+                1024: { perPage: 2 },
+                768: { perPage: 1 }
+            }
+        }).mount();
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,197 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}{{ action }} Vehicle{% endblock %}
+{% block page_title %}{{ action }} Vehicle{% endblock %}
+{% block breadcrumb %}<a href="{% url 'fleet_list_dashboard' %}" style="color:var(--gold);text-decoration:none;">Fleet</a> &bull; {{ action }}{% endblock %}
+
+{% block content %}
+<div style="max-width: 720px;">
+    <div class="card">
+        <div class="card-header">
+            <h5><i class="fas fa-bus" style="color: var(--gold); margin-right: 8px;"></i> {{ action }} Vehicle</h5>
+        </div>
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Vehicle Name *</label>
+                        <input type="text" name="name" class="form-control"
+                            value="{{ vehicle.name|default:'' }}" required placeholder="e.g. 12 Seater Luxury">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">URL Slug *</label>
+                        <input type="text" name="slug" class="form-control"
+                            value="{{ vehicle.slug|default:'' }}" placeholder="e.g. 12-seater-luxury">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-control"
+                        placeholder="Brief vehicle description...">{{ vehicle.description|default:'' }}</textarea>
+                </div>
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Seats</label>
+                        <input type="text" name="seats" class="form-control"
+                            value="{{ vehicle.seats|default:'' }}" placeholder="e.g. 12 Passengers + 1 Driver">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Fare Per Km</label>
+                        <input type="text" name="fare_per_km" class="form-control"
+                            value="{{ vehicle.fare_per_km|default:'' }}" placeholder="e.g. ₹14 - 16 / km">
+                    </div>
+                </div>
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Driver Charges</label>
+                        <input type="text" name="driver_charges" class="form-control"
+                            value="{{ vehicle.driver_charges|default:'' }}" placeholder="e.g. ₹500 / Day">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Display Order</label>
+                        <input type="number" name="order" class="form-control"
+                            value="{{ vehicle.order|default:0 }}" min="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Extra Charges</label>
+                    <input type="text" name="extra_charges" class="form-control"
+                        value="{{ vehicle.extra_charges|default:'' }}" placeholder="e.g. 300 KM/Day Extra, All Tax, Parking Extra">
+                </div>
+
+                <!-- Image Upload Section -->
+                <div class="form-group">
+                    <label class="form-label">Vehicle Image</label>
+
+                    <!-- Tab Toggle Buttons -->
+                    <div style="display:flex; gap:8px; margin-bottom:12px;">
+                        <button type="button" id="tabUrl" onclick="switchTab('url')"
+                            style="padding:6px 18px; border-radius:6px; border:1px solid var(--gold); background:var(--gold); color:#000; font-weight:600; cursor:pointer; font-size:13px; transition:all 0.2s;">
+                            🔗 Image URL
+                        </button>
+                        <button type="button" id="tabFile" onclick="switchTab('file')"
+                            style="padding:6px 18px; border-radius:6px; border:1px solid var(--gold); background:transparent; color:var(--gold); font-weight:600; cursor:pointer; font-size:13px; transition:all 0.2s;">
+                            📁 Upload File
+                        </button>
+                    </div>
+
+                    <!-- URL Input -->
+                    <div id="urlSection">
+                        <input type="url" name="image_url" class="form-control" id="imageUrlInput"
+                            value="{{ vehicle.image_url|default:'' }}"
+                            placeholder="https://images.unsplash.com/..."
+                            oninput="previewImage(this.value)">
+                        <small style="color:#888; margin-top:4px; display:block;">Koi bhi external image ka URL paste karein</small>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div id="fileSection" style="display:none;">
+                        <div style="border:2px dashed rgba(212,175,55,0.4); border-radius:10px; padding:20px; text-align:center; cursor:pointer; transition:all 0.2s;"
+                             onclick="document.getElementById('imageFileInput').click()"
+                             ondragover="this.style.borderColor='var(--gold)'; event.preventDefault();"
+                             ondragleave="this.style.borderColor='rgba(212,175,55,0.4)'"
+                             ondrop="handleDrop(event)">
+                            <i class="fas fa-cloud-upload-alt" style="font-size:28px; color:var(--gold); margin-bottom:8px; display:block;"></i>
+                            <span style="color:#ccc; font-size:14px;">Click karein ya image yahan drag karein</span><br>
+                            <small style="color:#888;">JPG, PNG, WebP • Max 5MB</small>
+                            <input type="file" name="image" id="imageFileInput" accept="image/*"
+                                onchange="previewFile(this)"
+                                style="display:none;">
+                        </div>
+                        <small style="color:#888; margin-top:6px; display:block;">⚠️ File upload karoge toh URL override ho jaayega</small>
+                    </div>
+
+                    <!-- Current uploaded image (edit mode) -->
+                    {% if vehicle.image %}
+                    <div style="margin-top:12px; padding:12px; background:rgba(255,255,255,0.04); border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+                        <small style="color:#888; display:block; margin-bottom:8px;">📌 Current uploaded image:</small>
+                        <img src="{{ vehicle.image.url }}" alt="Current"
+                            style="height:90px; border-radius:8px; object-fit:cover; border:2px solid var(--gold);">
+                        <small style="color:#888; display:block; margin-top:6px;">Naya file select karoge toh purani image replace ho jaayegi</small>
+                    </div>
+                    {% endif %}
+
+                    <!-- Preview -->
+                    <img id="imgPreview" class="img-preview {% if vehicle.image_url %}show{% endif %}"
+                        src="{{ vehicle.image_url|default:'' }}" alt="Preview">
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input type="checkbox" name="is_active" id="is_active"
+                            {% if vehicle.is_active or action == 'Add' %}checked{% endif %}>
+                        <label for="is_active">Vehicle is active (shown on website)</label>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 12px; margin-top: 8px;">
+                    <button type="submit" class="btn btn-gold"><i class="fas fa-save"></i> {{ action }} Vehicle</button>
+                    <a href="{% url 'fleet_list_dashboard' %}" class="btn btn-outline"><i class="fas fa-times"></i> Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function switchTab(tab) {
+    var urlSection = document.getElementById('urlSection');
+    var fileSection = document.getElementById('fileSection');
+    var tabUrl = document.getElementById('tabUrl');
+    var tabFile = document.getElementById('tabFile');
+    if (tab === 'url') {
+        urlSection.style.display = 'block';
+        fileSection.style.display = 'none';
+        tabUrl.style.background = 'var(--gold)';
+        tabUrl.style.color = '#000';
+        tabFile.style.background = 'transparent';
+        tabFile.style.color = 'var(--gold)';
+    } else {
+        urlSection.style.display = 'none';
+        fileSection.style.display = 'block';
+        tabFile.style.background = 'var(--gold)';
+        tabFile.style.color = '#000';
+        tabUrl.style.background = 'transparent';
+        tabUrl.style.color = 'var(--gold)';
+    }
+}
+
+function previewImage(url) {
+    var img = document.getElementById('imgPreview');
+    if (url) { img.src = url; img.classList.add('show'); }
+    else { img.classList.remove('show'); }
+}
+
+function previewFile(input) {
+    var img = document.getElementById('imgPreview');
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) { img.src = e.target.result; img.classList.add('show'); };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function handleDrop(e) {
+    e.preventDefault();
+    e.currentTarget.style.borderColor = 'rgba(212,175,55,0.4)';
+    var files = e.dataTransfer.files;
+    if (files.length > 0) {
+        document.getElementById('imageFileInput').files = files;
+        previewFile(document.getElementById('imageFileInput'));
+    }
+}
+
+// Auto-generate slug from name
+document.querySelector('input[name="name"]').addEventListener('input', function() {
+    var slugInput = document.querySelector('input[name="slug"]');
+    if (!slugInput.value || slugInput.dataset.autoGenerated) {
+        slugInput.value = this.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        slugInput.dataset.autoGenerated = 'true';
+    }
+});
+document.querySelector('input[name="slug"]').addEventListener('input', function() {
+    this.dataset.autoGenerated = '';
+});
+</script>
+{% endblock %}

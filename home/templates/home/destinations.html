@@ -1,0 +1,1265 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Destinations – Rajan Dadda Tours & Travellers{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+<style>
+    /* ===== SPLIDE HERO SLIDER ===== */
+    .hero-splide {
+        position: relative;
+    }
+
+    .hero-splide .splide__slide {
+        position: relative;
+        height: 75vh;
+        min-height: 460px;
+        overflow: hidden;
+    }
+
+    .hero-splide .slide-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transform: scale(1.08);
+        transition: transform 8s ease;
+    }
+
+    .hero-splide .splide__slide.is-active .slide-bg {
+        transform: scale(1);
+    }
+
+    .hero-splide .slide-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(110deg, rgba(8, 15, 30, 0.88) 0%, rgba(8, 15, 30, 0.45) 55%, transparent 100%);
+    }
+
+    .hero-splide .slide-overlay-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 45%;
+        background: linear-gradient(to top, rgba(8, 15, 30, 0.85) 0%, transparent 100%);
+    }
+
+    .hero-splide .slide-content {
+        position: relative;
+        z-index: 3;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 5%;
+    }
+
+    .hero-splide .slide-inner {
+        max-width: 620px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s;
+    }
+
+    .hero-splide .splide__slide.is-active .slide-inner {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .hero-splide .slide-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .hero-splide .slide-eyebrow::before {
+        content: '';
+        display: block;
+        width: 40px;
+        height: 1px;
+        background: linear-gradient(90deg, #d4a017, transparent);
+    }
+
+    .hero-splide .slide-eyebrow span {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #d4a017;
+    }
+
+    .hero-splide h1 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        font-size: clamp(2rem, 4.5vw, 3.4rem);
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 16px;
+        text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-splide h1 em {
+        font-style: normal;
+        font-family: 'Dancing Script', cursive;
+        color: #d4a017;
+        font-weight: 700;
+    }
+
+    .hero-splide .slide-desc {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 1rem;
+        line-height: 1.8;
+        margin-bottom: 28px;
+        max-width: 500px;
+    }
+
+    .hero-splide .slide-cta-wrap {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .hero-splide .btn-hero-gold {
+        background: linear-gradient(135deg, #d4a017, #b8880f);
+        color: #fff;
+        padding: 13px 32px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: .9rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 8px 28px rgba(212, 160, 23, 0.35);
+        transition: all .3s;
+    }
+
+    .hero-splide .btn-hero-gold:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 36px rgba(212, 160, 23, 0.5);
+        color: #fff;
+    }
+
+    .hero-splide .btn-hero-outline {
+        background: transparent;
+        color: rgba(255, 255, 255, 0.85);
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: .88rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        transition: all .3s;
+    }
+
+    .hero-splide .btn-hero-outline:hover {
+        border-color: #d4a017;
+        color: #d4a017;
+    }
+
+    .hero-splide .slide-breadcrumb {
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .hero-splide .slide-breadcrumb a,
+    .hero-splide .slide-breadcrumb span {
+        font-size: .8rem;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+    }
+
+    .hero-splide .slide-breadcrumb a:hover {
+        color: #d4a017;
+    }
+
+    .hero-splide .slide-breadcrumb .sep {
+        color: #d4a017;
+    }
+
+    .hero-splide .slide-breadcrumb .cur {
+        color: #d4a017;
+        font-weight: 600;
+    }
+
+    .hero-splide .splide__arrow {
+        width: 52px;
+        height: 52px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        opacity: 1;
+        transition: all .3s;
+    }
+
+    .hero-splide .splide__arrow:hover {
+        background: #d4a017;
+        border-color: #d4a017;
+    }
+
+    .hero-splide .splide__arrow svg {
+        fill: #fff;
+        width: 18px;
+        height: 18px;
+    }
+
+    .hero-splide .splide__arrow--prev {
+        left: 24px;
+    }
+
+    .hero-splide .splide__arrow--next {
+        right: 24px;
+    }
+
+    .hero-splide .splide__pagination {
+        bottom: 22px;
+        gap: 8px;
+    }
+
+    .hero-splide .splide__pagination__page {
+        width: 28px;
+        height: 4px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.35);
+        opacity: 1;
+        margin: 0;
+        transition: all .3s;
+    }
+
+    .hero-splide .splide__pagination__page.is-active {
+        background: #d4a017;
+        width: 52px;
+        transform: none;
+    }
+
+    .hero-progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #d4a017, #f0c040);
+        z-index: 10;
+        transition: width linear;
+        border-radius: 0 2px 0 0;
+    }
+
+    .hero-counter {
+        position: absolute;
+        top: 28px;
+        right: 28px;
+        z-index: 10;
+        font-size: .8rem;
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 600;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .hero-counter .cur-num {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #d4a017;
+        line-height: 1;
+    }
+
+    @media (max-width: 768px) {
+        .hero-splide .splide__slide {
+            height: 70vh;
+            min-height: 400px;
+        }
+
+        .hero-splide .splide__arrow {
+            width: 40px;
+            height: 40px;
+        }
+
+        .hero-splide .splide__arrow--prev {
+            left: 10px;
+        }
+
+        .hero-splide .splide__arrow--next {
+            right: 10px;
+        }
+
+        .hero-counter {
+            display: none;
+        }
+
+        .dest-card {
+            height: 220px;
+        }
+
+        .dest-card-lg {
+            height: 260px;
+        }
+
+        .route-table-wrap {
+            overflow-x: auto;
+        }
+    }
+
+    /* ===== FILTER TABS ===== */
+    .filter-section {
+        background: #fff;
+        border-bottom: 1px solid #e9ecef;
+        padding: 24px 0;
+        position: sticky;
+        top: 70px;
+        z-index: 100;
+    }
+
+    .filter-tabs {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .filter-tab {
+        padding: 9px 22px;
+        border-radius: 50px;
+        border: 2px solid #e9ecef;
+        background: transparent;
+        color: #546e7a;
+        font-size: .85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .25s;
+        text-decoration: none;
+    }
+
+    .filter-tab:hover,
+    .filter-tab.active {
+        background: #d4a017;
+        border-color: #d4a017;
+        color: #fff;
+    }
+
+    .filter-label {
+        font-size: .85rem;
+        font-weight: 700;
+        color: #0d1b2a;
+        margin-right: 6px;
+    }
+
+    /* ===== POPULAR DESTINATIONS ===== */
+    .destinations-section {
+        padding: 70px 0;
+        background: #f8f9fa;
+    }
+
+    .section-eyebrow {
+        font-family: 'Dancing Script', cursive;
+        color: #d4a017;
+        font-size: 1.5rem;
+        display: block;
+        text-align: center;
+        margin-bottom: 4px;
+    }
+
+    .section-title {
+        font-weight: 800;
+        font-size: 2rem;
+        color: #0d1b2a;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+
+    .section-divider {
+        text-align: center;
+        margin-bottom: 48px;
+        color: #d4a017;
+        font-size: 1.2rem;
+    }
+
+    /* Destination Card */
+    .dest-card {
+        border-radius: 18px;
+        overflow: hidden;
+        position: relative;
+        height: 280px;
+        cursor: pointer;
+        display: block;
+        text-decoration: none;
+    }
+
+    .dest-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .5s ease;
+    }
+
+    .dest-card:hover img {
+        transform: scale(1.08);
+    }
+
+    .dest-card-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, .75) 0%, rgba(0, 0, 0, .1) 60%, transparent 100%);
+        transition: background .3s;
+    }
+
+    .dest-card:hover .dest-card-overlay {
+        background: linear-gradient(to top, rgba(13, 27, 42, .85) 0%, rgba(0, 0, 0, .2) 60%, transparent 100%);
+    }
+
+    .dest-card-body {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+    }
+
+    .dest-badge {
+        display: inline-block;
+        background: #d4a017;
+        color: #fff;
+        font-size: .7rem;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 50px;
+        margin-bottom: 8px;
+        letter-spacing: .5px;
+        text-transform: uppercase;
+    }
+
+    .dest-card-body h4 {
+        color: #fff;
+        font-weight: 800;
+        font-size: 1.15rem;
+        margin-bottom: 4px;
+    }
+
+    .dest-card-body .dest-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .dest-km {
+        font-size: .78rem;
+        color: #cfd8dc;
+    }
+
+    .dest-km i {
+        color: #d4a017;
+        margin-right: 4px;
+    }
+
+    .dest-price {
+        font-size: .82rem;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .dest-price span {
+        color: #d4a017;
+    }
+
+    /* Large Featured Card */
+    .dest-card-lg {
+        height: 380px;
+    }
+
+    .dest-card-lg .dest-card-body h4 {
+        font-size: 1.5rem;
+    }
+
+    /* ===== TRIP TYPES ===== */
+    .trip-types {
+        padding: 70px 0;
+        background: #fff;
+    }
+
+    .trip-card {
+        text-align: center;
+        padding: 32px 20px;
+        border-radius: 18px;
+        border: 1px solid #e9ecef;
+        height: 100%;
+        transition: all .3s;
+        cursor: pointer;
+    }
+
+    .trip-card:hover {
+        border-color: #d4a017;
+        box-shadow: 0 8px 32px rgba(212, 160, 23, .12);
+        transform: translateY(-4px);
+    }
+
+    .trip-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #fff8e1, #fff3cd);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 18px;
+        font-size: 1.8rem;
+        color: #d4a017;
+        transition: all .3s;
+    }
+
+    .trip-card:hover .trip-icon {
+        background: linear-gradient(135deg, #d4a017, #b8880f);
+        color: #fff;
+    }
+
+    .trip-card h6 {
+        font-weight: 700;
+        color: #0d1b2a;
+        margin-bottom: 8px;
+        font-size: 1rem;
+    }
+
+    .trip-card p {
+        font-size: .85rem;
+        color: #78909c;
+        margin: 0;
+    }
+
+    /* ===== ROUTES TABLE ===== */
+    .routes-section {
+        padding: 70px 0;
+        background: #f8f9fa;
+    }
+
+    .route-table-wrap {
+        background: #fff;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, .06);
+    }
+
+    .route-table {
+        width: 100%;
+        margin: 0;
+    }
+
+    .route-table thead th {
+        background: #0d1b2a;
+        color: #fff;
+        font-size: .82rem;
+        font-weight: 700;
+        padding: 16px 20px;
+        letter-spacing: .5px;
+        text-transform: uppercase;
+        border: none;
+    }
+
+    .route-table tbody tr {
+        border-bottom: 1px solid #f0f0f0;
+        transition: background .2s;
+    }
+
+    .route-table tbody tr:last-child {
+        border-bottom: none;
+    }
+
+    .route-table tbody tr:hover {
+        background: #fffbf0;
+    }
+
+    .route-table tbody td {
+        padding: 16px 20px;
+        font-size: .88rem;
+        color: #37474f;
+        vertical-align: middle;
+        border: none;
+    }
+
+    .route-from-to {
+        font-weight: 700;
+        color: #0d1b2a;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .route-arrow {
+        color: #d4a017;
+        font-size: .8rem;
+    }
+
+    .route-badge {
+        display: inline-block;
+        font-size: .7rem;
+        font-weight: 700;
+        padding: 2px 10px;
+        border-radius: 50px;
+        background: #e8f5e9;
+        color: #2e7d32;
+    }
+
+    .route-badge.pilgrimage {
+        background: #fff3e0;
+        color: #e65100;
+    }
+
+    .route-badge.hill {
+        background: #e3f2fd;
+        color: #1565c0;
+    }
+
+    .route-price-col {
+        font-weight: 700;
+        color: #d4a017;
+    }
+
+    .btn-book-sm {
+        background: #d4a017;
+        color: #fff;
+        border: none;
+        padding: 8px 18px;
+        border-radius: 50px;
+        font-size: .78rem;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all .3s;
+        white-space: nowrap;
+    }
+
+    .btn-book-sm:hover {
+        background: #b8880f;
+        color: #fff;
+    }
+
+    /* ===== INCLUSIONS ===== */
+    .inclusions-section {
+        padding: 70px 0;
+        background: linear-gradient(135deg, #0d1b2a, #1a2e45);
+    }
+
+    .incl-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, .08);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, .04);
+        height: 100%;
+        transition: all .3s;
+    }
+
+    .incl-card:hover {
+        background: rgba(212, 160, 23, .08);
+        border-color: rgba(212, 160, 23, .3);
+    }
+
+    .incl-icon {
+        width: 48px;
+        height: 48px;
+        background: rgba(212, 160, 23, .15);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        color: #d4a017;
+        flex-shrink: 0;
+    }
+
+    .incl-card h6 {
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 4px;
+        font-size: .9rem;
+    }
+
+    .incl-card p {
+        font-size: .8rem;
+        color: #90a4ae;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    /* ===== CTA ===== */
+    .cta-section {
+        background: #fff;
+        padding: 60px 0;
+        border-top: 1px solid #e9ecef;
+    }
+
+    .btn-gold {
+        background: #d4a017;
+        color: #fff;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: .95rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all .3s;
+    }
+
+    .btn-gold:hover {
+        background: #b8880f;
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    .btn-wa {
+        background: #25d366;
+        color: #fff;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: .95rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all .3s;
+    }
+
+    .btn-wa:hover {
+        background: #1da851;
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+        .page-hero h1 {
+            font-size: 1.8rem;
+        }
+
+        .page-hero .hero-vehicle {
+            display: none;
+        }
+
+        .dest-card {
+            height: 220px;
+        }
+
+        .dest-card-lg {
+            height: 260px;
+        }
+
+        .route-table-wrap {
+            overflow-x: auto;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+<!-- PREMIUM SPLIDE HERO SLIDER -->
+<section class="hero-splide position-relative">
+    <div id="destHeroSplide" class="splide">
+        <div class="splide__track">
+            <ul class="splide__list">
+                <!-- Slide 1: Mountains -->
+                <li class="splide__slide">
+                    {% static 'img/slider1.png' as slider1_url %}
+                    <div class="slide-bg" style="background-image:url('{{slider1_url}}');"></div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>Destinations</span></div>
+                            <h1>Explore <em>Beautiful</em><br>Destinations</h1>
+                            <p class="slide-desc">From mighty Himalayan peaks to sacred pilgrimage sites — we take you
+                                everywhere in luxury and comfort.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="{% url 'contact' %}" class="btn-hero-gold">Book Trip <i
+                                        class="fas fa-arrow-right"></i></a>
+                                <a href="{% url 'fleet' %}" class="btn-hero-outline">Our Fleet <i
+                                        class="fas fa-bus"></i></a>
+                            </div>
+                            <div class="slide-breadcrumb">
+                                <a href="{% url 'home' %}">Home</a><span class="sep">›</span><span
+                                    class="cur">Destinations</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- Slide 2: Temple -->
+                <li class="splide__slide">
+                    {% static 'img/slider2.png' as slider2_url %}
+                    <div class="slide-bg" style="background-image:url('{{slider2_url}}');"></div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>Pilgrimage Tours</span></div>
+                            <h1>Sacred <em>Pilgrimages</em><br>Await You</h1>
+                            <p class="slide-desc">Visit Varanasi, Ayodhya, Haridwar, Rishikesh, Mathura &amp; Vrindavan
+                                in our comfortable tempo travellers.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="{% url 'contact' %}" class="btn-hero-gold">Book Now <i
+                                        class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- Slide 3: Hill Station -->
+                <li class="splide__slide">
+                    {% static 'img/slider3.png' as slider3_url %}
+                    <div class="slide-bg" style="background-image:url('{{slider3_url}}');"></div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>Hill Stations</span></div>
+                            <h1>Nainital, Manali<br><em>&amp; Beyond</em></h1>
+                            <p class="slide-desc">Escape to the cool hills — Nainital, Mussoorie, Shimla, Manali and
+                                Rishikesh are just a comfortable ride away.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="{% url 'contact' %}" class="btn-hero-gold">Plan Trip <i
+                                        class="fas fa-map-marked-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- Slide 4: Heritage -->
+                <li class="splide__slide">
+                    {% static 'img/hero.png' as hero_url %}
+                    <div class="slide-bg" style="background-image:url('{{hero_url}}');"></div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>Historical Tours</span></div>
+                            <h1>Agra, Delhi<br><em>&amp; History</em></h1>
+                            <p class="slide-desc">Explore the Taj Mahal, Red Fort, and the grand historical monuments of
+                                Agra, Delhi and Prayagraj with ease.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="{% url 'contact' %}" class="btn-hero-gold">Get Quote <i
+                                        class="fas fa-arrow-right"></i></a>
+                                <a href="tel:+919415425603" class="btn-hero-outline"><i class="fas fa-phone-alt"></i>
+                                    Call Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="hero-counter"><span class="cur-num" id="destCurNum">1</span><span>/ 4</span></div>
+    <div class="hero-progress-bar" id="destProgressBar" style="width:0%"></div>
+</section>
+
+<!-- FILTER TABS -->
+<section class="filter-section">
+    <div class="container-fluid px-4">
+        <div class="filter-tabs">
+            <span class="filter-label">Filter :</span>
+            <a href="#" class="filter-tab active" data-filter="all">All</a>
+            <a href="#" class="filter-tab" data-filter="hill">Hill Stations</a>
+            <a href="#" class="filter-tab" data-filter="pilgrimage">Pilgrimage</a>
+            <a href="#" class="filter-tab" data-filter="historical">Historical</a>
+            <a href="#" class="filter-tab" data-filter="wildlife">Wildlife</a>
+            <a href="#" class="filter-tab" data-filter="religious">Religious</a>
+        </div>
+    </div>
+</section>
+
+<!-- DESTINATIONS GRID -->
+<section class="destinations-section">
+    <div class="container-fluid px-4">
+        <span class="section-eyebrow">Popular Destinations</span>
+        <h2 class="section-title">Top Places We Cover</h2>
+        <div class="section-divider"><i class="fas fa-crown"></i></div>
+
+        <div class="row g-4" id="destinationsGrid">
+            {% for dest in destinations %}
+            <div class="col-md-6 col-lg-4 dest-item" data-category="{{ dest.category|lower }}">
+                <a href="{% url 'contact' %}" class="dest-card" style="height: 300px;">
+                    <img src="{% if dest.get_image %}{{ dest.get_image }}{% else %}{% static 'img/manali.avif' %}{% endif %}" alt="{{ dest.name }}">
+                    <div class="dest-card-overlay"></div>
+                    <div class="dest-card-body">
+                        <span class="dest-badge" {% if dest.category|lower == 'pilgrimage' or dest.category|lower == 'religious' %}style="background:#e65100;"{% elif dest.category|lower == 'historical' %}style="background:#1565c0;"{% elif dest.category|lower == 'wildlife' %}style="background:#2e7d32;"{% endif %}>{{ dest.category|title }}</span>
+                        <h4>{{ dest.name }}</h4>
+                        <div class="dest-meta">
+                            <span class="dest-km"><i class="fas fa-road"></i> {{ dest.distance }}</span>
+                            <span class="dest-price"><span>{{ dest.starting_price|safe }}</span></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <p>No destinations available right now.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- TRIP TYPES -->
+<section class="trip-types">
+    <div class="container-fluid px-4">
+        <span class="section-eyebrow">Trip Types</span>
+        <h2 class="section-title">We Cover All Kind of Trips</h2>
+        <div class="section-divider"><i class="fas fa-crown"></i></div>
+        <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="trip-card">
+                    <div class="trip-icon"><i class="fas fa-users"></i></div>
+                    <h6>Family Trips</h6>
+                    <p>Comfortable group travel for families big and small</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="trip-card">
+                    <div class="trip-icon"><i class="fas fa-briefcase"></i></div>
+                    <h6>Corporate Tours</h6>
+                    <p>Professional transport for office outings & events</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="trip-card">
+                    <div class="trip-icon"><i class="fas fa-pray"></i></div>
+                    <h6>Pilgrimage</h6>
+                    <p>Peaceful and comfortable religious journeys</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="trip-card">
+                    <div class="trip-icon"><i class="fas fa-ring"></i></div>
+                    <h6>Wedding Travel</h6>
+                    <p>Luxury transport for baraat & wedding guests</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="trip-card">
+                    <div class="trip-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h6>School / College Trips</h6>
+                    <p>Safe & supervised student excursions</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="trip-card">
+                    <div class="trip-icon"><i class="fas fa-plane-arrival"></i></div>
+                    <h6>Airport Transfers</h6>
+                    <p>On-time pick & drop from all major airports</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- POPULAR ROUTES TABLE -->
+<section class="routes-section">
+    <div class="container-fluid px-4">
+        <span class="section-eyebrow">Our Routes</span>
+        <h2 class="section-title">Popular Routes & Approximate Fares</h2>
+        <div class="section-divider"><i class="fas fa-crown"></i></div>
+        <div class="route-table-wrap">
+            <table class="route-table">
+                <thead>
+                    <tr>
+                        <th>Destination</th>
+                        <th>Days of Journey</th>
+                        <th>12 Seater</th>
+                        <th>14 Seater</th>
+                        <th>20 Seater</th>
+                        <th>Book</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="route-from-to">Lucknow <span class="route-arrow">→</span> Ayodhya</div>
+                        </td>
+                        <td>1 Day</td>
+                        <td class="route-price-col">₹11,700</td>
+                        <td class="route-price-col">₹12,500</td>
+                        <td class="route-price-col">₹14,400</td>
+                        <td><a href="{% url 'contact' %}" class="btn-book-sm"><i class="fas fa-phone-alt"></i> Book</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="route-from-to">Lucknow <span class="route-arrow">→</span> Banaras</div>
+                        </td>
+                        <td>2 Days</td>
+                        <td class="route-price-col">₹22,400</td>
+                        <td class="route-price-col">₹23,900</td>
+                        <td class="route-price-col">₹27,700</td>
+                        <td><a href="{% url 'contact' %}" class="btn-book-sm"><i class="fas fa-phone-alt"></i> Book</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="route-from-to">Lucknow <span class="route-arrow">→</span> Prayagraj</div>
+                        </td>
+                        <td>1 Day</td>
+                        <td class="route-price-col">₹15,500</td>
+                        <td class="route-price-col">₹16,500</td>
+                        <td class="route-price-col">₹19,000</td>
+                        <td><a href="{% url 'contact' %}" class="btn-book-sm"><i class="fas fa-phone-alt"></i> Book</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="route-from-to">Lucknow <span class="route-arrow">→</span> Neemsar</div>
+                        </td>
+                        <td>1 Day</td>
+                        <td class="route-price-col">₹7,500</td>
+                        <td class="route-price-col">₹8,000</td>
+                        <td class="route-price-col">₹9,300</td>
+                        <td><a href="{% url 'contact' %}" class="btn-book-sm"><i class="fas fa-phone-alt"></i> Book</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="route-from-to">Lucknow <span class="route-arrow">→</span> Nainital</div>
+                        </td>
+                        <td>3 Days</td>
+                        <td class="route-price-col">₹34,500</td>
+                        <td class="route-price-col">₹36,500</td>
+                        <td class="route-price-col">₹42,000</td>
+                        <td><a href="{% url 'contact' %}" class="btn-book-sm"><i class="fas fa-phone-alt"></i> Book</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="route-from-to">Lucknow <span class="route-arrow">→</span> Haridwar, Rishikesh</div>
+                        </td>
+                        <td>4 Days</td>
+                        <td class="route-price-col">₹45,900</td>
+                        <td class="route-price-col">₹49,000</td>
+                        <td class="route-price-col">₹55,500</td>
+                        <td><a href="{% url 'contact' %}" class="btn-book-sm"><i class="fas fa-phone-alt"></i> Book</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="route-from-to">Lucknow <span class="route-arrow">→</span> Agra</div>
+                        </td>
+                        <td>2 Days</td>
+                        <td class="route-price-col">₹24,700</td>
+                        <td class="route-price-col">₹26,200</td>
+                        <td class="route-price-col">₹30,000</td>
+                        <td><a href="{% url 'contact' %}" class="btn-book-sm"><i class="fas fa-phone-alt"></i> Book</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="route-from-to">Lucknow <span class="route-arrow">→</span> Vrindavan, Mathura</div>
+                        </td>
+                        <td>3 Days</td>
+                        <td class="route-price-col">₹33,300</td>
+                        <td class="route-price-col">₹35,300</td>
+                        <td class="route-price-col">₹40,300</td>
+                        <td><a href="{% url 'contact' %}" class="btn-book-sm"><i class="fas fa-phone-alt"></i> Book</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="route-from-to">4 Dham Yatra</div>
+                        </td>
+                        <td>11 Days</td>
+                        <td class="route-price-col">₹1,40,000</td>
+                        <td class="route-price-col">₹1,50,000</td>
+                        <td class="route-price-col">₹1,60,000</td>
+                        <td><a href="{% url 'contact' %}" class="btn-book-sm"><i class="fas fa-phone-alt"></i> Book</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="route-from-to">2 Dham Yatra</div>
+                        </td>
+                        <td>7 Days</td>
+                        <td class="route-price-col">₹1,00,000</td>
+                        <td class="route-price-col">₹1,10,000</td>
+                        <td class="route-price-col">₹1,20,000</td>
+                        <td><a href="{% url 'contact' %}" class="btn-book-sm"><i class="fas fa-phone-alt"></i> Book</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="route-from-to">Lucknow <span class="route-arrow">→</span> Ujjain, Omkareshwar</div>
+                        </td>
+                        <td>6 Days</td>
+                        <td class="route-price-col">₹68,900</td>
+                        <td class="route-price-col">₹70,900</td>
+                        <td class="route-price-col">₹80,400</td>
+                        <td><a href="{% url 'contact' %}" class="btn-book-sm"><i class="fas fa-phone-alt"></i> Book</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="text-align:center;font-size:.82rem;color:#78909c;margin-top:16px;">
+            <i class="fas fa-info-circle" style="color:#d4a017;"></i>
+            Fares are indicative and may vary based on vehicle type, dates, and route. <a href="{% url 'contact' %}"
+                style="color:#d4a017;font-weight:600;">Contact us</a> for exact quote.
+        </p>
+    </div>
+</section>
+
+<!-- INCLUSIONS -->
+<section class="inclusions-section">
+    <div class="container-fluid px-4">
+        <span class="section-eyebrow" style="text-align:center;display:block;">What's Included</span>
+        <h2 class="section-title" style="color:#fff;margin-bottom:8px;">Every Trip Includes</h2>
+        <div class="section-divider"><i class="fas fa-crown"></i></div>
+        <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="incl-card">
+                    <div class="incl-icon"><i class="fas fa-user-tie"></i></div>
+                    <div>
+                        <h6>Professional Driver</h6>
+                        <p>Experienced, verified & courteous driver</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="incl-card">
+                    <div class="incl-icon"><i class="fas fa-gas-pump"></i></div>
+                    <div>
+                        <h6>Fuel Included</h6>
+                        <p>All fuel charges included in fare</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="incl-card">
+                    <div class="incl-icon"><i class="fas fa-snowflake"></i></div>
+                    <div>
+                        <h6>AC / Heater</h6>
+                        <p>Climate-controlled cabin all season</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="incl-card">
+                    <div class="incl-icon"><i class="fas fa-music"></i></div>
+                    <div>
+                        <h6>Music System</h6>
+                        <p>Premium sound for entertainment</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="incl-card">
+                    <div class="incl-icon"><i class="fas fa-suitcase"></i></div>
+                    <div>
+                        <h6>Luggage Space</h6>
+                        <p>Ample boot space for all luggage</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="incl-card">
+                    <div class="incl-icon"><i class="fas fa-headset"></i></div>
+                    <div>
+                        <h6>24/7 Support</h6>
+                        <p>We're always reachable on call</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container-fluid px-4">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-4">
+            <div class="d-flex align-items-center gap-4">
+                <div
+                    style="width:70px;height:70px;background:linear-gradient(135deg,#0d1b2a,#1a2e45);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:#d4a017;flex-shrink:0;">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <div>
+                    <h4 style="font-weight:800;color:#0d1b2a;font-size:1.4rem;margin-bottom:4px;">Plan Your Trip Today!
+                    </h4>
+                    <p style="color:#546e7a;margin:0;">Call us for a free quote or WhatsApp your destination and travel
+                        dates.</p>
+                </div>
+            </div>
+            <div class="d-flex gap-3 flex-wrap">
+                <a href="tel:+919415425603" class="btn-gold"><i class="fas fa-phone-alt"></i> Call Now: +91
+                    9415425603</a>
+                <a href="https://wa.me/919415425603" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Chat
+                    on WhatsApp</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Hero Slider
+        var splide = new Splide('#destHeroSplide', {
+            type: 'fade', rewind: true, autoplay: true, interval: 5000,
+            pauseOnHover: true, speed: 1000, arrows: true, pagination: true, cover: false,
+        });
+        var interval = 5000;
+        var progressBar = document.getElementById('destProgressBar');
+        var curNum = document.getElementById('destCurNum');
+        var startTime, animFrame;
+        function animateProgress() {
+            var pct = Math.min(((performance.now() - startTime) / interval) * 100, 100);
+            if (progressBar) progressBar.style.width = pct + '%';
+            if (pct < 100) animFrame = requestAnimationFrame(animateProgress);
+        }
+        splide.on('mounted move', function () {
+            cancelAnimationFrame(animFrame);
+            if (progressBar) progressBar.style.width = '0%';
+            startTime = performance.now();
+            animFrame = requestAnimationFrame(animateProgress);
+            if (curNum) curNum.textContent = (splide.index + 1);
+        });
+        splide.mount();
+
+        // Filter Logic
+        var filterTabs = document.querySelectorAll('.filter-tab');
+        var destItems = document.querySelectorAll('.dest-item');
+
+        filterTabs.forEach(function (tab) {
+            tab.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Active state
+                filterTabs.forEach(function (t) { t.classList.remove('active'); });
+                this.classList.add('active');
+
+                var filter = this.getAttribute('data-filter');
+
+                destItems.forEach(function (item) {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,778 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}20 Seater Maharaja Tempo Traveller – Rajan Dadda Tours{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+<style>
+    .hero-splide {
+        position: relative;
+    }
+
+    .hero-splide .splide__slide {
+        position: relative;
+        height: 65vh;
+        min-height: 420px;
+        overflow: hidden;
+    }
+
+    .hero-splide .slide-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transform: scale(1.08);
+        transition: transform 8s ease;
+    }
+
+    .hero-splide .splide__slide.is-active .slide-bg {
+        transform: scale(1);
+    }
+
+    .hero-splide .slide-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(110deg, rgba(8, 15, 30, 0.90) 0%, rgba(8, 15, 30, 0.50) 55%, transparent 100%);
+    }
+
+    .hero-splide .slide-overlay-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 45%;
+        background: linear-gradient(to top, rgba(8, 15, 30, 0.85) 0%, transparent 100%);
+    }
+
+    .hero-splide .slide-content {
+        position: relative;
+        z-index: 3;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 5%;
+    }
+
+    .hero-splide .slide-inner {
+        max-width: 620px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s;
+    }
+
+    .hero-splide .splide__slide.is-active .slide-inner {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .hero-splide .slide-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .hero-splide .slide-eyebrow::before {
+        content: '';
+        display: block;
+        width: 40px;
+        height: 1px;
+        background: linear-gradient(90deg, #d4a017, transparent);
+    }
+
+    .hero-splide .slide-eyebrow span {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #d4a017;
+    }
+
+    .hero-splide h1 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 16px;
+        text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-splide h1 em {
+        font-style: normal;
+        font-family: 'Dancing Script', cursive;
+        color: #d4a017;
+        font-weight: 700;
+    }
+
+    .hero-splide .slide-desc {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 1rem;
+        line-height: 1.8;
+        margin-bottom: 28px;
+        max-width: 500px;
+    }
+
+    .hero-splide .slide-cta-wrap {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .hero-splide .slide-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 24px;
+    }
+
+    .hero-splide .slide-chip {
+        background: rgba(212, 160, 23, 0.2);
+        border: 1px solid rgba(212, 160, 23, 0.4);
+        color: #d4a017;
+        padding: 5px 14px;
+        border-radius: 50px;
+        font-size: .78rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .hero-splide .btn-hero-gold {
+        background: linear-gradient(135deg, #d4a017, #b8880f);
+        color: #fff;
+        padding: 13px 32px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: .9rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 8px 28px rgba(212, 160, 23, 0.35);
+        transition: all .3s;
+    }
+
+    .hero-splide .btn-hero-gold:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 36px rgba(212, 160, 23, 0.5);
+        color: #fff;
+    }
+
+    .hero-splide .btn-hero-outline {
+        background: transparent;
+        color: rgba(255, 255, 255, 0.85);
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: .88rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        transition: all .3s;
+    }
+
+    .hero-splide .btn-hero-outline:hover {
+        border-color: #d4a017;
+        color: #d4a017;
+    }
+
+    .hero-splide .slide-breadcrumb {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .hero-splide .slide-breadcrumb a,
+    .hero-splide .slide-breadcrumb span {
+        font-size: .8rem;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+    }
+
+    .hero-splide .slide-breadcrumb a:hover {
+        color: #d4a017;
+    }
+
+    .hero-splide .slide-breadcrumb .sep {
+        color: #d4a017;
+    }
+
+    .hero-splide .slide-breadcrumb .cur {
+        color: #d4a017;
+        font-weight: 600;
+    }
+
+    .hero-splide .splide__arrow {
+        width: 48px;
+        height: 48px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        opacity: 1;
+        transition: all .3s;
+    }
+
+    .hero-splide .splide__arrow:hover {
+        background: #d4a017;
+        border-color: #d4a017;
+    }
+
+    .hero-splide .splide__arrow svg {
+        fill: #fff;
+        width: 16px;
+        height: 16px;
+    }
+
+    .hero-splide .splide__arrow--prev {
+        left: 20px;
+    }
+
+    .hero-splide .splide__arrow--next {
+        right: 20px;
+    }
+
+    .hero-splide .splide__pagination {
+        bottom: 20px;
+        gap: 8px;
+    }
+
+    .hero-splide .splide__pagination__page {
+        width: 28px;
+        height: 4px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.35);
+        opacity: 1;
+        margin: 0;
+        transition: all .3s;
+    }
+
+    .hero-splide .splide__pagination__page.is-active {
+        background: #d4a017;
+        width: 52px;
+        transform: none;
+    }
+
+    .hero-progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #d4a017, #f0c040);
+        z-index: 10;
+        transition: width linear;
+        border-radius: 0 2px 0 0;
+    }
+
+    @media (max-width: 768px) {
+        .hero-splide .splide__slide {
+            height: 60vh;
+            min-height: 380px;
+        }
+
+        .hero-splide .splide__arrow {
+            width: 38px;
+            height: 38px;
+        }
+
+        .hero-splide .splide__arrow--prev {
+            left: 8px;
+        }
+
+        .hero-splide .splide__arrow--next {
+            right: 8px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- PREMIUM SPLIDE HERO SLIDER -->
+<section class="hero-splide position-relative">
+    <div id="fleetDetailHeroSplide" class="splide">
+        <div class="splide__track">
+            <ul class="splide__list">
+                <!-- Slide 1 -->
+                <li class="splide__slide">
+                    {% static 'img/slider1.png' as slider1_url %}
+                    <div class="slide-bg" style="background-image:url('{{slider1_url}}');">
+                    </div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>Maharaja Class</span></div>
+                            <h1>20 Seater<br><em>Maharaja Tempo</em></h1>
+                            <div class="slide-chips">
+                                <span class="slide-chip"><i class="fas fa-user"></i> 20 Seats</span>
+                                <span class="slide-chip"><i class="fas fa-snowflake"></i> AC</span>
+                                <span class="slide-chip"><i class="fas fa-music"></i> Music System</span>
+                                <span class="slide-chip"><i class="fas fa-suitcase-rolling"></i> Luggage Space</span>
+                            </div>
+                            <p class="slide-desc">Experience unmatched luxury in our 20 Seater Maharaja Tempo Traveller
+                                — perfect for large families, corporate groups and long journeys.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="{% url 'contact' %}" class="btn-hero-gold">Enquire Now <i
+                                        class="fas fa-arrow-right"></i></a>
+                                <a href="tel:+919415425603" class="btn-hero-outline"><i class="fas fa-phone-alt"></i>
+                                    Call Now</a>
+                            </div>
+                            <div class="slide-breadcrumb">
+                                <a href="{% url 'home' %}">Home</a><span class="sep">›</span>
+                                <a href="{% url 'fleet' %}">Fleet</a><span class="sep">›</span>
+                                <span class="cur">20 Seater Maharaja</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- Slide 2 -->
+                <li class="splide__slide">
+                    {% static 'img/slider2.png' as slider2_url %}
+                    <div class="slide-bg" style="background-image:url('{{slider2_url}}');">
+                    </div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>Luxury Interior</span></div>
+                            <h1>Premium<br><em>Comfort Inside</em></h1>
+                            <p class="slide-desc">Maharaja pushback recliner seats, ambient LED lighting, premium sound
+                                system and powerful AC keep you refreshed throughout the journey.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="{% url 'contact' %}" class="btn-hero-gold">Book Now <i
+                                        class="fas fa-arrow-right"></i></a>
+                                <a href="https://wa.me/919415425603" class="btn-hero-outline"><i
+                                        class="fab fa-whatsapp"></i> WhatsApp</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- Slide 3 -->
+                <li class="splide__slide">
+                    {% static 'img/slider3.png' as slider3_url %}
+                    <div class="slide-bg" style="background-image:url('{{slider3_url}}');">
+                    </div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>Long Distance Trips</span></div>
+                            <h1>Reach Any<br><em>Destination</em></h1>
+                            <p class="slide-desc">From Lucknow to Manali, Nainital, Varanasi, Haridwar and beyond —
+                                starting at just &#8377;36/km with experienced professional drivers.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="{% url 'contact' %}" class="btn-hero-gold">Get Quote <i
+                                        class="fas fa-arrow-right"></i></a>
+                                <a href="{% url 'destinations' %}" class="btn-hero-outline">View Routes <i
+                                        class="fas fa-map-marked-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="hero-progress-bar" id="fleetDetailProgressBar" style="width:0%"></div>
+</section>
+
+<!-- MAIN CONTENT -->
+<section class="section-pad">
+    <div class="container-fluid px-4">
+        <div class="row g-4">
+
+            <!-- LEFT: Images + Details -->
+            <div class="col-lg-8">
+
+                <!-- Main Image + Thumbnails -->
+                <div class="vehicle-gallery mb-4">
+                    <div id="vehicleCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" style="border-radius:14px; overflow:hidden;">
+                            <div class="carousel-item active">
+                                <img src="{% static 'imgs/42th.jpeg' %}" class="d-block w-100" alt="Interior"
+                                    style="height:380px; object-fit:cover;">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'imgs/29th.jpeg' %}" class="d-block w-100" alt="Interior 2"
+                                    style="height:380px; object-fit:cover;">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'imgs/30th.jpeg' %}" class="d-block w-100" alt="Interior 3"
+                                    style="height:380px; object-fit:cover;">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'imgs/14th.png' %}" class="d-block w-100" alt="Interior 4"
+                                    style="height:380px; object-fit:cover;">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'imgs/14thseater.png' %}" class="d-block w-100" alt="Exterior"
+                                    style="height:380px; object-fit:cover;">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#vehicleCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#vehicleCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+
+                    <!-- Thumbnails -->
+                    <div class="d-flex gap-2 mt-2 flex-wrap">
+                        <img src="{% static 'imgs/42th.jpeg' %}"
+                            style="width:80px; height:55px; object-fit:cover; cursor:pointer; border:2px solid var(--gold);"
+                            class="thumb-img img-3d" alt="Thumb 1" data-bs-target="#vehicleCarousel"
+                            data-bs-slide-to="0">
+                        <img src="{% static 'imgs/29th.jpeg' %}"
+                            style="width:80px; height:55px; object-fit:cover; cursor:pointer; border:2px solid transparent;"
+                            class="thumb-img img-3d" alt="Thumb 2" data-bs-target="#vehicleCarousel"
+                            data-bs-slide-to="1">
+                        <img src="{% static 'imgs/30th.jpeg' %}"
+                            style="width:80px; height:55px; object-fit:cover; cursor:pointer; border:2px solid transparent;"
+                            class="thumb-img img-3d" alt="Thumb 3" data-bs-target="#vehicleCarousel"
+                            data-bs-slide-to="2">
+                        <img src="{% static 'imgs/14th.png' %}"
+                            style="width:80px; height:55px; object-fit:cover; cursor:pointer; border:2px solid transparent;"
+                            class="thumb-img img-3d" alt="Thumb 4" data-bs-target="#vehicleCarousel"
+                            data-bs-slide-to="3">
+                        <img src="{% static 'imgs/14thseater.png' %}"
+                            style="width:80px; height:55px; object-fit:cover; cursor:pointer; border:2px solid transparent;"
+                            class="thumb-img img-3d" alt="Thumb 5" data-bs-target="#vehicleCarousel"
+                            data-bs-slide-to="4">
+                    </div>
+                </div>
+
+
+                <!-- About -->
+                <div class="info-card mb-4">
+                    <h4 class="fw-800 mb-2">About 20 Seater Maharaja Tempo Traveller</h4>
+                    <div class="title-underline"></div>
+                    <p class="text-muted" style="font-size:15px; line-height:1.8;">
+                        Travel in unmatched luxury with our 20 Seater Maharaja Tempo Traveller. Perfect for large
+                        families, corporate groups and long distance journeys. Enjoy premium interiors, powerful AC,
+                        music system and ample luggage space for a memorable travel experience.
+                    </p>
+                    <div class="d-flex align-items-center gap-4 mt-4 flex-wrap">
+                        <div>
+                            <p class="text-muted mb-1" style="font-size:12px;">Starting From</p>
+                            <div class="price-tag">₹36<span>/km</span></div>
+                        </div>
+                        <a href="{% url 'contact' %}" class="btn-gold">
+                            Enquire Now <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Features & Amenities -->
+                <div class="info-card mb-4">
+                    <h4 class="fw-800 mb-3">Features & Amenities</h4>
+                    <div class="title-underline"></div>
+                    <div class="row g-3 mt-1">
+                        {% for feat in amenities %}
+                        <div class="col-6 col-md-3">
+                            <div class="text-center p-3" style="background:#f8f9fa; border-radius:10px;">
+                                <i class="{{ feat.icon }} fa-2x mb-2" style="color:var(--gold);"></i>
+                                <p class="mb-0" style="font-size:12px; font-weight:600;">{{ feat.name }}</p>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="col-6 col-md-3">
+                            <div class="text-center p-3" style="background:#f8f9fa; border-radius:10px;">
+                                <i class="fas fa-couch fa-2x mb-2" style="color:var(--gold);"></i>
+                                <p class="mb-0" style="font-size:12px; font-weight:600;">Pushback Seats</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="text-center p-3" style="background:#f8f9fa; border-radius:10px;">
+                                <i class="fas fa-wind fa-2x mb-2" style="color:var(--gold);"></i>
+                                <p class="mb-0" style="font-size:12px; font-weight:600;">Individual AC</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="text-center p-3" style="background:#f8f9fa; border-radius:10px;">
+                                <i class="fas fa-volume-up fa-2x mb-2" style="color:var(--gold);"></i>
+                                <p class="mb-0" style="font-size:12px; font-weight:600;">Premium Sound System</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="text-center p-3" style="background:#f8f9fa; border-radius:10px;">
+                                <i class="fas fa-lightbulb fa-2x mb-2" style="color:var(--gold);"></i>
+                                <p class="mb-0" style="font-size:12px; font-weight:600;">LED Lights</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="text-center p-3" style="background:#f8f9fa; border-radius:10px;">
+                                <i class="fas fa-charging-station fa-2x mb-2" style="color:var(--gold);"></i>
+                                <p class="mb-0" style="font-size:12px; font-weight:600;">Charging Points</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="text-center p-3" style="background:#f8f9fa; border-radius:10px;">
+                                <i class="fas fa-suitcase-rolling fa-2x mb-2" style="color:var(--gold);"></i>
+                                <p class="mb-0" style="font-size:12px; font-weight:600;">Luggage Space</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="text-center p-3" style="background:#f8f9fa; border-radius:10px;">
+                                <i class="fas fa-first-aid fa-2x mb-2" style="color:var(--gold);"></i>
+                                <p class="mb-0" style="font-size:12px; font-weight:600;">First Aid Box</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="text-center p-3" style="background:#f8f9fa; border-radius:10px;">
+                                <i class="fas fa-fire-extinguisher fa-2x mb-2" style="color:var(--gold);"></i>
+                                <p class="mb-0" style="font-size:12px; font-weight:600;">Fire Extinguisher</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Specs + More Interior Views -->
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="info-card h-100">
+                            <h5 class="fw-700 mb-3">Vehicle Specifications</h5>
+                            <table class="spec-table">
+                                <tr>
+                                    <td>Vehicle Type</td>
+                                    <td>Tempo Traveller</td>
+                                </tr>
+                                <tr>
+                                    <td>Seating Capacity</td>
+                                    <td>20 Seats</td>
+                                </tr>
+                                <tr>
+                                    <td>Air Conditioning</td>
+                                    <td>Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Music System</td>
+                                    <td>Premium</td>
+                                </tr>
+                                <tr>
+                                    <td>Luggage Space</td>
+                                    <td>Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Fuel Type</td>
+                                    <td>Diesel</td>
+                                </tr>
+                                <tr>
+                                    <td>Transmission</td>
+                                    <td>Manual</td>
+                                </tr>
+                                <tr>
+                                    <td>Suitable For</td>
+                                    <td>Long Trips, Outstation, Corporate, Family Tours</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-card h-100">
+                            <h5 class="fw-700 mb-3">More Interior Views</h5>
+                            <div class="row g-2">
+                                <div class="col-6"><img src="{% static 'imgs/26th.jpeg'%}" class="gallery-img img-3d"
+                                        alt="Interior" style="height:110px;"></div>
+                                <div class="col-6"><img src="{% static 'imgs/37th.jpeg'%}" class="gallery-img img-3d"
+                                        alt="Interior" style="height:110px;"></div>
+                                <div class="col-6"><img src="{% static 'imgs/35th.jpeg'%}" class="gallery-img img-3d"
+                                        alt="Interior" style="height:110px;"></div>
+                                <div class="col-6"><img src="{% static 'imgs/22th.jpeg'%}" class="gallery-img img-3d"
+                                        alt="Interior" style="height:110px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Booking Sidebar -->
+            <div class="col-lg-4">
+
+                <!-- Book This Vehicle -->
+                <div class="sidebar-box sidebar-sticky">
+                    <h5><i class="fas fa-calendar-check me-2 gold-text"></i>Book This Vehicle</h5>
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label form-label-required"
+                                style="font-size:13px; font-weight:600;">Pickup Location</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Enter pickup location"
+                                    style="border-radius:8px;">
+                                <span class="input-group-text bg-white"><i
+                                        class="fas fa-map-marker-alt gold-text"></i></span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label form-label-required" style="font-size:13px; font-weight:600;">Drop
+                                Location</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Enter drop location"
+                                    style="border-radius:8px;">
+                                <span class="input-group-text bg-white"><i
+                                        class="fas fa-map-marker-alt text-danger"></i></span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label form-label-required"
+                                style="font-size:13px; font-weight:600;">Journey Date</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" style="border-radius:8px;">
+                                <span class="input-group-text bg-white"><i
+                                        class="fas fa-calendar-alt gold-text"></i></span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="font-size:13px; font-weight:600;">Passengers</label>
+                            <select class="form-select" style="border-radius:8px;">
+                                <option>20 Seats</option>
+                            </select>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label form-label-required"
+                                    style="font-size:13px; font-weight:600;">Your Name</label>
+                                <input type="text" class="form-control" placeholder="Enter your name"
+                                    style="border-radius:8px;">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label form-label-required"
+                                    style="font-size:13px; font-weight:600;">Mobile Number</label>
+                                <input type="tel" class="form-control" placeholder="Enter mobile number"
+                                    style="border-radius:8px;">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-gold w-100 justify-content-center py-3"
+                            style="border-radius:10px; font-size:15px;">
+                            Check Availability <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+
+                    <hr class="my-3">
+                    <h6 class="fw-700 mb-2">Need Help? Call Us</h6>
+                    <p class="text-muted" style="font-size:13px; margin-bottom:12px;">Our travel experts are here to
+                        help you 24/7.</p>
+                    <div class="d-flex gap-2">
+                        <a href="tel:+919415425603" class="btn-gold flex-fill justify-content-center"
+                            style="border-radius:8px; font-size:13px; padding:10px;">
+                            <i class="fas fa-phone-alt"></i> +91 9415425603
+                        </a>
+                        <a href="https://wa.me/919415425603" target="_blank"
+                            class="btn-whatsapp flex-fill justify-content-center"
+                            style="border-radius:8px; font-size:13px; padding:10px;">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="section-pad-sm bg-light-gray">
+    <div class="container-fluid px-4">
+        <div class="why-dark">
+            <h4 class="text-white fw-800 text-center mb-4">Why Choose Rajan Dadda Tours & Travellers?</h4>
+            <div class="row g-4">
+                <div class="col-6 col-md-4 col-lg-2 why-item">
+                    <div class="why-item-icon"><i class="fas fa-bus"></i></div>
+                    <h6>Well Maintained Vehicles</h6>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 why-item">
+                    <div class="why-item-icon"><i class="fas fa-user-shield"></i></div>
+                    <h6>Professional Drivers</h6>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 why-item">
+                    <div class="why-item-icon"><i class="fas fa-tag"></i></div>
+                    <h6>Best Price Guarantee</h6>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 why-item">
+                    <div class="why-item-icon"><i class="fas fa-headset"></i></div>
+                    <h6>24/7 Customer Support</h6>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 why-item">
+                    <div class="why-item-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h6>Safe &amp; Secure Journey</h6>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 why-item">
+                    <div class="why-item-icon"><i class="fas fa-percent"></i></div>
+                    <h6>No Hidden Charges</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section-pad-sm">
+    <div class="container-fluid px-4">
+        <div class="cta-strip">
+            <div>
+                <h4 class="text-white fw-800 mb-1">Ready to Book Your Journey?</h4>
+                <p style="font-family:var(--font-script); color:var(--gold); font-size:20px; margin-bottom:4px;">Travel
+                    in Luxury &amp; Comfort</p>
+                <p class="mb-0" style="font-size:13px;">Book your 20 Seater Maharaja Tempo Traveller now and make your
+                    journey memorable.</p>
+            </div>
+            <div>
+                <div class="d-flex flex-column gap-2 mb-4">
+                    <div class="d-flex gap-2 align-items-center text-white" style="font-size:13px;"><i
+                            class="fas fa-bolt gold-text"></i> Instant Booking</div>
+                    <div class="d-flex gap-2 align-items-center text-white" style="font-size:13px;"><i
+                            class="fas fa-tag gold-text"></i> Best Price Guarantee</div>
+                    <div class="d-flex gap-2 align-items-center text-white" style="font-size:13px;"><i
+                            class="fas fa-shield-alt gold-text"></i> Safe &amp; Comfortable Journey</div>
+                </div>
+                <a href="{% url 'contact' %}" class="btn-gold">Book Now <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var splide = new Splide('#fleetDetailHeroSplide', {
+            type: 'fade', rewind: true, autoplay: true, interval: 5000,
+            pauseOnHover: true, speed: 1000, arrows: true, pagination: true, cover: false,
+        });
+        var interval = 5000;
+        var progressBar = document.getElementById('fleetDetailProgressBar');
+        var startTime, animFrame;
+        function animateProgress() {
+            var pct = Math.min(((performance.now() - startTime) / interval) * 100, 100);
+            if (progressBar) progressBar.style.width = pct + '%';
+            if (pct < 100) animFrame = requestAnimationFrame(animateProgress);
+        }
+        splide.on('mounted move', function () {
+            cancelAnimationFrame(animFrame);
+            if (progressBar) progressBar.style.width = '0%';
+            startTime = performance.now();
+            animFrame = requestAnimationFrame(animateProgress);
+        });
+        splide.mount();
+    });
+
+    // Thumbnail click to change carousel slide
+    document.querySelectorAll('.thumb-img').forEach(img => {
+        img.addEventListener('click', function () {
+            document.querySelectorAll('.thumb-img').forEach(t => t.style.borderColor = 'transparent');
+            this.style.borderColor = 'var(--gold)';
+        });
+    });
+</script>
+{% endblock %}

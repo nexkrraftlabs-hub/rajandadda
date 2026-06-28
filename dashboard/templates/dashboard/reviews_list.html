@@ -1,0 +1,75 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Reviews{% endblock %}
+{% block page_title %}Reviews{% endblock %}
+{% block breadcrumb %}Manage Customer Reviews{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
+    <a href="{% url 'review_add' %}" class="btn btn-gold"><i class="fas fa-plus"></i> Add Review</a>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h5><i class="fas fa-star" style="color: var(--gold); margin-right: 8px;"></i> All Reviews ({{ reviews|length }})</h5>
+    </div>
+    <div class="table-wrapper">
+        {% if reviews %}
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Customer</th>
+                    <th>Rating</th>
+                    <th>Review</th>
+                    <th>Featured</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in reviews %}
+                <tr>
+                    <td style="color: var(--text-muted);">{{ forloop.counter }}</td>
+                    <td><strong>{{ review.customer_name }}</strong></td>
+                    <td>
+                        <div class="stars">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}
+                            {% endfor %}
+                        </div>
+                    </td>
+                    <td style="color: var(--text-muted); max-width: 300px;">{{ review.content|truncatechars:80 }}</td>
+                    <td>
+                        {% if review.is_featured %}
+                            <span class="badge badge-gold"><i class="fas fa-check"></i> Featured</span>
+                        {% else %}
+                            <span class="badge badge-danger">No</span>
+                        {% endif %}
+                    </td>
+                    <td style="color: var(--text-muted); white-space: nowrap;">{{ review.created_at|date:"d M Y" }}</td>
+                    <td style="display: flex; gap: 8px; align-items: center;">
+                        <a href="{% url 'review_edit' review.pk %}" class="btn btn-sm btn-outline btn-icon" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form method="POST" action="{% url 'review_delete' review.pk %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger btn-icon"
+                                onclick="return confirm('Delete this review?')"
+                                title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div style="text-align: center; padding: 80px 20px; color: var(--text-muted);">
+            <i class="fas fa-star" style="font-size: 48px; margin-bottom: 20px; display: block; opacity: 0.3;"></i>
+            <h4 style="font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 8px;">No reviews yet</h4>
+            <a href="{% url 'review_add' %}" class="btn btn-gold" style="margin-top: 16px;"><i class="fas fa-plus"></i> Add First Review</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

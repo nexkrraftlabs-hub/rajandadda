@@ -1,0 +1,100 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Leads{% endblock %}
+{% block page_title %}Leads{% endblock %}
+{% block breadcrumb %}Contact Form Inquiries{% endblock %}
+
+{% block extra_css %}
+<style>
+    @keyframes pulseNew {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.5); }
+        50% { box-shadow: 0 0 0 5px rgba(201,168,76,0); }
+    }
+    .badge-new {
+        display: inline-block;
+        background: rgba(201,168,76,0.15);
+        color: var(--gold);
+        font-size: 9px;
+        font-weight: 800;
+        padding: 2px 8px;
+        border-radius: 20px;
+        border: 1px solid rgba(201,168,76,0.4);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        animation: pulseNew 1.5s infinite;
+        vertical-align: middle;
+        margin-left: 6px;
+    }
+    tr.is-new td { background: rgba(201,168,76,0.04); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5><i class="fas fa-inbox" style="color: var(--gold); margin-right: 8px;"></i> All Leads ({{ leads|length }})</h5>
+    </div>
+    <div class="table-wrapper">
+        {% if leads %}
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>From → To</th>
+                    <th>Journey Date</th>
+                    <th>Message</th>
+                    <th>Received</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lead in leads %}
+                <tr>
+                    <td style="color: var(--text-muted);">{{ forloop.counter }}</td>
+                    <td>
+                        <strong>{{ lead.name }}</strong>
+                    </td>
+                    <td>
+                        <a href="tel:{{ lead.phone }}" style="color: var(--gold); text-decoration: none; font-weight: 600;">
+                            <i class="fas fa-phone-alt" style="font-size: 11px; margin-right: 4px;"></i>{{ lead.phone }}
+                        </a>
+                    </td>
+                    <td style="color: var(--text-muted);">{{ lead.email|default:"—" }}</td>
+                    <td style="color: var(--text-muted);">
+                        {% if lead.pickup_location %}
+                            <small>{{ lead.pickup_location }}</small>
+                            {% if lead.drop_location %} → <small>{{ lead.drop_location }}</small>{% endif %}
+                        {% else %}—{% endif %}
+                    </td>
+                    <td style="color: var(--text-muted);">{{ lead.journey_date|date:"d M Y"|default:"—" }}</td>
+                    <td style="color: var(--text-muted); max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        {{ lead.message|default:"—"|truncatechars:50 }}
+                    </td>
+                    <td style="color: var(--text-muted); white-space: nowrap;">{{ lead.created_at|date:"d M Y, H:i" }}</td>
+                    <td>
+                        <form method="POST" action="{% url 'lead_delete' lead.pk %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger btn-icon"
+                                onclick="return confirm('Delete this lead?')"
+                                title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div style="text-align: center; padding: 80px 20px; color: var(--text-muted);">
+            <i class="fas fa-inbox" style="font-size: 48px; margin-bottom: 20px; display: block; opacity: 0.3;"></i>
+            <h4 style="font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 8px;">No leads yet</h4>
+            <p>When visitors fill the contact form, their inquiries will appear here.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

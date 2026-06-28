@@ -1,0 +1,969 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us – Rajan Dadda Tours & Travellers{% endblock %}
+
+{% block extra_css %}
+<!-- Splide CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+<style>
+    /* ===== SPLIDE HERO SLIDER ===== */
+    .hero-splide {
+        position: relative;
+    }
+
+    .hero-splide .splide__slide {
+        position: relative;
+        height: 78vh;
+        min-height: 480px;
+        overflow: hidden;
+    }
+
+    .hero-splide .slide-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        transform: scale(1.08);
+        transition: transform 8s ease;
+    }
+
+    .hero-splide .splide__slide.is-active .slide-bg {
+        transform: scale(1);
+    }
+
+    .hero-splide .slide-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(110deg, rgba(8, 15, 30, 0.88) 0%, rgba(8, 15, 30, 0.45) 55%, transparent 100%);
+    }
+
+    .hero-splide .slide-overlay-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 45%;
+        background: linear-gradient(to top, rgba(8, 15, 30, 0.85) 0%, transparent 100%);
+    }
+
+    .hero-splide .slide-content {
+        position: relative;
+        z-index: 3;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 5%;
+    }
+
+    .hero-splide .slide-inner {
+        max-width: 620px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s;
+    }
+
+    .hero-splide .splide__slide.is-active .slide-inner {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .hero-splide .slide-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .hero-splide .slide-eyebrow span {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #d4a017;
+    }
+
+    .hero-splide .slide-eyebrow::before {
+        content: '';
+        display: block;
+        width: 40px;
+        height: 1px;
+        background: linear-gradient(90deg, #d4a017, transparent);
+    }
+
+    .hero-splide h1 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        font-size: clamp(2rem, 4.5vw, 3.4rem);
+        color: #fff;
+        line-height: 1.1;
+        margin-bottom: 16px;
+        text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-splide h1 em {
+        font-style: normal;
+        font-family: 'Dancing Script', cursive;
+        color: #d4a017;
+        font-weight: 700;
+    }
+
+    .hero-splide .slide-desc {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 1rem;
+        line-height: 1.8;
+        margin-bottom: 28px;
+        max-width: 500px;
+    }
+
+    .hero-splide .slide-cta-wrap {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .hero-splide .btn-hero-gold {
+        background: linear-gradient(135deg, #d4a017, #b8880f);
+        color: #fff;
+        padding: 13px 32px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: .9rem;
+        letter-spacing: 0.5px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 8px 28px rgba(212, 160, 23, 0.35);
+        transition: all .3s;
+    }
+
+    .hero-splide .btn-hero-gold:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 36px rgba(212, 160, 23, 0.5);
+        color: #fff;
+    }
+
+    .hero-splide .btn-hero-outline {
+        background: transparent;
+        color: rgba(255, 255, 255, 0.85);
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: .88rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        transition: all .3s;
+    }
+
+    .hero-splide .btn-hero-outline:hover {
+        border-color: #d4a017;
+        color: #d4a017;
+    }
+
+    /* Breadcrumb */
+    .hero-splide .slide-breadcrumb {
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .hero-splide .slide-breadcrumb a,
+    .hero-splide .slide-breadcrumb span {
+        font-size: .8rem;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+    }
+
+    .hero-splide .slide-breadcrumb a:hover {
+        color: #d4a017;
+    }
+
+    .hero-splide .slide-breadcrumb .sep {
+        color: #d4a017;
+    }
+
+    .hero-splide .slide-breadcrumb .cur {
+        color: #d4a017;
+        font-weight: 600;
+    }
+
+    /* Arrows */
+    .hero-splide .splide__arrow {
+        width: 52px;
+        height: 52px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        opacity: 1;
+        transition: all .3s;
+    }
+
+    .hero-splide .splide__arrow:hover {
+        background: #d4a017;
+        border-color: #d4a017;
+    }
+
+    .hero-splide .splide__arrow svg {
+        fill: #fff;
+        width: 18px;
+        height: 18px;
+    }
+
+    .hero-splide .splide__arrow--prev {
+        left: 24px;
+    }
+
+    .hero-splide .splide__arrow--next {
+        right: 24px;
+    }
+
+    /* Pagination */
+    .hero-splide .splide__pagination {
+        bottom: 22px;
+        gap: 8px;
+    }
+
+    .hero-splide .splide__pagination__page {
+        width: 28px;
+        height: 4px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.35);
+        opacity: 1;
+        margin: 0;
+        transition: all .3s;
+    }
+
+    .hero-splide .splide__pagination__page.is-active {
+        background: #d4a017;
+        width: 52px;
+        transform: none;
+    }
+
+    /* Progress bar */
+    .hero-progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #d4a017, #f0c040);
+        z-index: 10;
+        transition: width linear;
+        border-radius: 0 2px 0 0;
+    }
+
+    /* Slide counter */
+    .hero-counter {
+        position: absolute;
+        top: 28px;
+        right: 28px;
+        z-index: 10;
+        font-size: .8rem;
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 600;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .hero-counter .cur-num {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #d4a017;
+        line-height: 1;
+    }
+
+    @media (max-width: 768px) {
+        .hero-splide .splide__slide {
+            height: 72vh;
+            min-height: 400px;
+        }
+
+        .hero-splide .splide__arrow {
+            width: 40px;
+            height: 40px;
+        }
+
+        .hero-splide .splide__arrow--prev {
+            left: 12px;
+        }
+
+        .hero-splide .splide__arrow--next {
+            right: 12px;
+        }
+
+        .hero-counter {
+            display: none;
+        }
+    }
+
+    /* ===== WELCOME SECTION ===== */
+    .welcome-section {
+        padding: 80px 0;
+        background: #fff;
+    }
+
+    .welcome-img {
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 12px 48px rgba(0, 0, 0, .13);
+    }
+
+    .welcome-img img {
+        width: 100%;
+        height: 320px;
+        object-fit: cover;
+    }
+
+    .welcome-text .eyebrow {
+        font-family: 'Dancing Script', cursive;
+        color: #d4a017;
+        font-size: 1.5rem;
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .welcome-text h2 {
+        font-weight: 800;
+        font-size: 2rem;
+        color: #0d1b2a;
+        margin-bottom: 18px;
+    }
+
+    .welcome-text p {
+        color: #546e7a;
+        line-height: 1.8;
+        margin-bottom: 14px;
+    }
+
+    .founder-sig {
+        font-family: 'Dancing Script', cursive;
+        font-size: 1.7rem;
+        color: #0d1b2a;
+        display: block;
+        margin-top: 8px;
+    }
+
+    .founder-title {
+        font-size: .85rem;
+        color: #d4a017;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    /* Mini feature pills */
+    .mini-features {
+        margin-top: 24px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .mini-pill {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 50px;
+        padding: 8px 16px;
+        font-size: .85rem;
+        font-weight: 600;
+        color: #0d1b2a;
+    }
+
+    .mini-pill i {
+        color: #d4a017;
+    }
+
+    /* ===== STATS ===== */
+    .stats-section {
+        background: #0d1b2a;
+        padding: 56px 0;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .stat-number {
+        font-size: 2.8rem;
+        font-weight: 800;
+        color: #d4a017;
+        line-height: 1;
+    }
+
+    .stat-label {
+        color: #90a4ae;
+        font-size: .9rem;
+        margin-top: 6px;
+    }
+
+    .stat-divider {
+        border-left: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    /* ===== FLEET SECTION ===== */
+    .fleet-section {
+        padding: 80px 0;
+        background: #f8f9fa;
+    }
+
+    .section-eyebrow {
+        font-family: 'Dancing Script', cursive;
+        color: #d4a017;
+        font-size: 1.5rem;
+        display: block;
+        text-align: center;
+        margin-bottom: 4px;
+    }
+
+    .section-title {
+        font-weight: 800;
+        font-size: 2rem;
+        color: #0d1b2a;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .fleet-img-wrap {
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 12px 48px rgba(0, 0, 0, .12);
+    }
+
+    .fleet-img-wrap img {
+        width: 100%;
+        height: 340px;
+        object-fit: cover;
+    }
+
+    .fleet-feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .fleet-feature-list li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid #e9ecef;
+        font-size: .95rem;
+        color: #37474f;
+    }
+
+    .fleet-feature-list li:last-child {
+        border-bottom: none;
+    }
+
+    .fleet-feature-list li i {
+        color: #d4a017;
+        font-size: 1rem;
+        width: 20px;
+    }
+
+    .fleet-section h3 {
+        font-weight: 800;
+        font-size: 1.6rem;
+        color: #0d1b2a;
+        margin-bottom: 8px;
+    }
+
+    .fleet-section p {
+        color: #546e7a;
+        line-height: 1.7;
+        margin-bottom: 20px;
+    }
+
+    .btn-gold {
+        background: #d4a017;
+        color: #fff;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: .95rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all .3s;
+    }
+
+    .btn-gold:hover {
+        background: #b8880f;
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    /* ===== WHY CHOOSE ===== */
+    .why-section {
+        padding: 80px 0;
+        background: #fff;
+    }
+
+    .why-card {
+        text-align: center;
+        padding: 32px 20px;
+        border-radius: 16px;
+        border: 1px solid #e9ecef;
+        transition: all .3s;
+        height: 100%;
+    }
+
+    .why-card:hover {
+        border-color: #d4a017;
+        box-shadow: 0 8px 32px rgba(212, 160, 23, .12);
+        transform: translateY(-4px);
+    }
+
+    .why-icon {
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, #fff8e1, #fff3cd);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px;
+        font-size: 1.6rem;
+        color: #d4a017;
+    }
+
+    .why-card h6 {
+        font-weight: 700;
+        color: #0d1b2a;
+        margin-bottom: 8px;
+    }
+
+    .why-card p {
+        font-size: .85rem;
+        color: #78909c;
+        margin: 0;
+    }
+
+    /* ===== TEAM SECTION ===== */
+    .team-section {
+        position: relative;
+        padding: 80px 0;
+        background: linear-gradient(135deg, #0d1b2a 0%, #1a2e45 100%);
+        overflow: hidden;
+    }
+
+    .team-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .team-section .eyebrow {
+        font-family: 'Dancing Script', cursive;
+        color: #d4a017;
+        font-size: 1.5rem;
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .team-section h2 {
+        font-weight: 800;
+        font-size: 2rem;
+        color: #fff;
+        margin-bottom: 16px;
+    }
+
+    .team-section p {
+        color: #90a4ae;
+        line-height: 1.8;
+    }
+
+    .team-img {
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, .4);
+    }
+
+    .team-img img {
+        width: 100%;
+        height: 320px;
+        object-fit: cover;
+    }
+
+    .btn-outline-gold {
+        background: transparent;
+        color: #d4a017;
+        border: 2px solid #d4a017;
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: .95rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all .3s;
+        margin-top: 24px;
+    }
+
+    .btn-outline-gold:hover {
+        background: #d4a017;
+        color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .page-hero h1 {
+            font-size: 1.8rem;
+        }
+
+        .page-hero .hero-vehicle {
+            display: none;
+        }
+
+        .stat-divider {
+            border-left: none;
+            border-top: 1px solid rgba(255, 255, 255, .1);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- PREMIUM SPLIDE HERO SLIDER -->
+<section class="hero-splide position-relative">
+    <div id="aboutHeroSplide" class="splide">
+        <div class="splide__track">
+            <ul class="splide__list">
+
+                <!-- Slide 1 -->
+                <li class="splide__slide">
+                    {% static 'img/slider1.png' as slider1_url %}
+                    <div class="slide-bg" style="background-image:url('{{slider1_url}}');"></div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>About Us</span></div>
+                            <h1>Your Journey,<br><em>Our Responsibility</em></h1>
+                            <p class="slide-desc">Rajan Dadda Tours &amp; Travellers is dedicated to providing safe,
+                                comfortable and luxurious travel experiences across India.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="{% url 'contact' %}" class="btn-hero-gold">Book Now <i
+                                        class="fas fa-arrow-right"></i></a>
+                                <a href="{% url 'fleet' %}" class="btn-hero-outline">Our Fleet <i
+                                        class="fas fa-bus"></i></a>
+                            </div>
+                            <div class="slide-breadcrumb">
+                                <a href="{% url 'home' %}">Home</a>
+                                <span class="sep">›</span>
+                                <span class="cur">About Us</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Slide 2 -->
+                <li class="splide__slide">
+                    {% static 'img/slider2.png' as slider2_url %}
+                    <div class="slide-bg" style="background-image:url('{{slider2_url}}');"></div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>Trusted Since Years</span></div>
+                            <h1>5+ Years of<br><em>Excellence</em></h1>
+                            <p class="slide-desc">Over 10,000 happy customers trust us for their family trips, corporate
+                                tours, pilgrimages, and outstation journeys.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="{% url 'contact' %}" class="btn-hero-gold">Get a Quote <i
+                                        class="fas fa-arrow-right"></i></a>
+                                <a href="{% url 'reviews' %}" class="btn-hero-outline">Read Reviews <i
+                                        class="fas fa-star"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Slide 3 -->
+                <li class="splide__slide">
+                    {% static 'img/slider3.png' as slider3_url %}
+                    <div class="slide-bg" style="background-image:url('{{slider3_url}}');"></div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>Premium Fleet</span></div>
+                            <h1>Luxury Tempo<br><em>Travellers</em></h1>
+                            <p class="slide-desc">12, 14 & 20 Seater Maharaja Tempo Travellers with AC, premium sound
+                                system, recliner seats and ample luggage space.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="{% url 'fleet' %}" class="btn-hero-gold">Explore Fleet <i
+                                        class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Slide 4 -->
+                <li class="splide__slide">
+                    {% static 'img/hero.png' as hero_url %}
+                    <div class="slide-bg" style="background-image:url('{{hero_url}}');"></div>
+                    <div class="slide-overlay"></div>
+                    <div class="slide-overlay-bottom"></div>
+                    <div class="slide-content">
+                        <div class="slide-inner">
+                            <div class="slide-eyebrow"><span>Lucknow's Best</span></div>
+                            <h1>Travel With<br><em>Confidence</em></h1>
+                            <p class="slide-desc">Professional verified drivers, 24/7 customer support, and best price
+                                guarantee — your comfort is our promise.</p>
+                            <div class="slide-cta-wrap">
+                                <a href="tel:+919415425603" class="btn-hero-gold"><i class="fas fa-phone-alt"></i> Call
+                                    Now</a>
+                                <a href="https://wa.me/919415425603" class="btn-hero-outline"><i
+                                        class="fab fa-whatsapp"></i> WhatsApp</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!-- Slide counter -->
+    <div class="hero-counter">
+        <span class="cur-num" id="aboutCurNum">1</span>
+        <span>/ 4</span>
+    </div>
+    <!-- Progress bar -->
+    <div class="hero-progress-bar" id="aboutProgressBar" style="width:0%"></div>
+</section>
+
+<!-- WELCOME -->
+<section class="welcome-section">
+    <div class="container-fluid px-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-5">
+                <div class="welcome-img">
+                    <img src="{% static 'imgs/42th.jpeg' %}" alt="Luxury Interior">
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="welcome-text">
+                    <span class="eyebrow">Welcome to</span>
+                    <h2>Rajan Dadda Tours & Travellers</h2>
+                    <p>Established with a passion for travel and customer satisfaction, Rajan Dadda Tours & Travellers
+                        has become one of the most trusted names in tempo traveller rentals in Lucknow and nearby
+                        regions.</p>
+                    <p>We provide a wide range of luxury tempo travellers for all types of journeys including family
+                        trips, corporate tours, wedding travel, pilgrimage, airport transfers and outstation trips.</p>
+                    <p>Our mission is to deliver a premium travel experience with well-maintained vehicles, professional
+                        drivers and 24/7 customer support.</p>
+                    <span class="founder-sig">Rajan Dadda</span>
+                    <span class="founder-title">— Founder</span>
+                    <div class="mini-features">
+                        <span class="mini-pill"><i class="fas fa-shield-alt"></i> Safe & Secure</span>
+                        <span class="mini-pill"><i class="fas fa-user-tie"></i> Professional Drivers</span>
+                        <span class="mini-pill"><i class="fas fa-tag"></i> Best Price Guarantee</span>
+                        <span class="mini-pill"><i class="fas fa-headset"></i> 24/7 Support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+    <div class="container-fluid px-4">
+        <div class="row text-center g-0">
+            <div class="col-6 col-md-3">
+                <div class="stat-item">
+                    <div class="stat-number">10,000+</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 stat-divider">
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Luxury Vehicles</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 stat-divider">
+                <div class="stat-item">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Popular Routes</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 stat-divider">
+                <div class="stat-item">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Years of Excellence</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FLEET HIGHLIGHT -->
+<section class="fleet-section">
+    <div class="container-fluid px-4">
+        <span class="section-eyebrow">Our Fleet</span>
+        <h2 class="section-title">Luxury, Comfort & Style</h2>
+        <div class="row align-items-center g-5">
+            <div class="col-lg-5">
+                <div class="fleet-img-wrap">
+                    <img src="{% static 'imgs/7th.jpeg' %}" alt="Our Fleet">
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <h3>Premium Tempo Travellers</h3>
+                <p>Our fleet includes 12 Seater Luxury, 14 Seater Luxury and 20 Seater Maharaja Tempo Travellers
+                    equipped with modern amenities for a comfortable and memorable journey.</p>
+                <ul class="fleet-feature-list">
+                    <li><i class="fas fa-check-circle"></i> Pushback & Recliner Seats</li>
+                    <li><i class="fas fa-check-circle"></i> Powerful AC & Heater</li>
+                    <li><i class="fas fa-check-circle"></i> Premium Sound System</li>
+                    <li><i class="fas fa-check-circle"></i> LED Interior Lights</li>
+                    <li><i class="fas fa-check-circle"></i> Ample Luggage Space</li>
+                    <li><i class="fas fa-check-circle"></i> Well Maintained Vehicles</li>
+                </ul>
+                <a href="{% url 'fleet' %}" class="btn-gold mt-4">Explore Our Fleet <i
+                        class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why-section">
+    <div class="container-fluid px-4">
+        <span class="section-eyebrow">Why Choose Us?</span>
+        <h2 class="section-title" style="margin-bottom:48px;">Reasons to Travel With Us</h2>
+        <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-tools"></i></div>
+                    <h6>Well Maintained Vehicles</h6>
+                    <p>Regular servicing for smooth journey</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-user-shield"></i></div>
+                    <h6>Experienced Drivers</h6>
+                    <p>Skilled, polite and route expert</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h6>Safety First</h6>
+                    <p>Your safety and comfort is our responsibility</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-rupee-sign"></i></div>
+                    <h6>Affordable Pricing</h6>
+                    <p>Best rates with no hidden charges</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-headset"></i></div>
+                    <h6>24/7 Customer Support</h6>
+                    <p>Always available to assist you</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="why-card">
+                    <div class="why-icon"><i class="fas fa-thumbs-up"></i></div>
+                    <h6>Customer Satisfaction</h6>
+                    <p>Thousands of happy customers trust us</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section">
+    <div class="container-fluid px-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-5">
+                <div class="team-img">
+                    <img src="{% static 'imgs/aise.png' %}" alt="Our Team">
+                </div>
+            </div>
+            <div class="col-lg-7" style="position:relative;z-index:2;">
+                <span class="eyebrow">Our Team</span>
+                <h2>The People Behind Your<br>Comfortable Journey</h2>
+                <p>Our team of professional drivers and support staff works round the clock to ensure you have a safe,
+                    comfortable and memorable journey. Each driver is verified, experienced and trained to make your
+                    trip pleasant.</p>
+                <a href="{% url 'contact' %}" class="btn-outline-gold">Contact Us <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- Splide JS -->
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var splide = new Splide('#aboutHeroSplide', {
+            type: 'fade',
+            rewind: true,
+            autoplay: true,
+            interval: 5000,
+            pauseOnHover: true,
+            speed: 1000,
+            arrows: true,
+            pagination: true,
+            cover: false,
+        });
+
+        var total = 4;
+        var interval = 5000;
+        var progressBar = document.getElementById('aboutProgressBar');
+        var curNum = document.getElementById('aboutCurNum');
+        var startTime;
+        var animFrame;
+
+        function animateProgress() {
+            var now = performance.now();
+            var elapsed = now - startTime;
+            var pct = Math.min((elapsed / interval) * 100, 100);
+            if (progressBar) progressBar.style.width = pct + '%';
+            if (pct < 100) animFrame = requestAnimationFrame(animateProgress);
+        }
+
+        splide.on('mounted move', function () {
+            cancelAnimationFrame(animFrame);
+            if (progressBar) progressBar.style.width = '0%';
+            startTime = performance.now();
+            animFrame = requestAnimationFrame(animateProgress);
+            if (curNum) curNum.textContent = (splide.index + 1);
+        });
+
+        splide.mount();
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,174 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}{{ action }} Destination{% endblock %}
+{% block page_title %}{{ action }} Destination{% endblock %}
+{% block breadcrumb %}<a href="{% url 'destinations_list_dashboard' %}" style="color:var(--gold);text-decoration:none;">Destinations</a> &bull; {{ action }}{% endblock %}
+
+{% block content %}
+<div style="max-width: 640px;">
+    <div class="card">
+        <div class="card-header">
+            <h5><i class="fas fa-map-marked-alt" style="color: var(--gold); margin-right: 8px;"></i> {{ action }} Destination</h5>
+        </div>
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="form-label">Destination Name *</label>
+                    <input type="text" name="name" class="form-control"
+                        value="{{ destination.name|default:'' }}" required placeholder="e.g. Manali, Himachal Pradesh">
+                </div>
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Category *</label>
+                        <select name="category" class="form-control form-select" required>
+                            <option value="hill" {% if destination.category == 'hill' %}selected{% endif %}>Hill Stations</option>
+                            <option value="pilgrimage" {% if destination.category == 'pilgrimage' %}selected{% endif %}>Pilgrimage</option>
+                            <option value="historical" {% if destination.category == 'historical' %}selected{% endif %}>Historical</option>
+                            <option value="wildlife" {% if destination.category == 'wildlife' %}selected{% endif %}>Wildlife</option>
+                            <option value="religious" {% if destination.category == 'religious' %}selected{% endif %}>Religious</option>
+                            <option value="other" {% if destination.category == 'other' %}selected{% endif %}>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Display Order</label>
+                        <input type="number" name="order" class="form-control"
+                            value="{{ destination.order|default:0 }}" min="0">
+                    </div>
+                </div>
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Distance from Lucknow</label>
+                        <input type="text" name="distance" class="form-control"
+                            value="{{ destination.distance|default:'' }}" placeholder="e.g. 560 km">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Starting Price</label>
+                        <input type="text" name="starting_price" class="form-control"
+                            value="{{ destination.starting_price|default:'' }}" placeholder="e.g. ₹12,000">
+                    </div>
+                </div>
+
+                <!-- Image Upload Section -->
+                <div class="form-group">
+                    <label class="form-label">Destination Image</label>
+
+                    <!-- Tab Toggle Buttons -->
+                    <div style="display:flex; gap:8px; margin-bottom:12px;">
+                        <button type="button" id="tabUrl" onclick="switchTab('url')"
+                            style="padding:6px 18px; border-radius:6px; border:1px solid var(--gold); background:var(--gold); color:#000; font-weight:600; cursor:pointer; font-size:13px; transition:all 0.2s;">
+                            🔗 Image URL
+                        </button>
+                        <button type="button" id="tabFile" onclick="switchTab('file')"
+                            style="padding:6px 18px; border-radius:6px; border:1px solid var(--gold); background:transparent; color:var(--gold); font-weight:600; cursor:pointer; font-size:13px; transition:all 0.2s;">
+                            📁 Upload File
+                        </button>
+                    </div>
+
+                    <!-- URL Input -->
+                    <div id="urlSection">
+                        <input type="url" name="image_url" class="form-control" id="imageUrlInput"
+                            value="{{ destination.image_url|default:'' }}"
+                            placeholder="https://images.unsplash.com/..."
+                            oninput="previewImage(this.value)">
+                        <small style="color:#888; margin-top:4px; display:block;">Koi bhi external image ka URL paste karein</small>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div id="fileSection" style="display:none;">
+                        <div style="border:2px dashed rgba(212,175,55,0.4); border-radius:10px; padding:20px; text-align:center; cursor:pointer; transition:all 0.2s;"
+                             onclick="document.getElementById('imageFileInput').click()"
+                             ondragover="this.style.borderColor='var(--gold)'; event.preventDefault();"
+                             ondragleave="this.style.borderColor='rgba(212,175,55,0.4)'"
+                             ondrop="handleDrop(event)">
+                            <i class="fas fa-cloud-upload-alt" style="font-size:28px; color:var(--gold); margin-bottom:8px; display:block;"></i>
+                            <span style="color:#ccc; font-size:14px;">Click karein ya image yahan drag karein</span><br>
+                            <small style="color:#888;">JPG, PNG, WebP • Max 5MB</small>
+                            <input type="file" name="image" id="imageFileInput" accept="image/*"
+                                onchange="previewFile(this)"
+                                style="display:none;">
+                        </div>
+                        <small style="color:#888; margin-top:6px; display:block;">⚠️ File upload karoge toh URL override ho jaayega</small>
+                    </div>
+
+                    <!-- Current uploaded image (edit mode) -->
+                    {% if destination.image %}
+                    <div style="margin-top:12px; padding:12px; background:rgba(255,255,255,0.04); border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+                        <small style="color:#888; display:block; margin-bottom:8px;">📌 Current uploaded image:</small>
+                        <img src="{{ destination.image.url }}" alt="Current"
+                            style="height:90px; border-radius:8px; object-fit:cover; border:2px solid var(--gold);">
+                        <small style="color:#888; display:block; margin-top:6px;">Naya file select karoge toh purani image replace ho jaayegi</small>
+                    </div>
+                    {% endif %}
+
+                    <!-- Preview -->
+                    <img id="imgPreview" class="img-preview {% if destination.image_url %}show{% endif %}"
+                        src="{{ destination.image_url|default:'' }}" alt="Preview">
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input type="checkbox" name="is_featured" id="is_featured"
+                            {% if destination.is_featured %}checked{% endif %}>
+                        <label for="is_featured">Feature this destination on homepage</label>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 12px; margin-top: 8px;">
+                    <button type="submit" class="btn btn-gold"><i class="fas fa-save"></i> {{ action }} Destination</button>
+                    <a href="{% url 'destinations_list_dashboard' %}" class="btn btn-outline"><i class="fas fa-times"></i> Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function switchTab(tab) {
+    var urlSection = document.getElementById('urlSection');
+    var fileSection = document.getElementById('fileSection');
+    var tabUrl = document.getElementById('tabUrl');
+    var tabFile = document.getElementById('tabFile');
+    if (tab === 'url') {
+        urlSection.style.display = 'block';
+        fileSection.style.display = 'none';
+        tabUrl.style.background = 'var(--gold)';
+        tabUrl.style.color = '#000';
+        tabFile.style.background = 'transparent';
+        tabFile.style.color = 'var(--gold)';
+    } else {
+        urlSection.style.display = 'none';
+        fileSection.style.display = 'block';
+        tabFile.style.background = 'var(--gold)';
+        tabFile.style.color = '#000';
+        tabUrl.style.background = 'transparent';
+        tabUrl.style.color = 'var(--gold)';
+    }
+}
+
+function previewImage(url) {
+    var img = document.getElementById('imgPreview');
+    if (url) { img.src = url; img.classList.add('show'); }
+    else { img.classList.remove('show'); }
+}
+
+function previewFile(input) {
+    var img = document.getElementById('imgPreview');
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) { img.src = e.target.result; img.classList.add('show'); };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function handleDrop(e) {
+    e.preventDefault();
+    e.currentTarget.style.borderColor = 'rgba(212,175,55,0.4)';
+    var files = e.dataTransfer.files;
+    if (files.length > 0) {
+        document.getElementById('imageFileInput').files = files;
+        previewFile(document.getElementById('imageFileInput'));
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,275 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}My Profile{% endblock %}
+{% block page_title %}My Profile{% endblock %}
+{% block breadcrumb %}Account &bull; Profile Settings{% endblock %}
+
+{% block extra_css %}
+<style>
+.profile-hero {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.02) 100%);
+    border: 1px solid var(--border-gold);
+    border-radius: 16px;
+    padding: 28px 28px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+}
+.profile-hero::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+.profile-avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+}
+.profile-avatar-big {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    border: 3px solid var(--border-gold);
+    box-shadow: 0 0 0 4px rgba(201,168,76,0.1), var(--shadow-gold);
+    object-fit: cover;
+    display: block;
+}
+.profile-avatar-placeholder {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    border: 3px solid rgba(201,168,76,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px; font-weight: 800; color: #000;
+    font-family: 'Playfair Display', serif;
+    box-shadow: var(--shadow-gold);
+}
+.avatar-edit-btn {
+    position: absolute; bottom: 0; right: 0;
+    width: 28px; height: 28px;
+    background: var(--gold); color: #000;
+    border-radius: 50%; border: 2px solid var(--dark);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; cursor: pointer;
+    transition: var(--transition);
+}
+.avatar-edit-btn:hover { background: var(--gold-light); transform: scale(1.1); }
+.profile-hero-info h3 {
+    font-size: 22px; font-weight: 800;
+    color: var(--text); margin-bottom: 4px;
+    letter-spacing: -0.4px;
+}
+.profile-hero-info .handle {
+    font-size: 13px; color: var(--gold); font-weight: 500; margin-bottom: 8px;
+}
+.profile-hero-info .meta { font-size: 12px; color: var(--text-muted); }
+.profile-hero-info .meta i { color: var(--gold); margin-right: 4px; }
+
+.upload-zone {
+    border: 2px dashed var(--border-gold);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    background: rgba(201,168,76,0.02);
+}
+.upload-zone:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.05);
+}
+.upload-zone i { font-size: 26px; color: var(--gold); margin-bottom: 8px; display: block; }
+.upload-zone p { font-size: 13px; color: var(--text-muted); margin: 0; }
+.upload-zone small { font-size: 11px; color: var(--text-muted); opacity: 0.6; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="max-width: 680px;">
+
+    <!-- Profile Hero Card -->
+    <div class="profile-hero">
+        <div class="profile-avatar-wrap">
+            {% if profile.profile_image %}
+                <img class="profile-avatar-big" src="{{ profile.profile_image.url }}" alt="Profile Photo" id="profileImgPreview">
+            {% else %}
+                <div class="profile-avatar-placeholder" id="profileImgPlaceholder">
+                    {{ user.username|first|upper }}
+                </div>
+                <img class="profile-avatar-big" id="profileImgPreview" src="" alt="" style="display:none;">
+            {% endif %}
+            <div class="avatar-edit-btn" onclick="document.getElementById('profileImageInput').click()" title="Change photo">
+                <i class="fas fa-camera"></i>
+            </div>
+        </div>
+        <div class="profile-hero-info">
+            <h3>{{ user.get_full_name|default:user.username }}</h3>
+            <div class="handle">@{{ user.username }}</div>
+            <div class="meta">
+                <i class="fas fa-shield-alt"></i> Administrator &nbsp;&bull;&nbsp;
+                {% if user.last_login %}
+                <i class="fas fa-clock"></i> Last login: {{ user.last_login|date:"d M Y, H:i" }}
+                {% endif %}
+            </div>
+            {% if profile.phone %}
+            <div class="meta" style="margin-top:6px;">
+                <i class="fas fa-phone-alt"></i> {{ profile.phone }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Form Card -->
+    <div class="card">
+        <div class="card-header">
+            <h5><i class="fas fa-user-edit" style="color: var(--gold); margin-right: 8px;"></i> Edit Profile</h5>
+        </div>
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Profile Photo Upload -->
+                <div class="form-group">
+                    <label class="form-label">Profile Photo</label>
+                    <div class="upload-zone" onclick="document.getElementById('profileImageInput').click()"
+                         ondragover="this.style.borderColor='var(--gold)'; event.preventDefault();"
+                         ondragleave="this.style.borderColor='var(--border-gold)'"
+                         ondrop="handleProfileDrop(event)">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Click karein ya photo yahan drag karein</p>
+                        <small>JPG, PNG, WebP • Recommended: Square image</small>
+                    </div>
+                    <input type="file" name="profile_image" id="profileImageInput"
+                           accept="image/*" onchange="previewProfileImage(this)"
+                           style="display:none;">
+                    {% if profile.profile_image %}
+                    <div style="margin-top:10px; display:flex; align-items:center; gap:10px; padding:10px 14px; background:rgba(34,197,94,0.06); border:1px solid rgba(34,197,94,0.15); border-radius:9px;">
+                        <i class="fas fa-check-circle" style="color:var(--success); font-size:15px;"></i>
+                        <span style="font-size:12.5px; color:var(--text);">Current photo uploaded. Naya select karoge toh replace ho jaayega.</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Name Fields -->
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label class="form-label">First Name</label>
+                        <input type="text" name="first_name" class="form-control"
+                            value="{{ user.first_name }}" placeholder="First name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" name="last_name" class="form-control"
+                            value="{{ user.last_name }}" placeholder="Last name">
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" name="email" class="form-control"
+                            value="{{ user.email }}" placeholder="admin@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="text" name="phone" class="form-control"
+                            value="{{ profile.phone|default:'' }}" placeholder="+91 9999999999">
+                    </div>
+                </div>
+
+                <!-- Bio -->
+                <div class="form-group">
+                    <label class="form-label">Bio / About</label>
+                    <textarea name="bio" class="form-control" placeholder="Short bio about yourself...">{{ profile.bio|default:'' }}</textarea>
+                </div>
+
+                <!-- Password Section -->
+                <div class="section-divider">
+                    <span>Change Password</span>
+                </div>
+                <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:18px;">Password change karna optional hai — khali chodoge toh current password rahega.</p>
+
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label class="form-label">New Password</label>
+                        <input type="password" name="new_password" class="form-control" placeholder="Min 8 characters">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" name="confirm_password" class="form-control" placeholder="Confirm new password">
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 12px; padding-top: 4px;">
+                    <button type="submit" class="btn btn-gold">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <a href="{% url 'dashboard_home' %}" class="btn btn-outline">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Account Info Card -->
+    <div class="card" style="margin-top:20px;">
+        <div class="card-header">
+            <h5><i class="fas fa-info-circle" style="color:var(--gold); margin-right:8px;"></i> Account Info</h5>
+        </div>
+        <div class="card-body">
+            <div class="grid grid-2">
+                <div style="padding:14px 16px; background:rgba(255,255,255,0.02); border-radius:10px; border:1px solid var(--border);">
+                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); margin-bottom:6px;">Username</div>
+                    <div style="font-size:14px; font-weight:600; color:var(--text);">@{{ user.username }}</div>
+                </div>
+                <div style="padding:14px 16px; background:rgba(255,255,255,0.02); border-radius:10px; border:1px solid var(--border);">
+                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); margin-bottom:6px;">Role</div>
+                    <div style="font-size:14px; font-weight:600; color:var(--gold);"><i class="fas fa-shield-alt" style="margin-right:6px;"></i>Administrator</div>
+                </div>
+                <div style="padding:14px 16px; background:rgba(255,255,255,0.02); border-radius:10px; border:1px solid var(--border);">
+                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); margin-bottom:6px;">Member Since</div>
+                    <div style="font-size:14px; font-weight:600; color:var(--text);">{{ user.date_joined|date:"d M Y" }}</div>
+                </div>
+                <div style="padding:14px 16px; background:rgba(255,255,255,0.02); border-radius:10px; border:1px solid var(--border);">
+                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); margin-bottom:6px;">Last Login</div>
+                    <div style="font-size:14px; font-weight:600; color:var(--text);">{{ user.last_login|date:"d M Y, H:i"|default:"—" }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function previewProfileImage(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            // Update hero avatar
+            var preview = document.getElementById('profileImgPreview');
+            var placeholder = document.getElementById('profileImgPlaceholder');
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+            if (placeholder) placeholder.style.display = 'none';
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function handleProfileDrop(e) {
+    e.preventDefault();
+    e.currentTarget.style.borderColor = 'var(--border-gold)';
+    var files = e.dataTransfer.files;
+    if (files.length > 0) {
+        document.getElementById('profileImageInput').files = files;
+        previewProfileImage(document.getElementById('profileImageInput'));
+    }
+}
+</script>
+{% endblock %}
