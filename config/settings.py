@@ -30,6 +30,8 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
     "rajandadda.onrender.com",
+      "rajandaddatoursandtravels.com",
+    "www.rajandaddatoursandtravels.com",
 
 ]
 
