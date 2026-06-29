@@ -661,71 +661,127 @@
 </section>
 
 <!-- CTA STRIP -->
-<section class="section-pad bg-light-gray">
-    <div class="container-fluid px-4">
-        <div class="cta-strip d-flex flex-column justify-content-center"
-            style="min-height: 55vh; padding: 50px 40px; background: linear-gradient(135deg, var(--dark), #101625); border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+<style>
+    .cta-strip-section .cta-strip {
+        min-height: 55vh;
+        padding: 50px 40px;
+        background: linear-gradient(135deg, var(--dark), #101625);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        position: relative;
+        overflow: hidden;
+    }
+    .cta-strip-section .cta-deco-circle {
+        position: absolute;
+        top: -100px;
+        right: -100px;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(212,160,23,0.15) 0%, transparent 70%);
+        border-radius: 50%;
+        z-index: 0;
+    }
+    .cta-strip-section h2.cta-title {
+        font-size: clamp(1.6rem, 6vw, 3.8rem);
+        font-family: 'Poppins', sans-serif;
+        line-height: 1.2;
+    }
+    .cta-strip-section .cta-buttons {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .cta-strip-section .cta-buttons a {
+        flex: 1 1 auto;
+        text-align: center;
+        min-width: 140px;
+        max-width: 220px;
+    }
+    @media (max-width: 575.98px) {
+        .cta-strip-section .cta-strip {
+            min-height: auto;
+            padding: 36px 20px 40px;
+            border-radius: 14px;
+        }
+        .cta-strip-section .cta-deco-circle {
+            width: 200px;
+            height: 200px;
+            top: -60px;
+            right: -60px;
+        }
+        .cta-strip-section .cta-features {
+            gap: 12px !important;
+            margin-bottom: 24px !important;
+        }
+        .cta-strip-section .cta-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+        .cta-strip-section .cta-buttons a {
+            max-width: 100%;
+            width: 100%;
+            padding: 14px 24px !important;
+            font-size: 1rem !important;
+        }
+        .cta-strip-section p.cta-desc {
+            font-size: 0.95rem !important;
+        }
+    }
+</style>
+<section class="section-pad bg-light-gray cta-strip-section">
+    <div class="container-fluid px-3 px-md-4">
+        <div class="cta-strip d-flex flex-column justify-content-center">
             <!-- Decorative circle -->
-            <div
-                style="position:absolute; top:-100px; right:-100px; width:400px; height:400px; background:radial-gradient(circle, rgba(212,160,23,0.15) 0%, transparent 70%); border-radius:50%; z-index:0;">
-            </div>
+            <div class="cta-deco-circle"></div>
 
-            <div class="row align-items-center position-relative z-index-1" style="flex: 1;">
+            <div class="row align-items-center position-relative" style="z-index:1; flex: 1;">
                 <!-- Text Column -->
                 <div class="col-lg-7 text-center text-lg-start">
                     <span class="badge bg-gold text-white mb-3 px-3 py-2"
-                        style="font-size: 14px; letter-spacing: 1px; font-weight: 600; box-shadow: 0 4px 15px rgba(212,160,23,0.3);">PREMIUM
+                        style="font-size: 13px; letter-spacing: 1px; font-weight: 600; box-shadow: 0 4px 15px rgba(212,160,23,0.3);">PREMIUM
                         SERVICE</span>
-                    <h2 class="text-white fw-800 mb-3"
-                        style="font-size: clamp(2rem, 3.5vw, 3.8rem); font-family: 'Poppins', sans-serif; line-height: 1.15;">
-                        Book Your Luxury<br><span style="color:var(--gold);">Tempo Traveller</span></h2>
-                    <p class="text-white-50 mb-4 mx-auto mx-lg-0" style="font-size: 1.1rem; max-width: 500px;">Get the
-                        best vehicles, professional drivers and unforgettable travel experience for your family and
-                        friends.</p>
+                    <h2 class="text-white fw-800 mb-3 cta-title">
+                        Book Your Luxury<br><span style="color:var(--gold);">Tempo Traveller</span>
+                    </h2>
+                    <p class="text-white-50 mb-4 mx-auto mx-lg-0 cta-desc" style="font-size: 1.05rem; max-width: 500px;">
+                        Get the best vehicles, professional drivers and unforgettable travel experience for your family and friends.
+                    </p>
 
-                    <div class="d-flex gap-4 flex-wrap justify-content-center justify-content-lg-start mb-5">
-                        <div class="d-flex align-items-center gap-2 text-white"
-                            style="font-size:15px; font-weight: 500;">
-                            <i class="fas fa-bolt gold-text"
-                                style="font-size: 1.2rem; filter: drop-shadow(0 0 5px rgba(212,160,23,0.5));"></i>
+                    <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-lg-start mb-4 cta-features">
+                        <div class="d-flex align-items-center gap-2 text-white" style="font-size:14px; font-weight: 500;">
+                            <i class="fas fa-bolt gold-text" style="font-size: 1.1rem; filter: drop-shadow(0 0 5px rgba(212,160,23,0.5));"></i>
                             Instant Booking
                         </div>
-                        <div class="d-flex align-items-center gap-2 text-white"
-                            style="font-size:15px; font-weight: 500;">
-                            <i class="fas fa-tag gold-text"
-                                style="font-size: 1.2rem; filter: drop-shadow(0 0 5px rgba(212,160,23,0.5));"></i> No
-                            Hidden Charges
+                        <div class="d-flex align-items-center gap-2 text-white" style="font-size:14px; font-weight: 500;">
+                            <i class="fas fa-tag gold-text" style="font-size: 1.1rem; filter: drop-shadow(0 0 5px rgba(212,160,23,0.5));"></i>
+                            No Hidden Charges
                         </div>
-                        <div class="d-flex align-items-center gap-2 text-white"
-                            style="font-size:15px; font-weight: 500;">
-                            <i class="fas fa-shield-alt gold-text"
-                                style="font-size: 1.2rem; filter: drop-shadow(0 0 5px rgba(212,160,23,0.5));"></i> 100%
-                            Safe & Secure
+                        <div class="d-flex align-items-center gap-2 text-white" style="font-size:14px; font-weight: 500;">
+                            <i class="fas fa-shield-alt gold-text" style="font-size: 1.1rem; filter: drop-shadow(0 0 5px rgba(212,160,23,0.5));"></i>
+                            100% Safe &amp; Secure
                         </div>
                     </div>
 
-                    <div class="d-flex gap-4 justify-content-center justify-content-lg-start">
+                    <div class="cta-buttons justify-content-center justify-content-lg-start">
                         <a href="{% url 'contact' %}" class="btn-hero-gold position-relative overflow-hidden"
-                            style="padding: 16px 40px; font-size: 1.1rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(212,160,23,0.4); border: 1px solid rgba(255,255,255,0.2);">
-                            <span class="position-relative z-index-1">Book Now <i
-                                    class="fas fa-arrow-right ms-2"></i></span>
+                            style="padding: 15px 36px; font-size: 1.05rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(212,160,23,0.4); border: 1px solid rgba(255,255,255,0.2); display:inline-block; text-align:center;">
+                            <span class="position-relative" style="z-index:1;">Book Now <i class="fas fa-arrow-right ms-2"></i></span>
                         </a>
                         <a href="tel:+919415425603" class="btn-hero-outline"
-                            style="padding: 16px 40px; font-size: 1.1rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; background: rgba(255,255,255,0.05); backdrop-filter: blur(5px); border: 2px solid rgba(255,255,255,0.2);">
-                            <i class="fas fa-phone-alt ms-1 me-2"></i> Call Us
+                            style="padding: 15px 36px; font-size: 1.05rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; background: rgba(255,255,255,0.05); backdrop-filter: blur(5px); border: 2px solid rgba(255,255,255,0.2); display:inline-block; text-align:center;">
+                            <i class="fas fa-phone-alt me-2"></i> Call Us
                         </a>
                     </div>
                 </div>
 
-                <!-- Image Column -->
+                <!-- Image Column (desktop only) -->
                 <div class="col-lg-5 d-none d-lg-flex justify-content-center align-items-center position-relative">
                     <!-- Glow behind image -->
-                    <div
-                        style="position:absolute; width:80%; height:80%; background:var(--gold); filter:blur(80px); opacity:0.15; border-radius:50%; z-index:0;">
-                    </div>
+                    <div style="position:absolute; width:80%; height:80%; background:var(--gold); filter:blur(80px); opacity:0.15; border-radius:50%; z-index:0;"></div>
                     <!-- The image itself -->
                     <img src="{% static 'imgs/aise.png' %}" alt="Luxury Tempo Traveller" class="img-fluid"
-                        style="border-radius: 16px; box-shadow: 0 25px 50px rgba(0,0,0,0.5); border: 4px solid rgba(255,255,255,0.05); transform: perspective(1000px) rotateY(-10deg); transition: transform 0.5s ease;"
+                        style="border-radius: 16px; box-shadow: 0 25px 50px rgba(0,0,0,0.5); border: 4px solid rgba(255,255,255,0.05); transform: perspective(1000px) rotateY(-10deg); transition: transform 0.5s ease; position:relative; z-index:1;"
                         onmouseover="this.style.transform='perspective(1000px) rotateY(0deg) scale(1.02)'"
                         onmouseout="this.style.transform='perspective(1000px) rotateY(-10deg)'">
                 </div>
