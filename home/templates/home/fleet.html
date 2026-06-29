@@ -1,7 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Our Fleet – Rajan Dadda Tours & Travellers{% endblock %}
+{% block seo_title %}Our Fleet – Luxury Tempo Traveller on Rent in Lucknow | Rajan Dadda Tours{% endblock %}
+{% block seo_description %}Explore our luxury fleet of 9, 12, 14, 17, 20 & 26 seater Tempo Travellers available on rent in Lucknow. Premium vehicles for family trips, weddings, pilgrimages and outstation tours.{% endblock %}
+{% block seo_keywords %}tempo traveller on rent lucknow, 12 seater tempo traveller, 14 seater tempo traveller, 20 seater maharaja tempo traveller, luxury vehicle rental lucknow, fleet booking lucknow{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Rajan Dadda Tours Fleet",
+  "description": "Luxury Tempo Traveller fleet available for rent in Lucknow",
+  "url": "{{ request.build_absolute_uri }}",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "12 Seater Luxury Tempo Traveller", "url": "{{ request.scheme }}://{{ request.get_host }}/fleet/12-seater-luxury/"},
+    {"@type": "ListItem", "position": 2, "name": "14 Seater Luxury Tempo Traveller", "url": "{{ request.scheme }}://{{ request.get_host }}/fleet/14-seater-luxury/"},
+    {"@type": "ListItem", "position": 3, "name": "20 Seater Maharaja Tempo Traveller", "url": "{{ request.scheme }}://{{ request.get_host }}/fleet/20-seater-maharaja/"}
+  ]
+}
+</script>
+{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
@@ -336,6 +355,23 @@
         z-index: 10;
         max-width: 380px;
     }
+
+    @media (max-width: 768px) {
+        .full-width-map-section {
+            padding: 20px !important;
+            min-height: 450px !important;
+            height: 60vh !important;
+        }
+
+        .map-floating-card {
+            bottom: 15px;
+            right: 15px;
+            left: 15px;
+            width: auto;
+            max-width: none;
+            padding: 20px;
+        }
+    }
 </style>
 {% endblock %}
 
@@ -661,7 +697,7 @@
 <section class="full-width-map-section">
     <div class="map-container-inner">
         <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113911.37951239827!2d80.8601614!3d26.8485965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd991f32b16b%3A0x93ccba8909978be7!2sLucknow%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+            src="https://maps.google.com/maps?q=26.9231498,80.9631469&t=&z=15&ie=UTF8&iwloc=&output=embed"
             allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
         </iframe>
 
@@ -677,10 +713,10 @@
                 Rajan Dadda Tours
             </h3>
             <p style="color:var(--text-mid); font-size:14px; line-height:1.6; margin-bottom:24px;">
-                Transport Nagar, Lucknow<br>Uttar Pradesh – 226012, India
+                Jankipuram, Lucknow<br>Uttar Pradesh – 226012, India
             </p>
-            <a href="https://maps.google.com/?q=Transport+Nagar+Lucknow" target="_blank"
-                class="btn-gold w-100 justify-content-center"
+            <a href="https://www.google.com/maps/place/26%C2%B055'23.3%22N+80%C2%B057'47.3%22E/@26.9231498,80.9631469,17z/data=!3m1!4b1!4m4!3m3!8m2!3d26.9231498!4d80.9631469?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank" class="btn-gold w-100 justify-content-center"
                 style="padding:14px 24px; font-size:12px; border-radius: var(--radius-md);">
                 <i class="fas fa-location-arrow me-2"></i> Get Directions
             </a>
@@ -691,8 +727,8 @@
 <!-- CTA STRIP -->
 <section class="section-pad bg-light-gray">
     <div class="container-fluid px-4">
-        <div class="cta-strip d-flex flex-column justify-content-center"
-            style="min-height: 55vh; padding: 50px 40px; background: linear-gradient(135deg, var(--dark), #101625); border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+        <div class="cta-strip d-flex flex-column justify-content-center p-4 p-md-5"
+            style="min-height: 55vh; background: linear-gradient(135deg, var(--dark), #101625); border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
             <!-- Decorative circle -->
             <div
                 style="position:absolute; top:-100px; right:-100px; width:400px; height:400px; background:radial-gradient(circle, rgba(212,160,23,0.15) 0%, transparent 70%); border-radius:50%; z-index:0;">
@@ -711,7 +747,7 @@
                         best vehicles, professional drivers and unforgettable travel experience for your family and
                         friends.</p>
 
-                    <div class="d-flex gap-4 flex-wrap justify-content-center justify-content-lg-start mb-5">
+                    <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-lg-start mb-5">
                         <div class="d-flex align-items-center gap-2 text-white"
                             style="font-size:15px; font-weight: 500;">
                             <i class="fas fa-bolt gold-text"
@@ -732,14 +768,15 @@
                         </div>
                     </div>
 
-                    <div class="d-flex gap-4 justify-content-center justify-content-lg-start">
-                        <a href="{% url 'contact' %}" class="btn-hero-gold position-relative overflow-hidden"
-                            style="padding: 16px 40px; font-size: 1.1rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(212,160,23,0.4); border: 1px solid rgba(255,255,255,0.2);">
+                    <div class="d-flex gap-3 flex-column flex-sm-row justify-content-center justify-content-lg-start">
+                        <a href="{% url 'contact' %}"
+                            class="btn-hero-gold position-relative overflow-hidden text-center"
+                            style="padding: 14px 24px; font-size: 1rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 30px rgba(212,160,23,0.4); border: 1px solid rgba(255,255,255,0.2);">
                             <span class="position-relative z-index-1">Book Now <i
                                     class="fas fa-arrow-right ms-2"></i></span>
                         </a>
-                        <a href="tel:+919415425603" class="btn-hero-outline"
-                            style="padding: 16px 40px; font-size: 1.1rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; background: rgba(255,255,255,0.05); backdrop-filter: blur(5px); border: 2px solid rgba(255,255,255,0.2);">
+                        <a href="tel:+919415425603" class="btn-hero-outline text-center"
+                            style="padding: 14px 24px; font-size: 1rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; background: rgba(255,255,255,0.05); backdrop-filter: blur(5px); border: 2px solid rgba(255,255,255,0.2);">
                             <i class="fas fa-phone-alt ms-1 me-2"></i> Call Us
                         </a>
                     </div>

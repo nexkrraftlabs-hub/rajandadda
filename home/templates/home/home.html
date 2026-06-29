@@ -1,14 +1,47 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Rajan Dadda Tours &amp; Travellers – Luxury Tempo Traveller on Rent in Lucknow{% endblock %}
+{% block seo_title %}Rajan Dadda Tours &amp; Travellers – Luxury Tempo Traveller on Rent in Lucknow{% endblock %}
+{% block seo_description %}Experience premium tempo traveller rental services in Lucknow. Rajan Dadda Tours offers 9 to
+26 seater luxury travellers for tours, weddings, and outstation trips.{% endblock %}
+{% block seo_keywords %}luxury tempo traveller lucknow, tempo traveller rental, 12 seater, 14 seater, outstation tour,
+rajan dadda tours{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Rajan Dadda Tours & Travellers",
+  "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'imgs/logo.png' %}",
+  "@id": "{{ request.scheme }}://{{ request.get_host }}",
+  "url": "{{ request.scheme }}://{{ request.get_host }}",
+  "telephone": "+919415425603",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Lucknow, Uttar Pradesh",
+    "addressLocality": "Lucknow",
+    "postalCode": "226021",
+    "addressCountry": "IN",
+    "addressRegion": "Uttar Pradesh"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 26.8467,
+    "longitude": 80.9462
+  },
+  "priceRange": "$$" 
+}
+</script>
+{% endblock %}
 
 {% block content %}
 
 <!-- ══════════════════════════════════════════════════════════
      HERO — Cinematic Full-Screen
 ══════════════════════════════════════════════════════════ -->
-<section class="hero-premium position-relative overflow-hidden bg-fixed-desktop" style="background-image: url('static/img/slider3.png'); min-height: 94vh; display:flex; align-items:center; background-size: cover; background-position: center;">
+<section class="hero-premium position-relative overflow-hidden bg-fixed-desktop"
+    style="background-image: url('static/img/slider3.png'); min-height: 94vh; display:flex; align-items:center; background-size: cover; background-position: center;">
 
     <!-- Multi-layer gradient overlays -->
     <div class="position-absolute top-0 start-0 w-100 h-100"
@@ -605,7 +638,8 @@
             <!-- Left: Image -->
             <div class="col-lg-7 animate-fade-up">
                 <div class="position-relative">
-                    <img id="royal-feature-img" src="static/imgs/26th.jpeg" alt="Ultra Luxury Interior" class="royal-feature-img" style="border-radius:var(--radius-xl);
+                    <img id="royal-feature-img" src="static/imgs/26th.jpeg" alt="Ultra Luxury Interior"
+                        class="royal-feature-img" style="border-radius:var(--radius-xl);
                                box-shadow:0 40px 100px rgba(0,0,0,0.14);
                                transition:opacity 0.3s ease; display:block;">
 
@@ -806,7 +840,7 @@
             </p>
         </div>
 
-        <div class="position-relative mx-auto" style="max-width:620px; margin-bottom: -35px;">
+        <div class="position-relative mx-auto" style="max-width:620px; margin-bottom: -25px;">
             <div class="position-relative" style="padding:0px;">
                 <img id="map-image-premium" src="{% static 'images/map.png' %}"
                     alt="India Map Coverage — Rajan Dadda Tours" class="img-fluid"

@@ -1,337 +1,434 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Contact Us – Rajan Dadda Tours & Travellers{% endblock %}
+{% block seo_title %}Contact Us &amp; Book Tempo Traveller – Rajan Dadda Tours | Lucknow{% endblock %}
+{% block seo_description %}Book a luxury tempo traveller in Lucknow easily. Contact Rajan Dadda Tours & Travellers at
++91 9415425603 for instant booking, pricing and availability 24/7.{% endblock %}
+{% block seo_keywords %}contact rajan dadda tours, book tempo traveller lucknow, tempo traveller booking number, call
+tempo traveller service lucknow, 24/7 travel booking lucknow{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "url": "{{ request.build_absolute_uri }}",
+  "name": "Contact Rajan Dadda Tours & Travellers",
+  "description": "Book luxury tempo traveller in Lucknow — available 24/7",
+  "mainEntity": {
+    "@type": "LocalBusiness",
+    "name": "Rajan Dadda Tours & Travellers",
+    "telephone": "+919415425603",
+    "email": "rajandadda42@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lucknow",
+      "addressRegion": "Uttar Pradesh",
+      "postalCode": "226021",
+      "addressCountry": "IN"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "00:00",
+      "closes": "23:59"
+    }
+  }
+}
+</script>
+{% endblock %}
 
 {% block extra_css %}
 <style>
-/* ========================================================
+    /* ========================================================
    CONTACT PAGE — ULTRA PREMIUM DESIGN
    ======================================================== */
 
-/* ─── HERO ─────────────────────────────────────────────── */
-.contact-hero {
-    min-height: 68vh;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    background-image: url("{% static 'img/slider1.png' %}");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
+    /* ─── HERO ─────────────────────────────────────────────── */
+    .contact-hero {
+        min-height: 68vh;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        background-image: url("{% static 'img/slider1.png' %}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
 
-.contact-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(110deg, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.65) 55%, rgba(5,5,5,0.30) 100%);
-}
+    .contact-hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(110deg, rgba(5, 5, 5, 0.95) 0%, rgba(5, 5, 5, 0.65) 55%, rgba(5, 5, 5, 0.30) 100%);
+    }
 
-.contact-hero-bottom {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 40%;
-    background: linear-gradient(to top, rgba(5,5,5,0.80) 0%, transparent 100%);
-}
+    .contact-hero-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 40%;
+        background: linear-gradient(to top, rgba(5, 5, 5, 0.80) 0%, transparent 100%);
+    }
 
-/* ─── CONTACT INFO STRIP ──────────────────────────────── */
-.contact-strip {
-    background: var(--dark2);
-    border-bottom: 1px solid rgba(212,175,55,0.12);
-}
+    /* ─── CONTACT INFO STRIP ──────────────────────────────── */
+    .contact-strip {
+        background: var(--dark2);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+    }
 
-.contact-strip-item {
-    padding: 28px 24px;
-    border-right: 1px solid rgba(255,255,255,0.05);
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    transition: background 0.3s ease;
-}
-.contact-strip-item:last-child { border-right: none; }
-.contact-strip-item:hover { background: rgba(212,175,55,0.04); }
+    .contact-strip-item {
+        padding: 28px 24px;
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        transition: background 0.3s ease;
+    }
 
-.strip-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(212,175,55,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gold);
-    font-size: 18px;
-    flex-shrink: 0;
-    transition: all 0.3s ease;
-}
-.contact-strip-item:hover .strip-icon {
-    background: var(--gold);
-    color: var(--dark);
-    border-color: var(--gold);
-}
+    .contact-strip-item:last-child {
+        border-right: none;
+    }
 
-.strip-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    display: block;
-    margin-bottom: 4px;
-}
+    .contact-strip-item:hover {
+        background: rgba(212, 175, 55, 0.04);
+    }
 
-.strip-value {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--ivory);
-    line-height: 1.4;
-    display: block;
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-.strip-value:hover { color: var(--gold); }
+    .strip-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(212, 175, 55, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gold);
+        font-size: 18px;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+    }
 
-/* ─── CONTACT FORM SECTION ────────────────────────────── */
-.contact-form-section {
-    background: var(--ivory);
-    padding: var(--space-4xl) 0 20px 0;
-    position: relative;
-    overflow: hidden;
-}
+    .contact-strip-item:hover .strip-icon {
+        background: var(--gold);
+        color: var(--dark);
+        border-color: var(--gold);
+    }
 
-.contact-form-section::before {
-    content: '';
-    position: absolute;
-    top: 0; right: 0;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%);
-    border-radius: 50%;
-    transform: translate(30%, -30%);
-    pointer-events: none;
-}
+    .strip-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        display: block;
+        margin-bottom: 4px;
+    }
 
-/* Premium Form Wrapper */
-.premium-form-card {
-    background: var(--white);
-    border-radius: var(--radius-2xl);
-    padding: 56px 52px;
-    box-shadow: 0 20px 80px rgba(0,0,0,0.06);
-    border: 1px solid rgba(0,0,0,0.04);
-    position: relative;
-    overflow: hidden;
-}
+    .strip-value {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ivory);
+        line-height: 1.4;
+        display: block;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
 
-.premium-form-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-}
+    .strip-value:hover {
+        color: var(--gold);
+    }
 
-/* Premium Input Styles */
-.premium-input-group {
-    margin-bottom: 24px;
-}
+    /* ─── CONTACT FORM SECTION ────────────────────────────── */
+    .contact-form-section {
+        background: var(--ivory);
+        padding: var(--space-4xl) 0 20px 0;
+        position: relative;
+        overflow: hidden;
+    }
 
-.premium-label {
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    display: block;
-    margin-bottom: 10px;
-}
+    .contact-form-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+        border-radius: 50%;
+        transform: translate(30%, -30%);
+        pointer-events: none;
+    }
 
-.premium-input,
-.premium-select,
-.premium-textarea {
-    width: 100%;
-    background: var(--ivory);
-    border: 1.5px solid rgba(0,0,0,0.06);
-    border-radius: var(--radius-md);
-    padding: 14px 18px;
-    font-size: 15px;
-    font-family: var(--font-main);
-    color: var(--text-dark);
-    font-weight: 400;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    outline: none;
-    -webkit-appearance: none;
-    appearance: none;
-}
+    /* Premium Form Wrapper */
+    .premium-form-card {
+        background: var(--white);
+        border-radius: var(--radius-2xl);
+        padding: 56px 52px;
+        box-shadow: 0 20px 80px rgba(0, 0, 0, 0.06);
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        position: relative;
+        overflow: hidden;
+    }
 
-.premium-input:focus,
-.premium-select:focus,
-.premium-textarea:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 4px rgba(212,175,55,0.08);
-    background: var(--white);
-}
+    .premium-form-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
 
-.premium-input::placeholder,
-.premium-textarea::placeholder {
-    color: var(--text-muted);
-    font-weight: 300;
-}
+    /* Premium Input Styles */
+    .premium-input-group {
+        margin-bottom: 24px;
+    }
 
-.premium-textarea {
-    min-height: 140px;
-    resize: vertical;
-    line-height: 1.7;
-}
+    .premium-label {
+        font-size: 10.5px;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        display: block;
+        margin-bottom: 10px;
+    }
 
-/* ─── INFO COLUMN ─────────────────────────────────────── */
-.info-card-premium {
-    background: var(--dark);
-    border-radius: var(--radius-2xl);
-    padding: 52px 44px;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-}
+    .premium-input,
+    .premium-select,
+    .premium-textarea {
+        width: 100%;
+        background: var(--ivory);
+        border: 1.5px solid rgba(0, 0, 0, 0.06);
+        border-radius: var(--radius-md);
+        padding: 14px 18px;
+        font-size: 15px;
+        font-family: var(--font-main);
+        color: var(--text-dark);
+        font-weight: 400;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        outline: none;
+        -webkit-appearance: none;
+        appearance: none;
+    }
 
-.info-card-premium::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-}
+    .premium-input:focus,
+    .premium-select:focus,
+    .premium-textarea:focus {
+        border-color: var(--gold);
+        box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.08);
+        background: var(--white);
+    }
 
-.info-contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 18px;
-    padding: 22px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-.info-contact-item:last-child { border-bottom: none; }
+    .premium-input::placeholder,
+    .premium-textarea::placeholder {
+        color: var(--text-muted);
+        font-weight: 300;
+    }
 
-.info-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    background: rgba(212,175,55,0.1);
-    border: 1px solid rgba(212,175,55,0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gold);
-    font-size: 16px;
-    flex-shrink: 0;
-    transition: all 0.3s ease;
-}
-.info-contact-item:hover .info-icon {
-    background: var(--gold);
-    color: var(--dark);
-}
+    .premium-textarea {
+        min-height: 140px;
+        resize: vertical;
+        line-height: 1.7;
+    }
 
-/* ─── MAP SECTION ─────────────────────────────────────── */
-.full-width-map-section {
-    position: relative;
-    width: 100%;
-    height: 75vh;
-    min-height: 550px;
-    background: var(--ivory);
-    padding: 0 var(--space-xl) var(--space-2xl) var(--space-xl);
-}
+    /* ─── INFO COLUMN ─────────────────────────────────────── */
+    .info-card-premium {
+        background: var(--dark);
+        border-radius: var(--radius-2xl);
+        padding: 52px 44px;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
 
-.map-container-inner {
-    width: 100%;
-    height: 100%;
-    border-radius: var(--radius-2xl);
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-}
+    .info-card-premium::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
 
-.map-container-inner iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    filter: grayscale(20%) contrast(1.1);
-}
+    .info-contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 18px;
+        padding: 22px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
 
-.map-floating-card {
-    position: absolute;
-    bottom: 40px;
-    right: 40px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(24px);
-    border-radius: var(--radius-xl);
-    padding: 32px 36px;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.25);
-    border: 1px solid rgba(212,175,55,0.2);
-    z-index: 10;
-    max-width: 380px;
-}
+    .info-contact-item:last-child {
+        border-bottom: none;
+    }
 
-/* ─── WHY SECTION ─────────────────────────────────────── */
-.why-section-premium {
-    background: var(--dark2);
-    padding: 40px 0;
-    position: relative;
-    overflow: hidden;
-}
+    .info-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: rgba(212, 175, 55, 0.1);
+        border: 1px solid rgba(212, 175, 55, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gold);
+        font-size: 16px;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+    }
 
-.why-section-premium::after {
-    content: '';
-    position: absolute;
-    right: 0; top: 0; bottom: 0;
-    width: 35%;
-    background: radial-gradient(circle at right, rgba(212,175,55,0.06) 0%, transparent 70%);
-    pointer-events: none;
-}
+    .info-contact-item:hover .info-icon {
+        background: var(--gold);
+        color: var(--dark);
+    }
 
-.why-card-premium {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(212,175,55,0.08);
-    border-radius: var(--radius-lg);
-    padding: 16px 16px;
-    text-align: center;
-    transition: all 0.4s ease;
-    height: 100%;
-}
-.why-card-premium:hover {
-    background: rgba(212,175,55,0.05);
-    border-color: rgba(212,175,55,0.25);
-    transform: translateY(-4px);
-}
+    /* ─── MAP SECTION ─────────────────────────────────────── */
+    .full-width-map-section {
+        position: relative;
+        width: 100%;
+        height: 75vh;
+        min-height: 550px;
+        background: var(--ivory);
+        padding: 0 var(--space-xl) var(--space-2xl) var(--space-xl);
+    }
 
-.why-card-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(212,175,55,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    color: var(--gold);
-    margin: 0 auto 8px;
-    transition: all 0.3s ease;
-}
-.why-card-premium:hover .why-card-icon {
-    background: var(--gold);
-    color: var(--dark);
-}
+    .map-container-inner {
+        width: 100%;
+        height: 100%;
+        border-radius: var(--radius-2xl);
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    }
 
-/* ─── CTA STRIP ───────────────────────────────────────── */
-.cta-strip-premium {
-    background: var(--ivory);
-    border-top: 1px solid rgba(0,0,0,0.04);
-    padding: 60px 0;
-}
+    .map-container-inner iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        filter: grayscale(20%) contrast(1.1);
+    }
 
-@media (max-width: 768px) {
-    .premium-form-card { padding: 32px 24px; }
-    .info-card-premium { padding: 32px 24px; margin-top: 32px; }
-    .contact-hero { min-height: 70vh; background-attachment: scroll; }
-    .contact-strip-item { padding: 20px 16px; }
-}
+    .map-floating-card {
+        position: absolute;
+        bottom: 40px;
+        right: 40px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(24px);
+        border-radius: var(--radius-xl);
+        padding: 32px 36px;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        z-index: 10;
+        max-width: 380px;
+    }
+
+    @media (max-width: 768px) {
+        .full-width-map-section {
+            padding: 20px !important;
+            min-height: 450px !important;
+            height: 60vh !important;
+        }
+
+        .map-floating-card {
+            bottom: 15px;
+            right: 15px;
+            left: 15px;
+            width: auto;
+            max-width: none;
+            padding: 20px;
+        }
+    }
+
+    /* ─── WHY SECTION ─────────────────────────────────────── */
+    .why-section-premium {
+        background: var(--dark2);
+        padding: 40px 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .why-section-premium::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 35%;
+        background: radial-gradient(circle at right, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .why-card-premium {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(212, 175, 55, 0.08);
+        border-radius: var(--radius-lg);
+        padding: 16px 16px;
+        text-align: center;
+        transition: all 0.4s ease;
+        height: 100%;
+    }
+
+    .why-card-premium:hover {
+        background: rgba(212, 175, 55, 0.05);
+        border-color: rgba(212, 175, 55, 0.25);
+        transform: translateY(-4px);
+    }
+
+    .why-card-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(212, 175, 55, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: var(--gold);
+        margin: 0 auto 8px;
+        transition: all 0.3s ease;
+    }
+
+    .why-card-premium:hover .why-card-icon {
+        background: var(--gold);
+        color: var(--dark);
+    }
+
+    /* ─── CTA STRIP ───────────────────────────────────────── */
+    .cta-strip-premium {
+        background: var(--ivory);
+        border-top: 1px solid rgba(0, 0, 0, 0.04);
+        padding: 60px 0;
+    }
+
+    @media (max-width: 768px) {
+        .premium-form-card {
+            padding: 32px 24px;
+        }
+
+        .info-card-premium {
+            padding: 32px 24px;
+            margin-top: 32px;
+        }
+
+        .contact-hero {
+            min-height: 70vh;
+            background-attachment: scroll;
+        }
+
+        .contact-strip-item {
+            padding: 20px 16px;
+            border-right: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .contact-strip-item:last-child {
+            border-bottom: none;
+        }
+    }
 </style>
 {% endblock %}
 
@@ -353,7 +450,8 @@
         <div class="row">
             <div class="col-xl-7 col-lg-9">
                 <div class="d-flex align-items-center gap-3 mb-5 animate-fade-up">
-                    <div style="height:1px; width:52px; background: linear-gradient(90deg, var(--gold), transparent);"></div>
+                    <div style="height:1px; width:52px; background: linear-gradient(90deg, var(--gold), transparent);">
+                    </div>
                     <span class="premium-subtitle">Reach Out To Us</span>
                 </div>
 
@@ -380,15 +478,21 @@
                 <div class="d-flex flex-wrap gap-4 mt-5 pt-2 animate-fade-up" style="animation-delay:0.3s;">
                     <div class="d-flex align-items-center gap-2">
                         <i class="fas fa-phone-alt gold-text" style="font-size:16px;"></i>
-                        <span style="color:rgba(249,246,238,0.55); font-size:12.5px; font-weight:600; letter-spacing:0.1em;">24/7 SUPPORT</span>
+                        <span
+                            style="color:rgba(249,246,238,0.55); font-size:12.5px; font-weight:600; letter-spacing:0.1em;">24/7
+                            SUPPORT</span>
                     </div>
                     <div class="d-flex align-items-center gap-2">
                         <i class="fas fa-reply gold-text" style="font-size:16px;"></i>
-                        <span style="color:rgba(249,246,238,0.55); font-size:12.5px; font-weight:600; letter-spacing:0.1em;">30 MIN RESPONSE</span>
+                        <span
+                            style="color:rgba(249,246,238,0.55); font-size:12.5px; font-weight:600; letter-spacing:0.1em;">30
+                            MIN RESPONSE</span>
                     </div>
                     <div class="d-flex align-items-center gap-2">
                         <i class="fas fa-shield-alt gold-text" style="font-size:16px;"></i>
-                        <span style="color:rgba(249,246,238,0.55); font-size:12.5px; font-weight:600; letter-spacing:0.1em;">NO HIDDEN CHARGES</span>
+                        <span
+                            style="color:rgba(249,246,238,0.55); font-size:12.5px; font-weight:600; letter-spacing:0.1em;">NO
+                            HIDDEN CHARGES</span>
                     </div>
                 </div>
             </div>
@@ -403,7 +507,7 @@
 <div class="contact-strip">
     <div class="container-premium">
         <div class="row g-0">
-            <div class="col-md-3 col-6">
+            <div class="col-md-3 col-sm-6 col-12">
                 <div class="contact-strip-item">
                     <div class="strip-icon"><i class="fas fa-phone-alt"></i></div>
                     <div>
@@ -413,33 +517,38 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-6">
+            <div class="col-md-3 col-sm-6 col-12">
                 <div class="contact-strip-item">
                     <div class="strip-icon"><i class="fab fa-whatsapp"></i></div>
                     <div>
                         <span class="strip-label">WhatsApp</span>
-                        <a href="https://wa.me/919415425603" class="strip-value" target="_blank">Quick Chat Available</a>
-                        <span class="strip-value" style="font-size:12px; font-weight:400; color:var(--text-muted);">Instant Response</span>
+                        <a href="https://wa.me/919415425603" class="strip-value" target="_blank">Quick Chat
+                            Available</a>
+                        <span class="strip-value"
+                            style="font-size:12px; font-weight:400; color:var(--text-muted);">Instant Response</span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-6">
+            <div class="col-md-3 col-sm-6 col-12">
                 <div class="contact-strip-item">
                     <div class="strip-icon"><i class="fas fa-envelope"></i></div>
                     <div>
                         <span class="strip-label">Email</span>
                         <a href="mailto:rajandadda42@gmail.com" class="strip-value">rajandadda42@gmail.com</a>
-                        <span class="strip-value" style="font-size:12px; font-weight:400; color:var(--text-muted);">Reply in 30 min</span>
+                        <span class="strip-value"
+                            style="font-size:12px; font-weight:400; color:var(--text-muted);">Reply in 30 min</span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-6">
+            <div class="col-md-3 col-sm-6 col-12">
                 <div class="contact-strip-item">
                     <div class="strip-icon"><i class="fas fa-map-marker-alt"></i></div>
                     <div>
                         <span class="strip-label">Location</span>
                         <span class="strip-value">Transport Nagar, Lucknow</span>
-                        <span class="strip-value" style="font-size:12px; font-weight:400; color:var(--text-muted);">Uttar Pradesh – 226012</span>
+                        <span class="strip-value"
+                            style="font-size:12px; font-weight:400; color:var(--text-muted);">Uttar Pradesh –
+                            226012</span>
                     </div>
                 </div>
             </div>
@@ -466,7 +575,8 @@
                         <h2 class="premium-title text-dark mb-0" style="font-size: clamp(28px, 3.5vw, 44px);">
                             Book Your <span style="color:var(--gold);">Luxury Trip</span>
                         </h2>
-                        <p style="color:var(--text-mid); font-size:15.5px; font-weight:300; line-height:1.75; margin-top:12px; margin-bottom:0;">
+                        <p
+                            style="color:var(--text-mid); font-size:15.5px; font-weight:300; line-height:1.75; margin-top:12px; margin-bottom:0;">
                             Fill in the details below and our team will get back to you within 30 minutes.
                         </p>
                     </div>
@@ -476,25 +586,31 @@
                         <div class="row g-4">
                             <div class="col-md-6">
                                 <div class="premium-input-group">
-                                    <label class="premium-label"><i class="fas fa-user gold-text me-2"></i>Full Name *</label>
-                                    <input type="text" name="name" class="premium-input" placeholder="Enter your full name" required>
+                                    <label class="premium-label"><i class="fas fa-user gold-text me-2"></i>Full Name
+                                        *</label>
+                                    <input type="text" name="name" class="premium-input"
+                                        placeholder="Enter your full name" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="premium-input-group">
-                                    <label class="premium-label"><i class="fas fa-phone-alt gold-text me-2"></i>Mobile Number *</label>
-                                    <input type="tel" name="mobile" class="premium-input" placeholder="Your contact number" required>
+                                    <label class="premium-label"><i class="fas fa-phone-alt gold-text me-2"></i>Mobile
+                                        Number *</label>
+                                    <input type="tel" name="mobile" class="premium-input"
+                                        placeholder="Your contact number" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="premium-input-group">
-                                    <label class="premium-label"><i class="fas fa-envelope gold-text me-2"></i>Email Address</label>
+                                    <label class="premium-label"><i class="fas fa-envelope gold-text me-2"></i>Email
+                                        Address</label>
                                     <input type="email" name="email" class="premium-input" placeholder="your@email.com">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="premium-input-group">
-                                    <label class="premium-label"><i class="fas fa-list gold-text me-2"></i>Subject</label>
+                                    <label class="premium-label"><i
+                                            class="fas fa-list gold-text me-2"></i>Subject</label>
                                     <select name="subject" class="premium-select">
                                         <option value="" selected disabled>Select subject</option>
                                         <option>Book a Vehicle</option>
@@ -507,12 +623,16 @@
                             </div>
                             <div class="col-12">
                                 <div class="premium-input-group mb-0">
-                                    <label class="premium-label"><i class="fas fa-comment-alt gold-text me-2"></i>Your Message *</label>
-                                    <textarea name="message" class="premium-textarea" placeholder="Describe your trip requirements, travel dates, number of passengers..." required></textarea>
+                                    <label class="premium-label"><i class="fas fa-comment-alt gold-text me-2"></i>Your
+                                        Message *</label>
+                                    <textarea name="message" class="premium-textarea"
+                                        placeholder="Describe your trip requirements, travel dates, number of passengers..."
+                                        required></textarea>
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn-gold w-100 justify-content-center" style="padding: 18px 40px; font-size: 13px; border-radius: var(--radius-md);">
+                                <button type="submit" class="btn-gold w-100 justify-content-center"
+                                    style="padding: 18px 40px; font-size: 13px; border-radius: var(--radius-md);">
                                     <i class="fas fa-paper-plane me-2"></i>Send Message
                                 </button>
                             </div>
@@ -529,7 +649,8 @@
                             <div style="height:1px; width:36px; background:var(--gold);"></div>
                             <span class="premium-subtitle">Contact Details</span>
                         </div>
-                        <h3 style="font-family:var(--font-script); font-size:32px; font-weight:400; color:var(--ivory); line-height:1.2; margin:0;">
+                        <h3
+                            style="font-family:var(--font-script); font-size:32px; font-weight:400; color:var(--ivory); line-height:1.2; margin:0;">
                             We're Always <span style="color:var(--gold);">Here</span>
                         </h3>
                     </div>
@@ -537,51 +658,76 @@
                     <div class="info-contact-item">
                         <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
                         <div>
-                            <div style="font-size:10px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;">Call Anytime</div>
-                            <a href="tel:+919415425603" style="color:var(--ivory); font-size:16px; font-weight:600; display:block; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--ivory)'">+91 94154 25603</a>
-                            <a href="tel:+918303613104" style="color:rgba(249,246,238,0.55); font-size:14px; font-weight:400; display:block; text-decoration:none; margin-top:2px;">+91 83036 13104</a>
+                            <div
+                                style="font-size:10px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;">
+                                Call Anytime</div>
+                            <a href="tel:+919415425603"
+                                style="color:var(--ivory); font-size:16px; font-weight:600; display:block; text-decoration:none; transition:color 0.2s;"
+                                onmouseover="this.style.color='var(--gold)'"
+                                onmouseout="this.style.color='var(--ivory)'">+91 94154 25603</a>
+                            <a href="tel:+918303613104"
+                                style="color:rgba(249,246,238,0.55); font-size:14px; font-weight:400; display:block; text-decoration:none; margin-top:2px;">+91
+                                83036 13104</a>
                         </div>
                     </div>
 
                     <div class="info-contact-item">
                         <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
                         <div>
-                            <div style="font-size:10px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;">WhatsApp</div>
-                            <a href="https://wa.me/919415425603" target="_blank" style="color:var(--ivory); font-size:16px; font-weight:600; display:block; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--ivory)'">+91 94154 25603</a>
-                            <span style="color:rgba(249,246,238,0.40); font-size:13px; font-weight:300;">Chat for instant support</span>
+                            <div
+                                style="font-size:10px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;">
+                                WhatsApp</div>
+                            <a href="https://wa.me/919415425603" target="_blank"
+                                style="color:var(--ivory); font-size:16px; font-weight:600; display:block; text-decoration:none; transition:color 0.2s;"
+                                onmouseover="this.style.color='var(--gold)'"
+                                onmouseout="this.style.color='var(--ivory)'">+91 94154 25603</a>
+                            <span style="color:rgba(249,246,238,0.40); font-size:13px; font-weight:300;">Chat for
+                                instant support</span>
                         </div>
                     </div>
 
                     <div class="info-contact-item">
                         <div class="info-icon"><i class="fas fa-envelope"></i></div>
                         <div>
-                            <div style="font-size:10px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;">Email</div>
-                            <a href="mailto:rajandadda42@gmail.com" style="color:var(--ivory); font-size:15px; font-weight:500; display:block; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--ivory)'">rajandadda42@gmail.com</a>
-                            <span style="color:rgba(249,246,238,0.40); font-size:13px; font-weight:300;">Reply within 30 minutes</span>
+                            <div
+                                style="font-size:10px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;">
+                                Email</div>
+                            <a href="mailto:rajandadda42@gmail.com"
+                                style="color:var(--ivory); font-size:15px; font-weight:500; display:block; text-decoration:none; transition:color 0.2s;"
+                                onmouseover="this.style.color='var(--gold)'"
+                                onmouseout="this.style.color='var(--ivory)'">rajandadda42@gmail.com</a>
+                            <span style="color:rgba(249,246,238,0.40); font-size:13px; font-weight:300;">Reply within 30
+                                minutes</span>
                         </div>
                     </div>
 
                     <div class="info-contact-item">
                         <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
                         <div>
-                            <div style="font-size:10px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;">Office</div>
-                            <span style="color:var(--ivory); font-size:15px; font-weight:500; display:block;">Transport Nagar, Lucknow</span>
-                            <span style="color:rgba(249,246,238,0.40); font-size:13px; font-weight:300;">Uttar Pradesh – 226012, India</span>
+                            <div
+                                style="font-size:10px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;">
+                                Office</div>
+                            <span style="color:var(--ivory); font-size:15px; font-weight:500; display:block;">Transport
+                                Nagar, Lucknow</span>
+                            <span style="color:rgba(249,246,238,0.40); font-size:13px; font-weight:300;">Uttar Pradesh –
+                                226012, India</span>
                         </div>
                     </div>
 
                     <div class="mt-4 pt-2 d-flex gap-3">
-                        <a href="tel:+919415425603" class="btn-gold flex-1" style="padding:13px 20px; font-size:12px; flex:1; justify-content:center;">
+                        <a href="tel:+919415425603" class="btn-gold flex-1"
+                            style="padding:13px 20px; font-size:12px; flex:1; justify-content:center;">
                             <i class="fas fa-phone-alt"></i> Call Now
                         </a>
-                        <a href="https://wa.me/919415425603" target="_blank" class="btn-whatsapp" style="padding:13px 20px; font-size:12px; flex:1; justify-content:center;">
+                        <a href="https://wa.me/919415425603" target="_blank" class="btn-whatsapp"
+                            style="padding:13px 20px; font-size:12px; flex:1; justify-content:center;">
                             <i class="fab fa-whatsapp"></i> WhatsApp
                         </a>
                     </div>
-            </div>
+                </div>
 
+            </div>
         </div>
-    </div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════
@@ -589,23 +735,27 @@
 ══════════════════════════════════════════════════════════ -->
 <section class="full-width-map-section">
     <div class="map-container-inner">
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.4!2d80.9462!3d26.8467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDUwJzQ4LjEiTiA4MMKwNTYnNDYuMyJF!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin"
+        <iframe src="https://maps.google.com/maps?q=26.9231498,80.9631469&t=&z=15&ie=UTF8&iwloc=&output=embed"
             allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
         </iframe>
-        
+
         <div class="map-floating-card animate-fade-up" style="animation-delay:0.2s;">
             <div class="d-inline-flex align-items-center gap-2 mb-2">
                 <div style="height:1px; width:24px; background:var(--gold);"></div>
-                <span style="font-size:10px; font-weight:700; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase;">Our HQ</span>
+                <span
+                    style="font-size:10px; font-weight:700; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase;">Our
+                    HQ</span>
             </div>
-            <h3 style="font-family:var(--font-script); font-size:26px; color:var(--text-dark); margin-bottom:6px; line-height:1.2;">
+            <h3
+                style="font-family:var(--font-script); font-size:26px; color:var(--text-dark); margin-bottom:6px; line-height:1.2;">
                 Rajan Dadda Tours
             </h3>
             <p style="color:var(--text-mid); font-size:14px; line-height:1.6; margin-bottom:24px;">
-                Transport Nagar, Lucknow<br>Uttar Pradesh – 226012, India
+                Jankipuram, Lucknow<br>Uttar Pradesh – 226021, India
             </p>
-            <a href="https://maps.google.com/?q=Transport+Nagar+Lucknow" target="_blank" class="btn-gold w-100 justify-content-center" style="padding:14px 24px; font-size:12px;">
+            <a href="https://www.google.com/maps/place/26%C2%B055'23.3%22N+80%C2%B057'47.3%22E/@26.9231498,80.9631469,17z/data=!3m1!4b1!4m4!3m3!8m2!3d26.9231498!4d80.9631469?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank" class="btn-gold w-100 justify-content-center"
+                style="padding:14px 24px; font-size:12px;">
                 <i class="fas fa-location-arrow me-2"></i> Get Directions
             </a>
         </div>
@@ -634,43 +784,67 @@
             <div class="col-md-4 col-6 animate-fade-up" style="animation-delay:0.05s;">
                 <div class="why-card-premium">
                     <div class="why-card-icon"><i class="fas fa-clock"></i></div>
-                    <h6 style="font-family:var(--font-main); font-size:13px; font-weight:700; color:var(--ivory); margin-bottom:4px; letter-spacing:0.03em;">24/7 Support</h6>
-                    <p style="font-size:12px; color:rgba(249,246,238,0.45); margin:0; font-weight:300; line-height:1.5;">Always here when you need us.</p>
+                    <h6
+                        style="font-family:var(--font-main); font-size:13px; font-weight:700; color:var(--ivory); margin-bottom:4px; letter-spacing:0.03em;">
+                        24/7 Support</h6>
+                    <p
+                        style="font-size:12px; color:rgba(249,246,238,0.45); margin:0; font-weight:300; line-height:1.5;">
+                        Always here when you need us.</p>
                 </div>
             </div>
             <div class="col-md-4 col-6 animate-fade-up" style="animation-delay:0.1s;">
                 <div class="why-card-premium">
                     <div class="why-card-icon"><i class="fas fa-comments"></i></div>
-                    <h6 style="font-family:var(--font-main); font-size:13px; font-weight:700; color:var(--ivory); margin-bottom:4px; letter-spacing:0.03em;">Instant Response</h6>
-                    <p style="font-size:12px; color:rgba(249,246,238,0.45); margin:0; font-weight:300; line-height:1.5;">Quick replies on call, chat and email.</p>
+                    <h6
+                        style="font-family:var(--font-main); font-size:13px; font-weight:700; color:var(--ivory); margin-bottom:4px; letter-spacing:0.03em;">
+                        Instant Response</h6>
+                    <p
+                        style="font-size:12px; color:rgba(249,246,238,0.45); margin:0; font-weight:300; line-height:1.5;">
+                        Quick replies on call, chat and email.</p>
                 </div>
             </div>
             <div class="col-md-4 col-6 animate-fade-up" style="animation-delay:0.15s;">
                 <div class="why-card-premium">
                     <div class="why-card-icon"><i class="fas fa-tag"></i></div>
-                    <h6 style="font-family:var(--font-main); font-size:13px; font-weight:700; color:var(--ivory); margin-bottom:4px; letter-spacing:0.03em;">Best Price</h6>
-                    <p style="font-size:12px; color:rgba(249,246,238,0.45); margin:0; font-weight:300; line-height:1.5;">Lowest fares with no hidden charges.</p>
+                    <h6
+                        style="font-family:var(--font-main); font-size:13px; font-weight:700; color:var(--ivory); margin-bottom:4px; letter-spacing:0.03em;">
+                        Best Price</h6>
+                    <p
+                        style="font-size:12px; color:rgba(249,246,238,0.45); margin:0; font-weight:300; line-height:1.5;">
+                        Lowest fares with no hidden charges.</p>
                 </div>
             </div>
             <div class="col-md-4 col-6 animate-fade-up" style="animation-delay:0.2s;">
                 <div class="why-card-premium">
                     <div class="why-card-icon"><i class="fas fa-map-signs"></i></div>
-                    <h6 style="font-family:var(--font-main); font-size:13px; font-weight:700; color:var(--ivory); margin-bottom:4px; letter-spacing:0.03em;">Custom Trips</h6>
-                    <p style="font-size:12px; color:rgba(249,246,238,0.45); margin:0; font-weight:300; line-height:1.5;">Tailored itineraries for your needs.</p>
+                    <h6
+                        style="font-family:var(--font-main); font-size:13px; font-weight:700; color:var(--ivory); margin-bottom:4px; letter-spacing:0.03em;">
+                        Custom Trips</h6>
+                    <p
+                        style="font-size:12px; color:rgba(249,246,238,0.45); margin:0; font-weight:300; line-height:1.5;">
+                        Tailored itineraries for your needs.</p>
                 </div>
             </div>
             <div class="col-md-4 col-6 animate-fade-up" style="animation-delay:0.25s;">
                 <div class="why-card-premium">
                     <div class="why-card-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h6 style="font-family:var(--font-main); font-size:13px; font-weight:700; color:var(--ivory); margin-bottom:4px; letter-spacing:0.03em;">Safe & Reliable</h6>
-                    <p style="font-size:12px; color:rgba(249,246,238,0.45); margin:0; font-weight:300; line-height:1.5;">Well maintained fleet with verified drivers.</p>
+                    <h6
+                        style="font-family:var(--font-main); font-size:13px; font-weight:700; color:var(--ivory); margin-bottom:4px; letter-spacing:0.03em;">
+                        Safe & Reliable</h6>
+                    <p
+                        style="font-size:12px; color:rgba(249,246,238,0.45); margin:0; font-weight:300; line-height:1.5;">
+                        Well maintained fleet with verified drivers.</p>
                 </div>
             </div>
             <div class="col-md-4 col-6 animate-fade-up" style="animation-delay:0.3s;">
                 <div class="why-card-premium">
                     <div class="why-card-icon"><i class="fas fa-users"></i></div>
-                    <h6 style="font-family:var(--font-main); font-size:13px; font-weight:700; color:var(--ivory); margin-bottom:4px; letter-spacing:0.03em;">Expert Team</h6>
-                    <p style="font-size:12px; color:rgba(249,246,238,0.45); margin:0; font-weight:300; line-height:1.5;">10+ years of travel experience.</p>
+                    <h6
+                        style="font-family:var(--font-main); font-size:13px; font-weight:700; color:var(--ivory); margin-bottom:4px; letter-spacing:0.03em;">
+                        Expert Team</h6>
+                    <p
+                        style="font-size:12px; color:rgba(249,246,238,0.45); margin:0; font-weight:300; line-height:1.5;">
+                        10+ years of travel experience.</p>
                 </div>
             </div>
         </div>
@@ -689,7 +863,8 @@
                     <div style="height:1px; width:32px; background:var(--gold);"></div>
                     <span class="premium-subtitle">Ready to Travel?</span>
                 </div>
-                <h3 style="font-family:var(--font-script); font-size:clamp(28px,3.5vw,46px); font-weight:400; color:var(--text-dark); line-height:1.15; margin:0;">
+                <h3
+                    style="font-family:var(--font-script); font-size:clamp(28px,3.5vw,46px); font-weight:400; color:var(--text-dark); line-height:1.15; margin:0;">
                     Book Your <span style="color:var(--gold); font-weight:600;">Journey Today</span>
                 </h3>
                 <p style="color:var(--text-mid); font-size:15.5px; font-weight:300; margin-top:10px; margin-bottom:0;">
@@ -700,7 +875,8 @@
                 <a href="tel:+919415425603" class="btn-gold" style="padding:16px 36px; font-size:13px;">
                     <i class="fas fa-phone-alt"></i> +91 94154 25603
                 </a>
-                <a href="https://wa.me/919415425603" target="_blank" class="btn-whatsapp" style="padding:16px 36px; font-size:13px;">
+                <a href="https://wa.me/919415425603" target="_blank" class="btn-whatsapp"
+                    style="padding:16px 36px; font-size:13px;">
                     <i class="fab fa-whatsapp"></i> WhatsApp Us
                 </a>
             </div>

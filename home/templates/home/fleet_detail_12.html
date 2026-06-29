@@ -1,7 +1,35 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
-{% block title %}12 Seater Maharaja Tempo Traveller – Rajan Dadda Tours{% endblock %}
+{% block seo_title %}12 Seater Luxury Tempo Traveller on Rent in Lucknow | Rajan Dadda Tours{% endblock %}
+{% block seo_description %}Book a 12 Seater Luxury Tempo Traveller in Lucknow at affordable price. Ideal for small family trips, corporate travel and outstation tours. AC, comfortable seating, verified driver.{% endblock %}
+{% block seo_keywords %}12 seater tempo traveller lucknow, 12 seater luxury traveller rent, small group travel lucknow, 12 seater ac tempo traveller, tempo traveller 12 seat booking{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "12 Seater Luxury Tempo Traveller",
+  "description": "Luxury 12 Seater Tempo Traveller on rent in Lucknow for family trips, corporate travel and outstation tours.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Rajan Dadda Tours & Travellers"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ request.build_absolute_uri }}",
+    "priceCurrency": "INR",
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@type": "Organization",
+      "name": "Rajan Dadda Tours & Travellers",
+      "telephone": "+919415425603"
+    }
+  }
+}
+</script>
+{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">

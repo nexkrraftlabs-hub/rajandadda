@@ -44,11 +44,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'cloudinary',
-'cloudinary_storage',
+    'cloudinary_storage',
     'home',
     'dashboard',
 ]
+
+SITE_ID = 1
 cloudinary.config(
     cloud_name=config("CLOUDINARY_CLOUD_NAME"),
     api_key=config("CLOUDINARY_API_KEY"),

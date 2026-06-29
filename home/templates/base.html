@@ -5,46 +5,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Book Tempo Traveller on Rent in Lucknow with Rajan Dadda Tours & Travellers. 9, 12, 14, 17, 20, 26 Seater Luxury Tempo Traveller for Family Trips, Weddings, Corporate Tours, and Outstation Travel at Affordable Prices.">
-    <meta name="keywords" content="
-tempo traveller on rent lucknow, tempo traveller hire lucknow, luxury tempo traveller lucknow,
-12 seater tempo traveller lucknow, 14 seater tempo traveller lucknow, 17 seater tempo traveller lucknow,
-20 seater tempo traveller lucknow, 26 seater tempo traveller lucknow, maharaja tempo traveller lucknow,
-tempo traveller booking lucknow, tempo traveller rental lucknow, outstation tempo traveller lucknow,
-lucknow to ayodhya tempo traveller, lucknow to varanasi tempo traveller, lucknow to prayagraj tempo traveller,
-lucknow to nainital tempo traveller, lucknow to delhi tempo traveller, family trip tempo traveller lucknow,
-wedding tempo traveller lucknow, corporate travel lucknow, group travel lucknow, tour and travels lucknow,
-best tempo traveller in lucknow, cheap tempo traveller lucknow, luxury bus rental lucknow,
-mini bus on rent lucknow, traveller booking near me, tempo traveller service lucknow,
-rajan dadda tours and travellers, lucknow travel agency, airport transfer lucknow, tour package lucknow,
-tempo traveller on rent, tempo traveller booking, luxury tempo traveller, tempo traveller rental,
-tempo traveller hire, tempo traveller for family trip, tempo traveller for wedding,
-tempo traveller for corporate tour, group travel booking, outstation tempo traveller,
-tour and travels service, best tempo traveller service, 9 seater tempo traveller,
-12 seater tempo traveller, 14 seater tempo traveller, 17 seater tempo traveller,
-20 seater tempo traveller, 26 seater tempo traveller, maharaja tempo traveller,
-luxury traveller booking, airport transfer service, tour package booking, tempo traveller near me,
-traveller booking near me, all india tempo traveller service, north india tour package,
-char dham yatra tempo traveller, ayodhya tour package, varanasi tour package, prayagraj tour package,
-nainital tour package, manali tour package, shimla tour package, haridwar tour package,
-rishikesh tour package, delhi agra jaipur tour, tempo traveller in india, tour and travels company,
-group travel vehicle, wedding transportation service, corporate transportation service,
-rajan dadda tours and travellers, tempo traveller on rent lucknow, lucknow tour and travels,
-best travel agency lucknow
-">
-    <meta property="og:title" content="Rajan Dadda Tours & Travellers - Tempo Traveller on Rent in Lucknow">
-    <meta property="og:description"
-        content="Luxury Tempo Traveller Rental in Lucknow for Family Trips, Weddings, Corporate Tours & Outstation Travel.">
+    <!-- Dynamic SEO Tags -->
+    <title>{% block seo_title %}Rajan Dadda Tours & Travellers - Tempo Traveller on Rent in Lucknow{% endblock %}</title>
+    <meta name="description" content="{% block seo_description %}Book Tempo Traveller on Rent in Lucknow with Rajan Dadda Tours & Travellers. 9, 12, 14, 17, 20, 26 Seater Luxury Tempo Traveller for Family Trips, Weddings, Corporate Tours, and Outstation Travel at Affordable Prices.{% endblock %}">
+    <meta name="keywords" content="{% block seo_keywords %}tempo traveller on rent lucknow, luxury tempo traveller lucknow, tempo traveller booking lucknow, rajan dadda tours and travellers, lucknow travel agency, tempo traveller for family trip, outstation tempo traveller, best tempo traveller service{% endblock %}">
+    <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="{% block og_title %}Rajan Dadda Tours & Travellers - Tempo Traveller on Rent in Lucknow{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Book Tempo Traveller on Rent in Lucknow with Rajan Dadda Tours & Travellers. Luxury Tempo Traveller for Family Trips, Weddings, Corporate Tours, and Outstation Travel.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'imgs/logo.png' %}{% endblock %}">
     <meta property="og:locale" content="en_IN">
-    <meta name="robots" content="index, follow">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ request.build_absolute_uri }}">
+    <meta name="twitter:title" content="{% block twitter_title %}Rajan Dadda Tours & Travellers - Tempo Traveller on Rent in Lucknow{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Book Tempo Traveller on Rent in Lucknow with Rajan Dadda Tours & Travellers.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'imgs/logo.png' %}{% endblock %}">
+
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="author" content="Rajan Dadda Tours & Travellers">
     <meta name="geo.region" content="IN-UP">
     <meta name="geo.placename" content="Lucknow">
     <meta name="language" content="English">
     <meta name="revisit-after" content="7 days">
-    <title>{% block title %}Rajan Dadda Tours & Travellers{% endblock %}</title>
 
 
     <!-- Preconnects -->
@@ -68,6 +55,7 @@ best travel agency lucknow
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}?v=1.1">
     {% block extra_css %}{% endblock %}
+    {% block schema %}{% endblock %}
 </head>
 
 <body>
@@ -76,7 +64,7 @@ best travel agency lucknow
         <!-- ══════════════════════════════════════
          TOP BAR
     ══════════════════════════════════════ -->
-        <div class="top-bar">
+        <div class="top-bar d-none d-md-block">
             <div class="container-fluid px-5">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <div class="d-flex align-items-center gap-4 flex-wrap">
@@ -345,6 +333,41 @@ best travel agency lucknow
         <!-- ══════════════════════════════════════
          FOOTER
     ══════════════════════════════════════ -->
+        <style>
+            .main-footer {
+                background: #ffffff !important;
+                color: #000000 !important;
+                border-top: 1px solid rgba(0,0,0,0.1) !important;
+            }
+            .main-footer::before {
+                display: none !important;
+            }
+            .main-footer h6, 
+            .main-footer p, 
+            .main-footer span, 
+            .main-footer li, 
+            .main-footer a, 
+            .main-footer i:not(.fa-heart) {
+                color: #000000 !important;
+            }
+            .main-footer .footer-heading {
+                border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+            }
+            .main-footer .btn-gold,
+            .main-footer .btn-gold i {
+                color: #ffffff !important;
+            }
+            .main-footer .social-icon {
+                border-color: rgba(0,0,0,0.2) !important;
+            }
+            .main-footer .social-icon:hover i {
+                color: #ffffff !important;
+            }
+            .main-footer .footer-bottom {
+                border-top: 1px solid rgba(0,0,0,0.1) !important;
+                background: #f8f9fa !important;
+            }
+        </style>
         <footer class="main-footer">
             <div class="container-premium">
                 <div class="row g-5 pb-4">
@@ -452,65 +475,7 @@ best travel agency lucknow
             <i class="fas fa-phone-alt"></i>
         </a>
 
-        <!-- Floating Contact Form -->
-        <div class="floating-form-wrapper" id="floatingFormCard">
-            <div class="floating-form-header">
-                <span><i class="fas fa-bolt" style="color: #ff9800;"></i> Quick Booking</span>
-                <i class="fas fa-times close-floating-form"
-                    onclick="document.getElementById('floatingFormCard').style.display='none'"
-                    style="cursor:pointer; color:var(--text-muted); font-size: 14px;"></i>
-            </div>
-            <form action="{% url 'submit_lead_floating' %}" method="POST" class="floating-mini-form">
-                {% csrf_token %}
-                <input type="hidden" name="next" value="{{ request.path }}">
 
-                <div class="mb-2">
-                    <label
-                        style="font-size: 10px; font-weight: 600; color: var(--text-muted); margin-bottom: 2px; display: block; text-transform: uppercase;">Pickup
-                        City</label>
-                    <input type="text" name="pickup_city" placeholder="From where?"
-                        class="form-control form-control-sm">
-                </div>
-
-                <div class="mb-2">
-                    <label
-                        style="font-size: 10px; font-weight: 600; color: var(--text-muted); margin-bottom: 2px; display: block; text-transform: uppercase;">Drop
-                        City</label>
-                    <input type="text" name="drop_city" placeholder="Going where?" class="form-control form-control-sm">
-                </div>
-
-                <div class="mb-2">
-                    <label
-                        style="font-size: 10px; font-weight: 600; color: var(--text-muted); margin-bottom: 2px; display: block; text-transform: uppercase;">Journey
-                        Date</label>
-                    <input type="date" name="journey_date" class="form-control form-control-sm">
-                </div>
-
-                <div class="mb-2">
-                    <label
-                        style="font-size: 10px; font-weight: 600; color: var(--text-muted); margin-bottom: 2px; display: block; text-transform: uppercase;">Travellers</label>
-                    <select name="travellers" class="form-select form-select-sm"
-                        style="font-size: 13px !important; padding: 7px 12px !important; border: 1px solid var(--border-dark); background-color: var(--ivory); box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); transition: all 0.3s ease;">
-                        <option value="">Select Capacity</option>
-                        <option value="12 Seater">12 Seater</option>
-                        <option value="14 Seater">14 Seater</option>
-                        <option value="20 Seater">20 Seater</option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label
-                        style="font-size: 10px; font-weight: 600; color: var(--text-muted); margin-bottom: 2px; display: block; text-transform: uppercase;">Your
-                        Contact</label>
-                    <input type="tel" name="phone" placeholder="Mobile Number" required
-                        class="form-control form-control-sm">
-                </div>
-
-                <button type="submit" class="btn btn-gold w-100 btn-sm"
-                    style="padding: 8px; font-size:12px; border-radius: 6px; font-weight:700;"><i
-                        class="fas fa-paper-plane me-1"></i> Book Now</button>
-            </form>
-        </div>
     </div>
 
     <!-- Bootstrap JS -->

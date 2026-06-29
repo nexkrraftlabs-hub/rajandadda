@@ -1,7 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Gallery – Rajan Dadda Tours & Travellers{% endblock %}
+{% block seo_title %}Photo Gallery – Luxury Tempo Travellers | Rajan Dadda Tours Lucknow{% endblock %}
+{% block seo_description %}Browse our photo gallery of luxury tempo travellers — 12, 14, 20 seater Maharaja vehicles available for rent in Lucknow. See interior, exterior and trip highlights.{% endblock %}
+{% block seo_keywords %}tempo traveller gallery lucknow, luxury traveller photos, 12 seater traveller images, maharaja tempo traveller photos, rajan dadda tours gallery{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "url": "{{ request.build_absolute_uri }}",
+  "name": "Rajan Dadda Tours Fleet Gallery",
+  "description": "Photo gallery of luxury tempo travellers available on rent in Lucknow"
+}
+</script>
+{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">

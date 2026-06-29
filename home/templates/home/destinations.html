@@ -1,7 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Destinations – Rajan Dadda Tours & Travellers{% endblock %}
+{% block seo_title %}Top Travel Destinations from Lucknow – Tempo Traveller Tours | Rajan Dadda{% endblock %}
+{% block seo_description %}Explore top travel destinations from Lucknow including Ayodhya, Varanasi, Nainital, Delhi, Agra and more. Book a luxury tempo traveller with Rajan Dadda Tours for a comfortable group tour.{% endblock %}
+{% block seo_keywords %}destinations from lucknow, lucknow to ayodhya tempo traveller, lucknow to varanasi, nainital tour package, tempo traveller outstation tour, group tour from lucknow{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "url": "{{ request.build_absolute_uri }}",
+  "name": "Top Travel Destinations from Lucknow",
+  "description": "Popular outstation destinations from Lucknow by tempo traveller — Ayodhya, Varanasi, Nainital, Manali, Shimla, Delhi and more.",
+  "provider": {
+    "@type": "Organization",
+    "name": "Rajan Dadda Tours & Travellers",
+    "url": "{{ request.scheme }}://{{ request.get_host }}"
+  }
+}
+</script>
+{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">

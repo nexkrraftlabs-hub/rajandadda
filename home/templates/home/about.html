@@ -1,7 +1,36 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}About Us – Rajan Dadda Tours & Travellers{% endblock %}
+{% block seo_title %}About Us – Rajan Dadda Tours &amp; Travellers | Lucknow's Trusted Travel Partner{% endblock %}
+{% block seo_description %}Learn about Rajan Dadda Tours & Travellers — Lucknow's most trusted luxury tempo traveller
+rental company. 10,000+ happy clients, verified drivers, 24/7 support across India.{% endblock %}
+{% block seo_keywords %}about rajan dadda tours, trusted travel agency lucknow, luxury tempo traveller lucknow, verified
+drivers, outstation travel lucknow, tempo traveller company{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "url": "{{ request.build_absolute_uri }}",
+  "name": "About Rajan Dadda Tours & Travellers",
+  "description": "Lucknow's most trusted luxury tempo traveller rental company with 10,000+ happy clients.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Rajan Dadda Tours & Travellers",
+    "url": "{{ request.scheme }}://{{ request.get_host }}",
+    "telephone": "+919415425603",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lucknow",
+      "addressRegion": "Uttar Pradesh",
+      "postalCode": "226021",
+      "addressCountry": "IN"
+    }
+  }
+}
+</script>
+{% endblock %}
 
 {% block extra_css %}
 <!-- Splide CSS -->

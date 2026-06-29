@@ -1,7 +1,38 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Customer Reviews – Rajan Dadda Tours & Travellers{% endblock %}
+{% block seo_title %}Customer Reviews &amp; Testimonials – Rajan Dadda Tours Lucknow{% endblock %}
+{% block seo_description %}Read genuine reviews and testimonials from 10,000+ happy travellers who booked Rajan Dadda Tours & Travellers in Lucknow. 5-star rated luxury tempo traveller service.{% endblock %}
+{% block seo_keywords %}rajan dadda tours reviews, tempo traveller reviews lucknow, travel agency testimonials lucknow, 5 star tempo traveller service, customer reviews{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "itemReviewed": {
+    "@type": "LocalBusiness",
+    "name": "Rajan Dadda Tours & Travellers",
+    "telephone": "+919415425603",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lucknow",
+      "addressRegion": "Uttar Pradesh",
+      "addressCountry": "IN"
+    }
+  },
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": "5",
+    "bestRating": "5"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "Rajan Dadda Tours & Travellers"
+  }
+}
+</script>
+{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">

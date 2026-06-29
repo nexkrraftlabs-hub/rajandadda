@@ -1,7 +1,35 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}20 Seater Maharaja Tempo Traveller – Rajan Dadda Tours{% endblock %}
+{% block seo_title %}20 Seater Maharaja Tempo Traveller on Rent in Lucknow | Rajan Dadda Tours{% endblock %}
+{% block seo_description %}Rent a 20 Seater Maharaja Tempo Traveller in Lucknow at best price. Perfect for large family trips, weddings, pilgrimages & outstation tours across India. Book now 24/7.{% endblock %}
+{% block seo_keywords %}20 seater maharaja tempo traveller lucknow, maharaja tempo traveller rent, large group vehicle lucknow, 20 seater luxury bus lucknow, maharaja tempo traveller booking{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "20 Seater Maharaja Tempo Traveller",
+  "description": "Luxury 20 Seater Maharaja Tempo Traveller on rent in Lucknow for family trips, weddings and outstation tours.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Rajan Dadda Tours & Travellers"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ request.build_absolute_uri }}",
+    "priceCurrency": "INR",
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@type": "Organization",
+      "name": "Rajan Dadda Tours & Travellers",
+      "telephone": "+919415425603"
+    }
+  }
+}
+</script>
+{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
